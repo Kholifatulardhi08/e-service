@@ -2,31 +2,51 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ url('admin/dashboard') }}">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        @if(Auth::guard('admin')->user()->type=="penyedia")
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">UI Elements</span>
+                <span class="menu-title">Setting Account</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
+                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/penyedia') }}">Personal Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a>
+                        <a class="nav-link" href="{{ url('admin/update_penyedia_password/jasadetail') }}">Toko Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
+                        <a class="nav-link" href="{{ url('admin/update_penyedia_password/bank') }}">Bank Details</a>
                     </li>
                 </ul>
             </div>
         </li>
+        @else
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Settings</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/update_admin_password') }}">Update Password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/update_admin_details') }}">Update Detail</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
                 aria-controls="form-elements">

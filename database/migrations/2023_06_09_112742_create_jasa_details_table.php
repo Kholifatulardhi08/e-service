@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('jasa_details', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('type');
             $table->unsignedBigInteger('penyedia_id');
-            $table->string('no_hp');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('image');
-            $table->tinyInteger('status');
+            $table->string('nama_toko');
+            $table->string('alamat_toko');
+            $table->string('kecamatan_toko');
+            $table->string('kota_toko');
+            $table->string('provinsi_toko');
+            $table->string('kode_pos_toko');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('jasa_details');
     }
 };

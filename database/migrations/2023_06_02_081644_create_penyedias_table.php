@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('penyedias', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('alamat');
+            $table->string('kecamatan');
+            $table->string('kota');
+            $table->string('provinsi');
+            $table->string('no_hp');
+            $table->string('email')->unique();
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

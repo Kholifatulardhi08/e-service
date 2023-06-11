@@ -4,8 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 
-use function Pest\Laravel\post;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +34,19 @@ require __DIR__.'/auth.php';
 // Route ADMIN
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( function() {
     Route::match(['get', 'post'], 'login', 'AdminController@login');
+    Route::group(['middleware'=>['admin']], function(){
+        // Logout Admin
+        Route::get('logout', 'AdminController@logout');
 
-    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        //  Admin Update pass && details
+        Route::post('check_current_password', 'AdminController@check_current_password');
+        Route::match(['get', 'post'], 'update_admin_password', 'AdminController@update_admin_password');
+        Route::match(['get', 'post'], 'update_admin_details', 'AdminController@update_admin_details');
+        Route::get('dashboard', 'AdminController@dashboard');
+
+        // Penyedia Update details
+        Route::match(['get', 'post'], 'update_penyedia_details/{slug}', 'AdminController@update_penyedia_details');
+
+    });
 });
 
