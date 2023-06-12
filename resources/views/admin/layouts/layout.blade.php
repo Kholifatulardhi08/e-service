@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Skydash Admin</title>
+    <title>E-service</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ url('template/vendors/feather/feather.css') }}" />
     <link rel="stylesheet" href="{{ url('template/vendors/ti-icons/css/themify-icons.css') }}" />
@@ -20,7 +20,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ url('template/css/vertical-layout-light/style.css') }}" />
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ url('template/images/favicon.png') }}" />
+    <link rel="shortcut icon" href="{{ url('template/images/aa.png') }}" />
 </head>
 
 <body>

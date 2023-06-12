@@ -26,8 +26,8 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="../template/images/logo.svg" alt="logo">
+              <div class="brand-logo text-center">
+                <img src="../template/images/aa.png" alt="logo">
               </div>
               <h4>Hello! lets get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>

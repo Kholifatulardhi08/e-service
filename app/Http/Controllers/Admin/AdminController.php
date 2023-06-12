@@ -7,6 +7,7 @@ use Hash;
 use Image;
 use App\Models\Penyedia;
 use App\Models\Admin;
+use App\Models\JasaDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -156,9 +157,11 @@ class AdminController extends Controller
                 return redirect()->back()->with('succses_message', 'Penyewa details updated Succsesfully!');
             }
             $penyediadetail = Penyedia::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+        }elseif($slug=="jasadetail"){
+            $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
         }
         
-        return view('admin\settings\update_penyedia_details')->with(compact('slug', 'penyediadetail', ));
+        return view('admin\settings\update_penyedia_details')->with(compact('slug', 'penyediadetail'));
     }
     /**
      * Display a listing of the resource.
