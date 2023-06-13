@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use Hash;
 use Image;
+use App\Models\BankDetail;
 use App\Models\Penyedia;
 use App\Models\Admin;
 use App\Models\JasaDetail;
@@ -158,9 +159,54 @@ class AdminController extends Controller
             }
             $penyediadetail = Penyedia::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
         }elseif($slug=="jasadetail"){
-            $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+            if ($request->isMethod('POST')){
+                $data = $request->all();
+
+                $rules = [
+                    'nama_toko' => 'required',
+                ];
+                $customMessages = [
+                    'nama_toko.required' => 'Name is required',
+                    'nama_toko.regex' => 'Valid name is required',
+                ];
+    
+                $this->validate($request, $rules, $customMessages);
+                JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->update([
+                    'nama_toko'=>$data['nama_toko'], 
+                    'alamat_toko'=>$data['alamat_toko'], 
+                    'kecamatan_toko'=>$data['kecamatan_toko'],
+                    'kota_toko'=>$data['kota_toko'],
+                    'provinsi_toko'=>$data['provinsi_toko'],
+                    'kode_pos_toko'=>$data['kode_pos_toko'],
+                ]);
+                return redirect()->back()->with('succses_message', 'Penyewa toko details updated Succsesfully!');
         }
-        
+            $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+        }elseif($slug=="bank"){
+            if ($request->isMethod('POST')){
+                $data = $request->all();
+
+                $rules = [
+                    'jenis_bank' => 'required',
+                    'nomor_bank' => 'required',
+                    'nama_pemilik_bank' => 'required',
+                ];
+                $customMessages = [
+                    'jenis_bank.required' => 'Name is required',
+                    'nomor_bank.required' => 'nomor bank is requird',
+                    'nama_pemilik_bank' => 'nama pemilik bank is required'
+                ];
+    
+                $this->validate($request, $rules, $customMessages);
+                BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->update([
+                    'jenis_bank'=>$data['jenis_bank'], 
+                    'nomor_bank'=>$data['nomor_bank'], 
+                    'nama_pemilik_bank'=>$data['nama_pemilik_bank']
+                ]);
+                return redirect()->back()->with('succses_message', 'Penyewa bank details updated Succsesfully!');
+            }
+            $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+        }
         return view('admin\settings\update_penyedia_details')->with(compact('slug', 'penyediadetail'));
     }
     /**

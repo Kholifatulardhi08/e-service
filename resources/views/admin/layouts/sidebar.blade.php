@@ -20,10 +20,10 @@
                         <a class="nav-link" href="{{ url('admin/update_penyedia_details/penyedia') }}">Personal Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_penyedia_password/jasadetail') }}">Toko Details</a>
+                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/jasadetail') }}">Toko Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_penyedia_password/bank') }}">Bank Details</a>
+                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/bank') }}">Bank Details</a>
                     </li>
                 </ul>
             </div>
