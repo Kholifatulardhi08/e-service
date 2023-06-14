@@ -17,10 +17,12 @@
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/penyedia') }}">Personal Details</a>
+                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/penyedia') }}">Personal
+                            Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/jasadetail') }}">Toko Details</a>
+                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/jasadetail') }}">Toko
+                            Details</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('admin/update_penyedia_details/bank') }}">Bank Details</a>
@@ -48,16 +50,40 @@
         </li>
         @endif
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
-                aria-controls="form-elements">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false"
+                aria-controls="#tables">
                 <i class="icon-columns menu-icon"></i>
-                <span class="menu-title">Form elements</span>
+                <span class="menu-title">Manage Admin</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/admins/admin') }}">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/admins/subadmin') }}">SubAdmin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/admins/penyedia') }}">Penyedia</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
+                aria-controls="#form-elements">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Manage User</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="form-elements">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a>
+                        <a class="nav-link" href="{{ url('admin/users') }}">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/subcribers') }}">Subcribers</a>
                     </li>
                 </ul>
             </div>
@@ -72,20 +98,6 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                <i class="icon-grid-2 menu-icon"></i>
-                <span class="menu-title">Tables</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tables">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a>
                     </li>
                 </ul>
             </div>

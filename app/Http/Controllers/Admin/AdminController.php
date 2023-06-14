@@ -11,6 +11,7 @@ use App\Models\Admin;
 use App\Models\JasaDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {   
@@ -208,6 +209,19 @@ class AdminController extends Controller
             $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
         }
         return view('admin\settings\update_penyedia_details')->with(compact('slug', 'penyediadetail'));
+    }
+
+    public function admins($type=null)
+    {
+        $admin = Admin::query();
+        if(!empty($type)){
+            $admins = $admin->where('type', $type);
+            $title = ucfirst($type);
+        }else{
+            $title = "Admins/Subadmins/Penyedia";
+        }
+        $admins = $admin->get()->toArray();
+        return view('admin.admins.admins')->with(compact('admins', 'title'));
     }
     /**
      * Display a listing of the resource.

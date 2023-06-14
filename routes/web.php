@@ -46,6 +46,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
 
         // Penyedia Update details
         Route::match(['get', 'post'], 'update_penyedia_details/{slug}', 'AdminController@update_penyedia_details');
+
+        // manage user, admin && penyedia
+        Route::get('admins/{type?}', 'AdminController@admins');
     });
 });
 
