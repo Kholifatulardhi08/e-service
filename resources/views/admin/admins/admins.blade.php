@@ -12,7 +12,7 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            #
+                                            No
                                         </th>
                                         <th>
                                             Nama
@@ -61,13 +61,17 @@
                                         </td>
                                         <td>
                                             @if($admin['status']==1)
-                                            Aktif
+                                            <i style="font-size:30px;" class="mdi mdi-bookmark-check"></i>
                                             @else
-                                            Nonaktif
+                                            <i style="font-size:30px;" class="mdi mdi-bookmark-online"></i>
                                             @endif
                                         </td>
                                         <td>
-
+                                            @if($admin['type']=="penyedia")
+                                            <a href="{{ url('admins/view-penyedia-details'.$admin['id']) }}">
+                                                <i style="font-size:30px;" class="mdi mdi-file-document"></i>
+                                            </a>
+                                            @endif
                                         </td>
                                     </tr>
                                     <?php $no++; ?>

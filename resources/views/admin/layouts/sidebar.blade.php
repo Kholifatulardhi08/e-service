@@ -67,6 +67,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('admin/admins/penyedia') }}">Penyedia</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/admins') }}">All</a>
+                    </li>
                 </ul>
             </div>
         </li>

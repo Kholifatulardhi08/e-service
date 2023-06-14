@@ -49,6 +49,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
 
         // manage user, admin && penyedia
         Route::get('admins/{type?}', 'AdminController@admins');
+        Route::get('penyedia_details/{id}', 'AdminController@penyediadeatils');
     });
 });
 

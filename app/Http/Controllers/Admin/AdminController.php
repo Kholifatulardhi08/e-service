@@ -218,11 +218,19 @@ class AdminController extends Controller
             $admins = $admin->where('type', $type);
             $title = ucfirst($type);
         }else{
-            $title = "Admins/Subadmins/Penyedia";
+            $title = "All Admins/Subadmins/Penyedia";
         }
         $admins = $admin->get()->toArray();
         return view('admin.admins.admins')->with(compact('admins', 'title'));
     }
+
+    public function penyediadeatils($id)
+    {
+        $penyediadetail = Admin::where('id', $id)->first();
+        $penyediadetail = json_decode(json_decode($penyediadetail), true);
+        dd($penyediadetail);
+    }
+
     /**
      * Display a listing of the resource.
      */
