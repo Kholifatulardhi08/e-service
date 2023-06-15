@@ -224,11 +224,12 @@ class AdminController extends Controller
         return view('admin.admins.admins')->with(compact('admins', 'title'));
     }
 
-    public function penyediadeatils($id)
+    public function view_penyedia_details($id)
     {
-        $penyediadetail = Admin::where('id', $id)->first();
-        $penyediadetail = json_decode(json_decode($penyediadetail), true);
-        dd($penyediadetail);
+        $view_penyedia_details = Admin::with('penyedia', 'jasadetail', 'bankdetail')->where('id', $id)->first();
+        $view_penyedia_details = json_decode($view_penyedia_details,true);
+        // dd($view_penyedia_details);
+        return view('admin.admins.view_penyedia_details')->with(compact('view_penyedia_details'));
     }
 
     /**

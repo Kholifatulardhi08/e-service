@@ -68,7 +68,7 @@
                                         </td>
                                         <td>
                                             @if($admin['type']=="penyedia")
-                                            <a href="{{ url('admins/view-penyedia-details'.$admin['id']) }}">
+                                            <a href="{{ url('admin/view_penyedia_details/'.$admin['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-file-document"></i>
                                             </a>
                                             @endif
