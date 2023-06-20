@@ -47,7 +47,7 @@
     <script src="{{ url('template/vendors/chart.js/Chart.min.js') }}"></script>
     <script src="{{ url('template/vendors/datatables.net/jquery.dataTables.js') }}"></script>
     <script src="{{ url('template/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
-    {{--  <script src="{{ url('template/js/dataTables.select.min.js') }}"></script>  --}}
+    <script src="{{ url('template/js/dataTables.select.min.js') }}"></script>
 
     <!-- End plugin js for this page -->
     <!-- inject:js -->
@@ -61,7 +61,7 @@
     <script src="{{ url('template/js/dashboard.js') }}"></script>
     <script src="{{ url('template/js/Chart.roundedBarCharts.js') }}"></script>
     <!-- End custom js for this page-->
-    <script src="{{ url('/template/js/custom.js') }}"></script>
+    <script src="{{ url('template/js/custom.js') }}"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // check admin current password
-    $("current_password").keyup(function(){
+    $("#current_password").keyup(function(){
         var current_password = $("#current_password").val();
         // alert(current_password);
         $.ajax({
@@ -20,5 +20,10 @@ $(document).ready(function(){
                 alert('Error');
             }
         });
+    });
+
+    $(document).on("click", "updateAdminStatus", function(){
+        var status = $(this).children("i").attr("status");
+        alert(status);
     });
 });

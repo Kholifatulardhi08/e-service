@@ -75,9 +75,11 @@
                         <div class="form-group">
                             <label for="image">Image</label>
                             <br>
-                            <img style="width: 200px;"
-                                src="{{ url('template/images/Photo/'.Auth::guard('admin')->user()->image) }}"
-                                alt="Photo">
+                            <center>
+                                <img style="width: 200px;"
+                                    src="{{ url('template/images/Photo/'.Auth::guard('admin')->user()->image) }}"
+                                    alt="Photo">
+                            </center>
                         </div>
                         @endif
                     </div>
