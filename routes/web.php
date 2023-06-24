@@ -37,7 +37,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
     Route::group(['middleware'=>['admin']], function(){
         // Logout Admin
         Route::get('logout', 'AdminController@logout');
-
+        // update status admin
+        Route::post('admin/update-admin-status', 'AdminController@updateAdminStatus');
         //  Admin Update pass && details
         Route::post('check_current_password', 'AdminController@check_current_password');
         Route::match(['get', 'post'], 'update_admin_password', 'AdminController@update_admin_password');

@@ -90,8 +90,6 @@
       "Premium": "$1200",
       "Status": "In progress",
       "Updated": "25/04/2020"
-    }
-
-    
+    }   
   ]
 }
