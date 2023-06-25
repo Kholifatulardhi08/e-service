@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Session;
 use Auth;
 use Hash;
 use Image;
@@ -17,6 +18,7 @@ class AdminController extends Controller
 {   
     public function dashboard()
     {
+        Session::put('page', 'dashboard');
         return view('admin.dashboard');
     }
 
@@ -49,6 +51,7 @@ class AdminController extends Controller
 
     public function update_admin_password(Request $request)
     {
+        Session::put('page', 'update_admin_password');
         if($request->isMethod('post')){
             $data = $request->all();
             if(Hash::check($data['current_password'], Auth::guard('admin')->user()->password)){
@@ -79,6 +82,7 @@ class AdminController extends Controller
 
     public function update_admin_details(Request $request)
     {
+        Session::put('page', 'update_admin_details');
         if($request->isMethod('POST')){
             $data = $request->all();
             $rules = [
@@ -217,8 +221,11 @@ class AdminController extends Controller
         if(!empty($type)){
             $admins = $admin->where('type', $type);
             $title = ucfirst($type);
+        Session::put('page', 'view_'.strtolower($title));
         }else{
             $title = "All Admins/Subadmins/Penyedia";
+            Session::put('page', 'view_all');
+
         }
         $admins = $admin->get()->toArray();
         return view('admin.admins.admins')->with(compact('admins', 'title'));

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    // display in layouting
+    $(".nav-item").removeClass("active");
+    $(".nav-link").removeClass("active");
     // check admin current password
     $("#current_password").keyup(function(){
         var current_password = $("#current_password").val();

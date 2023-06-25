@@ -2,7 +2,8 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/dashboard') }}">
+            <a @if (Session::get('page')=='dashboard' ) style="background: #4B4BAC !important;
+                color: #fff !important;" @endif class="nav-link" href="{{ url('admin/dashboard') }}">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -34,44 +35,59 @@
             </div>
         </li>
         @else
-        <li class="nav-item">
+        <li @if (Session::get('page')=='update_admin_password' || Session::get('page')=='update_admin_details' ) style="background: #4B4BAC !important;
+        color: #fff !important;" @endif class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="icon-layout menu-icon"></i>
                 <span class="menu-title">Settings</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_admin_password') }}">Update Password</a>
+                        <a @if (Session::get('page')=='update_admin_password' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/update_admin_password') }}">Update Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_admin_details') }}">Update Detail</a>
+                        <a @if (Session::get('page')=='update_admin_details' ) style="background: #4B4BAC !important;
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/update_admin_details') }}">Update Detail</a>
                     </li>
                 </ul>
             </div>
         </li>
         @endif
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false"
-                aria-controls="#tables">
+            <a @if (Session::get('page')=='view_admins' || Session::get('page')=='view_subadmin' ||
+                Session::get('page')=='view_penyedia' || Session::get('page')=='view_all' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#tables"
+                aria-expanded="false" aria-controls="#tables">
                 <i class="icon-columns menu-icon"></i>
                 <span class="menu-title">Manage Admin</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
-                <ul class="nav flex-column sub-menu">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/admins/admin') }}">Admin</a>
+                        <a @if (Session::get('page')=='view_admins' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/admins/admin') }}">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/admins/subadmin') }}">SubAdmin</a>
+                        <a @if (Session::get('page')=='subadmin' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/admins/subadmins') }}">SubAdmin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/admins/penyedia') }}">Penyedia</a>
+                        <a @if (Session::get('page')=='view_penyedia' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/admins/penyedia') }}">Penyedia</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/admins') }}">All</a>
+                        <a @if (Session::get('page')=='view_all' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/admins') }}">All</a>
                     </li>
                 </ul>
             </div>
@@ -94,7 +110,7 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
                 <i class="icon-bar-graph menu-icon"></i>
                 <span class="menu-title">Charts</span>
@@ -169,6 +185,6 @@
                 <i class="icon-paper menu-icon"></i>
                 <span class="menu-title">Documentation</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </nav>
