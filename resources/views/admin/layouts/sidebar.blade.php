@@ -104,20 +104,31 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
-                aria-controls="#form-elements">
-                <i class="icon-columns menu-icon"></i>
-                <span class="menu-title">Manage User</span>
+        <li class="nav-item" @if (Session::get('page')=='sections' || Session::get('page')=='category' ||
+            Session::get('page')=='products' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif>
+            <a class="nav-link" data-toggle="collapse" href="#catalog-element" aria-expanded="false"
+                aria-controls="#catalog-element">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">Manage Catalog</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="form-elements">
-                <ul class="nav flex-column sub-menu">
+            <div class="collapse" id="catalog-element">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/users') }}">Users</a>
+                        <a @if (Session::get('page')=='sections' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/section') }}">Sections</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/subcribers') }}">Subcribers</a>
+                        <a @if (Session::get('page')=='categories' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/category') }}">Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='products' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/products') }}">Product</a>
                     </li>
                 </ul>
             </div>

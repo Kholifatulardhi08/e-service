@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controller\Admin\SectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::get('logout', 'AdminController@logout');
         // update status admin
         Route::post('admin/update-admin-status', 'AdminController@updateAdminStatus');
+        Route::post('admin/update-section-status', 'SectionController@updateSectionStatus');
+
         //  Admin Update pass && details
         Route::post('check_current_password', 'AdminController@check_current_password');
         Route::match(['get', 'post'], 'update_admin_password', 'AdminController@update_admin_password');
@@ -51,6 +54,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         // manage user, admin && penyedia
         Route::get('admins/{type?}', 'AdminController@admins');
         Route::get('view_penyedia_details/{id}', 'AdminController@view_penyedia_details');
+
+        // manage Section, Category && Product
+        Route::get('section', 'SectionController@section');
     });
 });
 
