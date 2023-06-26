@@ -17,8 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // AdminTableSeeder::class,
             // PenyediaTableSeeder::class,
-            BankDetailSeeder::class,
-            JasaDetailSeeder::class,
+            // BankDetailSeeder::class,
+            // JasaDetailSeeder::class,
+            SectionTableSeeder::class,
         ]);
     }
 }
