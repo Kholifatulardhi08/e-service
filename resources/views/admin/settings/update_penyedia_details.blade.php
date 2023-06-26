@@ -99,9 +99,6 @@
                             </div>
                             <div class="form-group">
                                 <label for="provinsi">Provinsi</label>
-                                {{--  <input type="text" class="form-control" id="provinsi" name="provinsi"
-                                    value="{{ $penyediadetail['provinsi'] }}" placeholder="Masukkan Provinsi anda"
-                                    required>  --}}
                                     <select class="form-control" name="provinsi" id="provinsi">
                                         <option value="">Pilih Provinsi</option>
                                         @foreach ($provinsi as $items)

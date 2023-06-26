@@ -215,10 +215,10 @@ class AdminController extends Controller
             }
             $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
         }
-        // $kecamatan = \Indonesia::allDistricts()->toArray();
-        // $kota = \Indonesia::allCities()->toArray();
+        $kecamatan = \Indonesia::allDistricts()->toArray();
+        $kota = \Indonesia::allCities()->toArray();
         $provinsi = \Indonesia::allProvinces()->toArray();
-        return view('admin\settings\update_penyedia_details')->with(compact('slug', 'penyediadetail', 'provinsi'));
+        return view('admin\settings\update_penyedia_details')->with(compact('slug', 'kecamatan', 'kota', 'penyediadetail', 'provinsi'));
     }
 
     public function admins($type=null)
