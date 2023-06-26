@@ -121,6 +121,7 @@ class AdminController extends Controller
     public function update_penyedia_details($slug, Request $request)
     {
         if($slug=="penyedia"){
+            Session::put('page', 'penyedia');
             if ($request->isMethod('POST')){
                 $data = $request->all();
 
@@ -164,6 +165,7 @@ class AdminController extends Controller
             }
             $penyediadetail = Penyedia::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
         }elseif($slug=="jasadetail"){
+            Session::put('page', 'jasadetail');
             if ($request->isMethod('POST')){
                 $data = $request->all();
 
@@ -188,6 +190,7 @@ class AdminController extends Controller
         }
             $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
         }elseif($slug=="bank"){
+            Session::put('page', 'bank');
             if ($request->isMethod('POST')){
                 $data = $request->all();
 
@@ -212,6 +215,7 @@ class AdminController extends Controller
             }
             $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
         }
+        // Session::put('page', 'update_admin_password');
         return view('admin\settings\update_penyedia_details')->with(compact('slug', 'penyediadetail'));
     }
 

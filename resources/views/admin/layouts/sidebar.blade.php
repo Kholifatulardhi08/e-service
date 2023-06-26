@@ -10,26 +10,38 @@
         </li>
         @if(Auth::guard('admin')->user()->type=="penyedia")
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a @if (Session::get('page')=='penyedia' || Session::get('page')=='jasadetail' ||
+                Session::get('page')=='bank' ) style="background: #4B4BAC !important;
+        color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                aria-controls="ui-basic">
                 <i class="icon-layout menu-icon"></i>
                 <span class="menu-title">Setting Account</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_admin_password') }}">Update Password</a>
+                        <a @if (Session::get('page')=='update_admin_password' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/update_admin_password') }}">Update Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/penyedia') }}">Personal
+                        <a @if (Session::get('page')=='penyedia' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/update_penyedia_details/penyedia') }}">Personal
                             Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/jasadetail') }}">Toko
+                        <a @if (Session::get('page')=='jasadetail' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/update_penyedia_details/jasadetail') }}">Jasa
                             Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/update_penyedia_details/bank') }}">Bank Details</a>
+                        <a @if (Session::get('page')=='bank' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/update_penyedia_details/bank') }}">Bank
+                            Details</a>
                     </li>
                 </ul>
             </div>
