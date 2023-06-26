@@ -99,9 +99,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="provinsi">Provinsi</label>
-                                <input type="text" class="form-control" id="provinsi" name="provinsi"
+                                {{--  <input type="text" class="form-control" id="provinsi" name="provinsi"
                                     value="{{ $penyediadetail['provinsi'] }}" placeholder="Masukkan Provinsi anda"
-                                    required>
+                                    required>  --}}
+                                    <select class="form-control" name="provinsi" id="provinsi">
+                                        <option value="">Pilih Provinsi</option>
+                                        @foreach ($provinsi as $items)
+                                            <option value="{{ $items['name'] }}" @if ($items['name']==$penyediadetail['provinsi'])
+                                                selected
+                                            @endif>
+                                            {{ $items['name'] }}
+                                            </option>                                        
+                                        @endforeach
+                                    </select>
                             </div>
                             <div class="form-group">
                                 <label for="image">Image</label>
@@ -178,9 +188,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="provinsi_toko">Provinsi</label>
-                                <input type="text" class="form-control" id="provinsi_toko" name="provinsi_toko"
-                                    value="{{ $penyediadetail['provinsi_toko'] }}" placeholder="Masukkan Provinsi anda"
-                                    required>
+                                <select class="form-control" name="provinsi_toko" id="provinsi_toko">
+                                    <option value="">Pilih Provinsi</option>
+                                    @foreach ($provinsi as $items)
+                                        <option value="{{ $items['name'] }}" @if ($items['name']==$penyediadetail['provinsi_toko'])
+                                            selected
+                                        @endif>
+                                        {{ $items['name'] }}
+                                        </option>                                        
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="kode_pos_toko">Kode Pos</label>
