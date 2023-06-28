@@ -28,4 +28,11 @@ class SectionController extends Controller
             return response()->json(['status'=>$status, 'id'=>$data['section_id']]);
         }
     }
+
+    public function delete($id)
+    {
+        Section::where('id', $id)->delete();
+        $message = "Section delete successfully!";
+        return redirect()->back()->with('succses_message', $message);
+    }
 }

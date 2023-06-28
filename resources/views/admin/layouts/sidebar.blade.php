@@ -109,7 +109,7 @@
             color: #fff !important;" @endif>
             <a class="nav-link" data-toggle="collapse" href="#catalog-element" aria-expanded="false"
                 aria-controls="#catalog-element">
-                <i class="icon-paper menu-icon"></i>
+                <i class="mdi mdi-application menu-icon"></i>
                 <span class="menu-title">Manage Catalog</span>
                 <i class="menu-arrow"></i>
             </a>

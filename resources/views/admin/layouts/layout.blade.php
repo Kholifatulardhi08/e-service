@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="{{ url('template/css/vertical-layout-light/style.css') }}" />
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ url('template/images/aa.png') }}" />
+    <link rel="stylesheet" href="{{ url('template/css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ url('template/css/dataTables.bootstrap4.min.css') }}" />
 </head>
 
 <body>
@@ -62,6 +64,8 @@
     <script src="{{ url('template/js/Chart.roundedBarCharts.js') }}"></script>
     <!-- End custom js for this page-->
     <script src="{{ url('../template/js/custom.js') }}"></script>
+    <!-- sweet alert --!>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
