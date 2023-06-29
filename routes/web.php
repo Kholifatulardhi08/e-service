@@ -58,6 +58,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         // manage Section, Category && Product
         Route::get('section', 'SectionController@section');
         Route::get('delete-section/{id}', 'SectionController@delete');
+        Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@add_edit_section');
     });
 });
 
