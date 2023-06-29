@@ -3,7 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controller\Admin\SectionController;
+use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,6 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::get('logout', 'AdminController@logout');
         // update status admin
         Route::post('admin/update-admin-status', 'AdminController@updateAdminStatus');
-        Route::post('admin/update-section-status', 'SectionController@updateSectionStatus');
 
         //  Admin Update pass && details
         Route::post('check_current_password', 'AdminController@check_current_password');
@@ -55,10 +55,14 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::get('admins/{type?}', 'AdminController@admins');
         Route::get('view_penyedia_details/{id}', 'AdminController@view_penyedia_details');
 
-        // manage Section, Category && Product
+        // manage Section
         Route::get('section', 'SectionController@section');
         Route::get('delete-section/{id}', 'SectionController@delete');
         Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@add_edit_section');
+
+        // manage Category
+        Route::get('category', 'CategoryController@category');
+        Route::post('admin/update-category-status', 'CategoryController@updateCategoryStatus');
     });
 });
 

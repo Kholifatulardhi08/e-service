@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             // PenyediaTableSeeder::class,
             // BankDetailSeeder::class,
             // JasaDetailSeeder::class,
-            SectionTableSeeder::class,
+            // SectionTableSeeder::class,
+            CategoryTableSeeder::class,
         ]);
     }
 }

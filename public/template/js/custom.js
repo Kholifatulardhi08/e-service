@@ -2,6 +2,8 @@ $(document).ready(function(){
 
     // tables class script
     $('#sections').DataTable();
+    $('#categories').DataTable();
+
 
     // display in layouting
     $(".nav-item").removeClass("active");
@@ -100,6 +102,31 @@ $(document).ready(function(){
               window.location = "/admin/delete-"+module+"/"+moduleid;
             }
         })
-    })
+    });
+
+    $(document).on("click",".updatecategoriesStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var categories_id = $(this).attr("categories_id");
+        alert(status);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'admin/update-category-status',
+            data:{'status':status,'categories_id':categories_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#category-"+categories_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#category-"+categories_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
 
 });
