@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Category</h4>
-                        <a style="max-width: 150px; float:right; display:inline-block" href="#"
+                        <a style="max-width: 150px; float:right; display:inline-block" href="{{ url('admin/add-edit-category') }}"
                             class="btn btn-block btn-primary">Add Category</a>
                         @if(Session::has('succses_message'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -85,7 +85,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('admin/add-edit-categories/'.$categories['id']) }}">
+                                            <a href="{{ url('admin/add-edit-category/'.$categories['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
                                             </a>
                                             <?php
