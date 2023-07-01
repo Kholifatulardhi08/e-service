@@ -90,6 +90,16 @@
                             <div class="form-group">
                                 <label for="image">Category Image</label>
                                 <input type="file" class="form-control" id="image" name="image">
+                                @if(!empty($category['image']))
+                                <a target="_blank"
+                                    href="{{ url('template/images/Photo/Category/'.$category['image']) }}">
+                                    View image
+                                </a> &nbsp;|&nbsp;
+                                <a href="javascript:void(0)" class="confirmDelete" module="category-image"
+                                    moduleid="{{ $category['id'] }}">
+                                    Delete image
+                                </a>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="diskon">Category Discount</label>
