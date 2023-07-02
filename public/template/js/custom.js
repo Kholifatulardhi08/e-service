@@ -3,6 +3,7 @@ $(document).ready(function(){
     // tables class script
     $('#sections').DataTable();
     $('#categories').DataTable();
+    $('#brands').DataTable();
 
 
     // display in layouting
@@ -73,6 +74,31 @@ $(document).ready(function(){
                     location.reload();
                 }else if(resp['status']==1){
                     $("#section-"+section_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
+
+    $(document).on("click",".updatebrandStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var brand_id = $(this).attr("brand_id");
+        alert(brand_id);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'admin/update-brand-status',
+            data:{'status':status,'brand_id':brand_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#brand-"+brand_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#section-"+brand_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
                     location.reload();
                 }
             }, error:function(){

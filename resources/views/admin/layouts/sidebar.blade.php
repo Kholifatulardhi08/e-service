@@ -116,9 +116,9 @@
             <div class="collapse" id="catalog-element">
                 <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
                     <li class="nav-item">
-                        <a @if (Session::get('page')=='sections' ) style="background: #4B4BAC !important; 
+                        <a @if (Session::get('page')=='brands' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/section') }}">Sections</a>
+                            @endif class="nav-link" href="{{ url('admin/brands') }}">Brand</a>
                     </li>
                     <li class="nav-item">
                         <a @if (Session::get('page')=='categories' ) style="background: #4B4BAC !important; 
@@ -129,6 +129,11 @@
                         <a @if (Session::get('page')=='products' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/products') }}">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='sections' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/section') }}">Sections</a>
                     </li>
                 </ul>
             </div>

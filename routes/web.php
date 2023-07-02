@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::get('section', 'SectionController@section');
         Route::get('delete-section/{id}', 'SectionController@delete');
         Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@add_edit_section');
+        Route::post('admin/update-section-status', 'SectionController@updateSectionStatus');
 
         // manage Category
         Route::get('category', 'CategoryController@category');
@@ -67,6 +69,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::get('admin/append-category-level', 'CategoryController@appendcategorylevel');
         Route::get('delete-categories/{id}', 'CategoryController@delete');
         Route::get('delete-category-image/{id}', 'CategoryController@deleteimage');
+
+        // manage Brand
+        Route::get('brands', 'BrandController@index');
+        Route::get('delete-brand/{id}', 'BrandController@delete');
+        Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@add_edit_brand');
+        Route::post('admin/update-brand-status', 'BrandController@updateBrandStatus');
     });
 });
 

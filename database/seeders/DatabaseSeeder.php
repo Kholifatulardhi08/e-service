@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             // BankDetailSeeder::class,
             // JasaDetailSeeder::class,
             // SectionTableSeeder::class,
-            CategoryTableSeeder::class,
+            // CategoryTableSeeder::class,
+            BrandTableSeeder::class,
         ]);
     }
 }
