@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,11 +71,19 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::get('delete-categories/{id}', 'CategoryController@delete');
         Route::get('delete-category-image/{id}', 'CategoryController@deleteimage');
 
-        // manage Brand
+        // Manage Brand
         Route::get('brands', 'BrandController@index');
         Route::get('delete-brand/{id}', 'BrandController@delete');
         Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@add_edit_brand');
         Route::post('admin/update-brand-status', 'BrandController@updateBrandStatus');
+    
+        // Manage Product
+        Route::get('products', 'ProductController@index');
+        Route::get('delete-product/{id}', 'ProductController@delete');
+        Route::post('admin/update-product-status', 'ProductController@updateProductStatus');
+
+
+    
     });
 });
 

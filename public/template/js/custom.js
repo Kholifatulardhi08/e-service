@@ -10,7 +10,7 @@ $(document).ready(function(){
     $(".nav-item").removeClass("active");
     $(".nav-link").removeClass("active");
     // check admin current password
-    $("#current_password").keyup(function(){
+    $("#current_ password").keyup(function(){
         var current_password = $("#current_password").val();
         // alert(current_password);
         $.ajax({
@@ -172,6 +172,31 @@ $(document).ready(function(){
                 alert("Error");
             }
         })
+    });
+
+    $(document).on("click",".updateproductStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var product_id = $(this).attr("product_id");
+        alert(status);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'admin/update-product-status',
+            data:{'status':status,'product_id':product_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#product-"+product_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#product-"+product_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
     });
 
 });
