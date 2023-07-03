@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
-            // AdminTableSeeder::class,
-            // PenyediaTableSeeder::class,
-            // BankDetailSeeder::class,
-            // JasaDetailSeeder::class,
-            // SectionTableSeeder::class,
-            // CategoryTableSeeder::class,
+            AdminTableSeeder::class,
+            PenyediaTableSeeder::class,
+            BankDetailSeeder::class,
+            JasaDetailSeeder::class,
+            SectionTableSeeder::class,
+            CategoryTableSeeder::class,
             BrandTableSeeder::class,
         ]);
     }

@@ -229,7 +229,7 @@ class AdminController extends Controller
             $title = ucfirst($type);
         Session::put('page', 'view_'.strtolower($title));
         }else{
-            $title = "All Admins/Subadmins/Penyedia";
+            $title = "All Admins/Penyedia";
             Session::put('page', 'view_all');
 
         }

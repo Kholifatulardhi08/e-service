@@ -23,7 +23,16 @@ class AdminTableSeeder extends Seeder
             "image" => "",
             "status" => 0,
             "penyedia_id" => 1,
-        ]),
-           
+        ]);
+        DB::table('admins')->insert([
+            "nama" => "Admin",
+            "email" => "admin@gmail.com",
+            "password" => Hash::make("1234567890"),
+            "no_hp" => "081225755325",
+            "type" => "superadmin",
+            "image" => "",
+            "status" => 0,
+            "penyedia_id" => 1,
+        ]);
     }
 }

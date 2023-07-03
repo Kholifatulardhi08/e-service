@@ -71,8 +71,7 @@
         </li>
         @endif
         <li class="nav-item">
-            <a @if (Session::get('page')=='view_admins' || Session::get('page')=='view_subadmin' ||
-                Session::get('page')=='view_penyedia' || Session::get('page')=='view_all' ) style="background: #4B4BAC !important;
+            <a @if ( Session::get('page')=='view_penyedia' || Session::get('page')=='view_all' ) style="background: #4B4BAC !important;
             color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#tables"
                 aria-expanded="false" aria-controls="#tables">
                 <i class="icon-columns menu-icon"></i>
@@ -81,16 +80,6 @@
             </a>
             <div class="collapse" id="tables">
                 <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='view_admins' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/admins/admin') }}">Admin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='subadmin' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/admins/subadmins') }}">SubAdmin</a>
-                    </li>
                     <li class="nav-item">
                         <a @if (Session::get('page')=='view_penyedia' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
