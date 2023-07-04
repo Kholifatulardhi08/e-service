@@ -10,7 +10,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::get()->toArray();
+        $product = Product::with(['category'=>function($query){
+            $query->select('id', 'nama');
+        }, 'section'=>function($query){
+            $query->select('id', 'nama');
+        }])->get()->toArray();
+        // dd($product);
         return view('admin.product.product')->with(compact('product'));
     }
 

@@ -7,7 +7,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">products</h4>
-                        <a style="max-width: 150px; float:right; display:inline-block" href="{{ url('admin/add-edit-product') }}" class="btn btn-block btn-primary">Add Product</a>
+                        <a style="max-width: 150px; float:right; display:inline-block"
+                            href="{{ url('admin/add-edit-product') }}" class="btn btn-block btn-primary">Add Product</a>
                         @if(Session::has('succses_message'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Succses: </strong> {{ Session::get('succses_message') }}
@@ -17,14 +18,32 @@
                         </div>
                         @endif
                         <div class="table-responsive pt-3">
-                            <table id="sections" class="table table-bordered">
+                            <table id="products" class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>
                                             No
                                         </th>
                                         <th>
-                                            nama
+                                            Nama
+                                        </th>
+                                        <th>
+                                            Kode Produk
+                                        </th>
+                                        <th>
+                                            Harga
+                                        </th>
+                                        <th>
+                                            Category
+                                        </th>
+                                        <th>
+                                            Section
+                                        </th>
+                                        <th>
+                                            Pembuat
+                                        </th>
+                                        <th>
+                                            Gambar
                                         </th>
                                         <th>
                                             status
@@ -44,6 +63,20 @@
                                         <td>
                                             {{ $products['nama'] }}
                                         </td>
+                                        <td>{{ $products['product_code'] }}</td>
+                                        <td>{{ $products['harga'] }}</td>
+                                        <td>{{ $products['category']['nama'] }}</td>
+                                        <td>{{ $products['section']['nama'] }}</td>
+                                        <td>
+                                            @if($products['type']=="penyedia")
+                                            <a target="_blank"
+                                                href="{{ url('admin/view_penyedia_details/'.$products['admin_id']) }}">{{
+                                                ucfirst($products['type']) }}</a>
+                                            @else
+                                            {{ ucfirst($products['type']) }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $products['gambar'] }}</td>
                                         <td>
                                             @if($products['status']==1)
                                             <a class="updateproductStatus" id="product-{{ $products['id'] }}"

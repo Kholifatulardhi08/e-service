@@ -1,9 +1,11 @@
 $(document).ready(function(){
 
     // tables class script
+    $('#admins').DataTable();
     $('#sections').DataTable();
     $('#categories').DataTable();
     $('#brands').DataTable();
+    $('#products').DataTable();
 
 
     // display in layouting

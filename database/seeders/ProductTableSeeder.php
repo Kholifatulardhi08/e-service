@@ -30,7 +30,8 @@ class ProductTableSeeder extends Seeder
             "meta_description" => "contoh",
             "meta_keywords" => "contoh",
             "is_featured" => "Yes",
-            "status" => 1
+            "status" => 1,
+            "admin_id"=> 1
         ]);
     }
 }
