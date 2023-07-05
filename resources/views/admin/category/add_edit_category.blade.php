@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                         <h3 class="font-weight-bold">
-                            Settings Admin
+                            Tambah Category
                         </h3>
                     </div>
                     <div class="col-12 col-xl-4 mb-0">

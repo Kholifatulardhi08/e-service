@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Section;
-use App\Models\Brand;
-use App\Models\Admin;
 use App\Models\penyedia;
 
 class Product extends Model
@@ -16,7 +14,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id')->select('id', 'nama');
     }
 
     public function section()
