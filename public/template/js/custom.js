@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     // tables class script
-    $('#admins').DataTable();
+    // $('#admins').DataTable();
     $('#sections').DataTable();
     $('#categories').DataTable();
     $('#brands').DataTable();

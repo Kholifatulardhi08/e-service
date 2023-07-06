@@ -76,7 +76,19 @@
                                             {{ ucfirst($products['type']) }}
                                             @endif
                                         </td>
-                                        <td>{{ $products['gambar'] }}</td>
+                                        <td>
+                                            @if(!empty($products['gambar']))
+                                            <center>
+                                                <img style="width: 120px; height: 120px;" src="{{ asset('template/images/Photo/Product/Small/'.$products['gambar']) }}"
+                                                    alt="Gambar">
+                                            </center>
+                                            @else
+                                            <center>
+                                                <img style="width: 120px; height: 120px;" src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
+                                                    alt="No Image">
+                                            </center>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if($products['status']==1)
                                             <a class="updateproductStatus" id="product-{{ $products['id'] }}"
