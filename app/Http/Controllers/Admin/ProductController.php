@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Session;
 use Auth;
 use Image;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -53,17 +52,14 @@ class ProductController extends Controller
         } else {
             $title = "Edit Product";
             $product = Product::find($id);
-            $message = "Product Updated Successfully!";
-            dd($id);    
+            $message = "Product Updated Successfully!";    
         }
 
         if($request->isMethod('POST')){
             $data = $request->all();
-
             if($data['diskon']==""){
                 $data['diskon'] = 0;
             }
-
             // save photo to database
             if ($request->hasFile('gambar')) {
                 $img_tmp = $request->file('gambar');
@@ -80,37 +76,37 @@ class ProductController extends Controller
                     $product->gambar = $image_name;
                 }
             }
-        $categoryDetails = Category::find($data['category_id']);
-        $product->section_id = $categoryDetails['section_id'];
-        $product->category_id = $data['category_id'];
-        $product->brand_id = $data['brand_id'];
-        $admin_type = Auth::guard('admin')->user()->type;
-        $penyedia_id = Auth::guard('admin')->user()->penyedia_id;
-        $admin_id = Auth::guard('admin')->user()->id;
-        if($admin_type == "penyedia") {
-            $product->penyedia_id = $penyedia_id;
-        } else {
-            $product->penyedia_id = 0;
-        }
+                $categoryDetails = Category::find($data['category_id']);
+                $product->section_id = $categoryDetails['section_id'];
+                $product->category_id = $data['category_id'];
+                $product->brand_id = $data['brand_id'];
+                $admin_type = Auth::guard('admin')->user()->type;
+                $penyedia_id = Auth::guard('admin')->user()->penyedia_id;
+                $admin_id = Auth::guard('admin')->user()->id;
+                if($admin_type == "penyedia") {
+                    $product->penyedia_id = $penyedia_id;
+                } else {
+                    $product->penyedia_id = 0;
+                }
 
-        $product->type = $admin_type;
-        $product->admin_id = $admin_id;
-        $product->nama = $data['nama'];
-        $product->deskripsi = $data['deskripsi'];
-        $product->harga = $data['harga'];
-        $product->diskon = $data['diskon'];
-        $product->meta_title = $data['meta_title'];
-        $product->meta_description = $data['meta_description'];
-        $product->meta_keywords = $data['meta_keywords'];
+                $product->type = $admin_type;
+                $product->admin_id = $admin_id;
+                $product->nama = $data['nama'];
+                $product->deskripsi = $data['deskripsi'];
+                $product->harga = $data['harga'];
+                $product->diskon = $data['diskon'];
+                $product->meta_title = $data['meta_title'];
+                $product->meta_description = $data['meta_description'];
+                $product->meta_keywords = $data['meta_keywords'];
 
-        if(!empty($data['is_featured'])){
-            $product->is_featured = $data['is_featured'];
-        } else {
-            $product->is_featured = "No";
-        }
-        $product->status = 1;
-        $product->save();
-        return redirect('admin/products')->with('succses_message', $message);
+                if(!empty($data['is_featured'])){
+                    $product->is_featured = $data['is_featured'];
+                } else {
+                    $product->is_featured = "No";
+                }
+                $product->status = 1;
+                $product->save();
+                return redirect('admin/products')->with('succses_message', $message);
         }
         // get section with category and subcategory
         $category = Section::with('category')->get()->toArray();
@@ -125,4 +121,27 @@ class ProductController extends Controller
         $message = "Product delete successfully!";
         return redirect()->back()->with('succses_message', $message);
     }
+
+    public function deleteProductImage($id)
+    {
+       $gambar = Product::select('gambar')->where('id', $id)->first();
+       $imagePathLarge = 'template/images/Photo/Product/Large/';
+       $imagePathMedium = 'template/images/Photo/Product/Medium/';
+       $imagePathSmall = 'template/images/Photo/Product/Small/';
+       
+       if(file_exists($imagePathLarge.$gambar->gambar)){
+            unlink($imagePathLarge.$gambar->gambar);
+       }
+       if(file_exists($imagePathMedium.$gambar->gambar)){
+        unlink($imagePathMedium.$gambar->gambar);
+       }
+       if(file_exists($imagePathSmall.$gambar->gambar)){
+        unlink($imagePathSmall.$gambar->gambar);
+       }
+
+       Product::where('id', $id)->update(['gambar'=>'']);
+       $message = "gambar is deleted succesfully";
+       return redirect()->back()->with('succses_message', $message);
+    }
+    
 }
