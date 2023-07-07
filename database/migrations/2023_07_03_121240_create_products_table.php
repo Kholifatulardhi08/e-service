@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('type');
             $table->string('nama');
-            $table->string('product_code');
             $table->string('harga');
             $table->string('diskon');
             $table->string('gambar');

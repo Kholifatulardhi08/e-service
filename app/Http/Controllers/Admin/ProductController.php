@@ -43,37 +43,43 @@ class ProductController extends Controller
     }
     }
 
-    public function add_edit_product(Request $request, $id=null)
+    public function addEditProduct(Request $request, $id=null)
     {
-    Session::put('page', 'products');
-    if($id==""){
-        $title = "Add Product";
-        $product = new Product;
-        $message = "Product Added Successfully!";
-    }else{
-        $title = "Edit Product";
-        $product = Product::find($id);
-        $message = "Product Updated Successfully!";
-    }
-    if($request->isMethod('POST')){
-        $data = $request->all();
+        Session::put('page', 'products');
+        if($id=="") {
+            $title = "Add Product";
+            $product = new Product;
+            $message = "Product Added Successfully!";
+        } else {
+            $title = "Edit Product";
+            $product = Product::find($id);
+            $message = "Product Updated Successfully!";
+            dd($id);    
+        }
 
-        if ($request->hasFile('gambar')) {
-            $img_tmp = $request->file('gambar');
-            if($img_tmp->isValid()){
-                $extension = $img_tmp->getClientOriginalExtension();
-                $image_name = rand(111,9999).'.'.$extension;
-                $imagePathLarge = 'template/images/Photo/Product/Large/'.$image_name;
-                $imagePathMedium = 'template/images/Photo/Product/Medium/'.$image_name;
-                $imagePathSmall = 'template/images/Photo/Product/Small/'.$image_name;
-                Image::make($img_tmp)->resize(1000, 1000)->save($imagePathLarge);
-                Image::make($img_tmp)->resize(500, 500)->save($imagePathMedium);
-                Image::make($img_tmp)->resize(255, 255)->save($imagePathSmall);
+        if($request->isMethod('POST')){
+            $data = $request->all();
 
-                $product->gambar = $image_name;
+            if($data['diskon']==""){
+                $data['diskon'] = 0;
             }
-        } 
 
+            // save photo to database
+            if ($request->hasFile('gambar')) {
+                $img_tmp = $request->file('gambar');
+                if($img_tmp->isValid()){
+                    $extension = $img_tmp->getClientOriginalExtension();
+                    $image_name = rand(111,9999).'.'.$extension;
+                    $imagePathLarge = 'template/images/Photo/Product/Large/'.$image_name;
+                    $imagePathMedium = 'template/images/Photo/Product/Medium/'.$image_name;
+                    $imagePathSmall = 'template/images/Photo/Product/Small/'.$image_name;
+                    Image::make($img_tmp)->resize(1000, 1000)->save($imagePathLarge);
+                    Image::make($img_tmp)->resize(500, 500)->save($imagePathMedium);
+                    Image::make($img_tmp)->resize(255, 255)->save($imagePathSmall);
+    
+                    $product->gambar = $image_name;
+                }
+            }
         $categoryDetails = Category::find($data['category_id']);
         $product->section_id = $categoryDetails['section_id'];
         $product->category_id = $data['category_id'];
@@ -81,14 +87,12 @@ class ProductController extends Controller
         $admin_type = Auth::guard('admin')->user()->type;
         $penyedia_id = Auth::guard('admin')->user()->penyedia_id;
         $admin_id = Auth::guard('admin')->user()->id;
-
         if($admin_type == "penyedia") {
             $product->penyedia_id = $penyedia_id;
         } else {
             $product->penyedia_id = 0;
         }
 
-        $product->product_code = $data['product_code'];
         $product->type = $admin_type;
         $product->admin_id = $admin_id;
         $product->nama = $data['nama'];
@@ -104,19 +108,16 @@ class ProductController extends Controller
         } else {
             $product->is_featured = "No";
         }
-
         $product->status = 1;
-
         $product->save();
         return redirect('admin/products')->with('succses_message', $message);
+        }
+        // get section with category and subcategory
+        $category = Section::with('category')->get()->toArray();
+        // get brand
+        $brand = Brand::where('status', 1)->get()->toArray();
+        return view('admin.product.add_edit_product')->with(compact('title', 'product', 'category', 'brand'));
     }
-    // get section with category and subcategory
-    $category = Section::with('category')->get()->toArray();
-    // get brand
-    $brand = Brand::where('status', 1)->get()->toArray();
-    return view('admin.product.add_edit_product')->with(compact('title', 'product', 'category', 'brand'));
-    }
-
     
     public function delete($id)
     {

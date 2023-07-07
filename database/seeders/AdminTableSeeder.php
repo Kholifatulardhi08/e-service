@@ -31,8 +31,8 @@ class AdminTableSeeder extends Seeder
             "no_hp" => "081225755325",
             "type" => "superadmin",
             "image" => "",
-            "status" => 0,
-            "penyedia_id" => 1,
+            "status" => 1,
+            "penyedia_id" => 0,
         ]);
     }
 }

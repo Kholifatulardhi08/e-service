@@ -28,9 +28,6 @@
                                             Nama
                                         </th>
                                         <th>
-                                            Kode Produk
-                                        </th>
-                                        <th>
                                             Harga
                                         </th>
                                         <th>
@@ -63,7 +60,6 @@
                                         <td>
                                             {{ $products['nama'] }}
                                         </td>
-                                        <td>{{ $products['product_code'] }}</td>
                                         <td>{{ $products['harga'] }}</td>
                                         <td>{{ $products['category']['nama'] }}</td>
                                         <td>{{ $products['section']['nama'] }}</td>

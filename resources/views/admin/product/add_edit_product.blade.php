@@ -89,12 +89,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="product_code">Product Code</label>
-                                <input type="text" class="form-control" id="product_code" name="product_code"
-                                    @if(!empty($product['product_code'])) value="{{ $product['product_code'] }}" @else
-                                    value="{{ old('product_code') }}" @endif placeholder="Masukkan product_code product anda" required>
-                            </div>
-                            <div class="form-group">
                                 <label for="nama">Name</label>
                                 <input type="text" class="form-control" id="nama" name="nama"
                                     @if(!empty($product['nama'])) value="{{ $product['nama'] }}" @else
