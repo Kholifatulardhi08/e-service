@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Section;
 use App\Models\penyedia;
+use App\Models\ProductAtribute;
 
 class Product extends Model
 {
@@ -20,5 +21,10 @@ class Product extends Model
     public function section()
     {
         return $this->belongsTo(Section::class, 'section_id');
+    }
+
+    public function attribute()
+    {
+        return $this->hasMany(ProductAtribute::class);
     }
 }

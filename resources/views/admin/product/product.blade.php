@@ -104,6 +104,9 @@
                                             <a href="{{ url('admin/add-edit-product/'.$products['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
                                             </a>
+                                            <a href="{{ url('admin/add-edit-atribute/'.$products['id']) }}">
+                                                <i style="font-size:30px;" class="mdi mdi-plus-box"></i>
+                                            </a>
                                             <?php
                                             /*
                                             <a title="section" class="confirmDelete" href="{{ url('admin/delete-section/'.$section['id']) }}">

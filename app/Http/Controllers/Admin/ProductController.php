@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Section;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\ProductAtribute;
 
 class ProductController extends Controller
 {
@@ -142,6 +143,34 @@ class ProductController extends Controller
        Product::where('id', $id)->update(['gambar'=>'']);
        $message = "gambar is deleted succesfully";
        return redirect()->back()->with('succses_message', $message);
+    }
+
+    public function addAtributeProduct(Request $request, $id)
+    {
+        $product = Product::select('id', 'nama', 'harga', 'gambar')->with('attribute')->find($id);
+        // $product = json_decode($product, true);
+        // dd($product);
+        if ($request->isMethod('POST')) {
+            $data = $request->all();
+
+            foreach ($data['paket'] as $key => $value) {
+                $paketCount = ProductAtribute::where('paket', $value)->count();
+                if($paketCount > 0){
+                    return redirect()->back()->with('error_message', 'Product Attribute has Duplicated, Please Add another Paket!');
+                }
+                if (!empty($value)) {
+                    $attribute = new ProductAtribute;
+                    $attribute -> product_id = $id;
+                    $attribute -> paket = $value;
+                    $attribute -> harga = $data['harga'][$key];
+                    $attribute -> keterangan = $data['keterangan'][$key];
+                    $attribute -> status = 1;
+                    $attribute -> save();
+                }
+            }
+            return redirect()->back()->with('succses_message', 'Product Atribute has been succsesfully Added!');
+        }
+        return view('admin.attribute.add_edit_attribute')->with(compact('product'));
     }
     
 }

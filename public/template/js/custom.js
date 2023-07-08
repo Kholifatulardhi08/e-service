@@ -1,16 +1,35 @@
 $(document).ready(function(){
 
-    // tables class script
-    // $('#admins').DataTable();
+    $(".nav-item").removeClass("active");
+    $(".nav-link").removeClass("active");
+
     $('#sections').DataTable();
     $('#categories').DataTable();
     $('#brands').DataTable();
     $('#products').DataTable();
 
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div> <input type="text" name="paket[]" placeholder="Paket" style="width: 120px;"/>&nbsp;<input type="text" name="harga[]" placeholder="Harga" style="width: 120px;"/>&nbsp;<input type="text" name="keterangan[]" placeholder="Keterangan" style="width: 120px;"/>&nbsp;<a href="javascript:void(0);" class="remove_button">Hapus</a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
 
-    // display in layouting
-    $(".nav-item").removeClass("active");
-    $(".nav-link").removeClass("active");
     // check admin current password
     $("#current_ password").keyup(function(){
         var current_password = $("#current_password").val();
