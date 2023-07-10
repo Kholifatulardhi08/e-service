@@ -173,4 +173,40 @@ class ProductController extends Controller
         return view('admin.attribute.add_edit_attribute')->with(compact('product'));
     }
     
+    public function updateAtrributeStatus(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            if($data['status']=="Active"){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            ProductAtribute::where('id', $data['attribute_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status, 'id'=>$data['attribute_id']]);
+        }
+    }
+
+    public function deleteattribute($id)
+    {
+        ProductAtribute::where('id', $id)->delete();
+        $message = "Product Attribute delete successfully!";
+        return redirect()->back()->with('succses_message', $message);
+    }
+
+    public function editAttribute(Request $request, $id)
+    {
+        Session::put('page', 'products');
+        if ($request->isMethod('POST')) {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            foreach ($data['id'] as $key => $attribute) {
+                if (!empty($attribute)) {
+                    ProductAtribute::where(['id'=>$data['id'][$key]])->update(['harga'=>$data['harga'][$key], 'keterangan'=>$data['keterangan'][$key]]);
+                }
+            }
+            return redirect()->back()->with('succses_message', 'Product attribute has been updateted!');
+        }
+    }
 }

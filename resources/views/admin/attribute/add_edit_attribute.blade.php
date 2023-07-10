@@ -100,77 +100,85 @@
                             <div class="col-6">
                                 <h4 class="card-title">All Attribute</h4>
                                 <div class="table-responsive pt-3">
-                                    <table id="products" class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    No
-                                                </th>
-                                                <th>
-                                                    Paket
-                                                </th>
-                                                <th>
-                                                    Harga
-                                                </th>
-                                                <th>
-                                                    Keterangan
-                                                </th>
-                                                <th>
-                                                    status
-                                                </th>
-                                                <th>
-                                                    Action
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $no=1;?>
-                                            @foreach ($product['attribute'] as $products)
-                                            <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $products['paket'] }}</td>
-                                                <td>{{ $products['harga'] }}</td>
-                                                <td>{{ $products['keterangan'] }}</td>
-                                                <td>
-                                                    @if($products['status']==1)
-                                                    <a class="updateproductStatus" id="product-{{ $products['id'] }}"
-                                                        product_id="{{ $products['id'] }}" href="javascript:void(0)">
-                                                        <i style="font-size:30px;" class="mdi mdi-bookmark-check"
-                                                            status="Active"></i>
-                                                    </a>
-                                                    @else
-                                                    <a class="updateproductStatus" id="product-{{ $products['id'] }}"
-                                                        product_id="{{ $products['id'] }}" href="javascript:void(0)">
-                                                        <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
-                                                            status="Inactive"></i>
-                                                    </a>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    {{-- <a href="{{ url('admin/add-edit-product/'.$products['id']) }}">
-                                                        <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
-                                                    </a> --}}
-                                                    {{-- <a
-                                                        href="{{ url('admin/add-edit-atribute/'.$products['id']) }}">
-                                                        <i style="font-size:30px;" class="mdi mdi-plus-box"></i>
-                                                    </a> --}}
-                                                    <?php
-                                                    /*
-                                                    <a title="section" class="confirmDelete" href="{{ url('admin/delete-section/'.$section['id']) }}">
-                                                        <i style="font-size:30px;" class="mdi mdi-delete"></i>
-                                                    </a>
-                                                    */
-                                                    ?>
-                                                    <a href="javascript:void(0)" class="confirmDelete" module="product"
-                                                        moduleid="{{ $products['id'] }}">
-                                                        <i style="font-size:30px;" class="mdi mdi-delete"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php $no++; ?>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                    <form method="POST" action="{{ url('admin/edit-atribute/'.$product['id']) }}">
+                                        @csrf
+                                        <table id="products" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        No
+                                                    </th>
+                                                    <th>
+                                                        Paket
+                                                    </th>
+                                                    <th>
+                                                        Harga
+                                                    </th>
+                                                    <th>
+                                                        Keterangan
+                                                    </th>
+                                                    <th>
+                                                        status
+                                                    </th>
+                                                    <th>
+                                                        Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $no=1;?>
+                                                @foreach ($product['attribute'] as $attribute)
+                                                <input style="display: none;" name="id[]" id="id[]" value="{{ $attribute['id'] }}">
+                                                <tr>
+                                                    <td>{{ $no }}</td>
+                                                    <td>{{ $attribute['paket'] }}</td>
+                                                    <td>
+                                                        <input style="width: 70px;" type="number" name="harga[]"
+                                                            value="{{ $attribute['harga'] }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input style="width: 250px;" type="text" name="keterangan[]"
+                                                            value="{{ $attribute['keterangan'] }}" required>
+                                                    </td>
+                                                    <td>
+                                                        @if($attribute['status']==1)
+                                                        <a class="updateattributeStatus"
+                                                            id="attribute-{{ $attribute['id'] }}"
+                                                            attribute_id="{{ $attribute['id'] }}"
+                                                            href="javascript:void(0)">
+                                                            <i style="font-size:30px;" class="mdi mdi-bookmark-check"
+                                                                status="Active"></i>
+                                                        </a>
+                                                        @else
+                                                        <a class="updateattributeStatus"
+                                                            id="attribute-{{ $attribute['id'] }}"
+                                                            attribute_id="{{ $attribute['id'] }}"
+                                                            href="javascript:void(0)">
+                                                            <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
+                                                                status="Inactive"></i>
+                                                        </a>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        /*
+                                                        <a title="section" class="confirmDelete" href="{{ url('admin/delete-section/'.$section['id']) }}">
+                                                            <i style="font-size:30px;" class="mdi mdi-delete"></i>
+                                                        </a>
+                                                        */
+                                                        ?>
+                                                        <a href="javascript:void(0)" class="confirmDelete"
+                                                            module="atrribute" moduleid="{{ $attribute['id'] }}">
+                                                            <i style="font-size:30px;" class="mdi mdi-delete"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <?php $no++; ?>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
