@@ -245,4 +245,29 @@ $(document).ready(function(){
         })            
     });
 
+    $(document).on("click",".updateimagesStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var image_id = $(this).attr("image_id");
+        alert(status);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url:'/admin/update-images-status',
+            data:{'status':status,'image_id':image_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#image-"+image_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#image-"+image_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
+
 });

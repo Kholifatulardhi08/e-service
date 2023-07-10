@@ -92,6 +92,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         
         // Get Image in product
         Route::match(['get', 'post'], 'add-image/{id}', 'ProductController@addImage');
+        Route::post('update-images-status', 'ProductController@updateStatusImage');
+        Route::get('delete-images/{id}', 'ProductController@deleteimages');
+        
+
 
     });
 });

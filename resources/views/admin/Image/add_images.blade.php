@@ -114,17 +114,18 @@
                                                 @foreach ($product['image'] as $images)
                                                 <tr>
                                                     <td>{{ $no }}</td>
-                                                    <td><img src="{{ url('template/images/Photo/Product/Small/'.$images['image']) }}" alt=""></td>
+                                                    <td><img src="{{ url('template/images/Photo/Product/Small/'.$images['nama']) }}"
+                                                            alt=""></td>
                                                     <td>
                                                         @if($images['status']==1)
                                                         <a class="updateimagesStatus" id="image-{{ $images['id'] }}"
-                                                            images_id="{{ $images['id'] }}" href="javascript:void(0)">
+                                                            image_id="{{ $images['id'] }}" href="javascript:void(0)">
                                                             <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                                 status="Active"></i>
                                                         </a>
                                                         @else
                                                         <a class="updateimagesStatus" id="image-{{ $images['id'] }}"
-                                                            images_id="{{ $images['id'] }}" href="javascript:void(0)">
+                                                            image_id="{{ $images['id'] }}" href="javascript:void(0)">
                                                             <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                                 status="Inactive"></i>
                                                         </a>
@@ -139,7 +140,7 @@
                                                         */
                                                         ?>
                                                         <a href="javascript:void(0)" class="confirmDelete"
-                                                            module="atrribute" moduleid="{{ $images['id'] }}">
+                                                            module="images" moduleid="{{ $images['id'] }}">
                                                             <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                                         </a>
                                                     </td>

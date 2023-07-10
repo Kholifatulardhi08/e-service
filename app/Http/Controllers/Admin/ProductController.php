@@ -179,7 +179,6 @@ class ProductController extends Controller
     {
         if($request->ajax()){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
             if($data['status']=="Active"){
                 $status = 0;
             }else{
@@ -243,5 +242,42 @@ class ProductController extends Controller
         return redirect()->back()->with('succses_message', 'Product attribute has been added!');
         }
         return view('admin.Image.add_images')->with(compact('product'));
+    }
+
+    public function updateStatusImage(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            if($data['status']=="Active"){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            Images::where('id', $data['image_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status, 'id'=>$data['image_id']]);
+        }        
+    }
+
+    public function deleteimages($id)
+    {
+       $nama = Images::select('nama')->where('id', $id)->first();
+       $imagePathLarge = 'template/images/Photo/Product/Large/';
+       $imagePathMedium = 'template/images/Photo/Product/Medium/';
+       $imagePathSmall = 'template/images/Photo/Product/Small/';
+       
+       if(file_exists($imagePathLarge.$nama->nama)){
+            unlink($imagePathLarge.$nama->nama);
+       }
+       if(file_exists($imagePathMedium.$nama->nama)){
+        unlink($imagePathMedium.$nama->nama);
+       }
+       if(file_exists($imagePathSmall.$nama->nama)){
+        unlink($imagePathSmall.$nama->nama);
+       }
+
+       Images::where('id', $id)->delete();
+       $message = "Gambar is deleted succesfully";
+       return redirect()->back()->with('succses_message', $message);
     }
 }
