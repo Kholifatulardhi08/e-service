@@ -87,7 +87,7 @@
                                         </td>
                                         <td>
                                             @if($products['status']==1)
-                                            <a class="updateproductStatus" id="product-{{ $products['id'] }}"
+                                            <a title="Ubah Status" class="updateproductStatus" id="product-{{ $products['id'] }}"
                                                 product_id="{{ $products['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
@@ -101,11 +101,14 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('admin/add-edit-product/'.$products['id']) }}">
+                                            <a title="Edit Product" href="{{ url('admin/add-edit-product/'.$products['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
                                             </a>
-                                            <a href="{{ url('admin/add-edit-atribute/'.$products['id']) }}">
+                                            <a title="Tambah Attribute" href="{{ url('admin/add-edit-atribute/'.$products['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-plus-box"></i>
+                                            </a>
+                                            <a title="Tambah Gambar" href="{{ url('admin/add-image/'.$products['id']) }}">
+                                                <i style="font-size:30px;" class="mdi mdi-library-plus"></i>
                                             </a>
                                             <?php
                                             /*
@@ -114,7 +117,7 @@
                                             </a>
                                             */
                                             ?>
-                                            <a href="javascript:void(0)" class="confirmDelete" module="product"
+                                            <a title="Hapus product" href="javascript:void(0)" class="confirmDelete" module="product"
                                                 moduleid="{{ $products['id'] }}">
                                                 <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                             </a>

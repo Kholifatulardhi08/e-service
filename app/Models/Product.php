@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Section;
 use App\Models\penyedia;
 use App\Models\ProductAtribute;
+use App\Models\Images;
 
 class Product extends Model
 {
@@ -26,5 +27,10 @@ class Product extends Model
     public function attribute()
     {
         return $this->hasMany(ProductAtribute::class);
+    }
+
+    public function image()
+    {
+        return $this->hasMany(Images::class);
     }
 }

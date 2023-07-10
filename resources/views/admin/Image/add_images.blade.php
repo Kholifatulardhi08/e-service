@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                         <h3 class="font-weight-bold">
-                            Attribute
+                            Images
                         </h3>
                     </div>
                     <div class="col-12 col-xl-4 mb-0">
@@ -35,10 +35,10 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Add/Edit Attribute</h4>
+                        <h4 class="card-title">Tentang Product</h4>
                         <div class="row">
                             <div class="col-6">
-                                <form class="forms-sample" action="{{ url('admin/add-edit-atribute/'.$product['id']) }}"
+                                <form class="forms-sample" action="{{ url('admin/add-image/'.$product['id']) }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @if(Session::has('error_message'))
@@ -80,17 +80,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="field_wrapper">
-                                            <div>
-                                                <input type="text" name="paket[]" placeholder="Paket"
-                                                    style="width: 120px;" required="" />
-                                                <input type="text" name="harga[]" placeholder="Harga"
-                                                    style="width: 120px;" required="" />
-                                                <input type="text" name="keterangan[]" placeholder="Keterangan"
-                                                    style="width: 120px;" required="" />
-                                                <a href="javascript:void(0);" class="add_button" title="Add field">
-                                                    Add
-                                                </a>
-                                            </div>
+                                            <input type="file" id="image" name="image[]" multiple="">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -98,7 +88,7 @@
                                 </form>
                             </div>
                             <div class="col-6">
-                                <h4 class="card-title">All Attribute</h4>
+                                <h4 class="card-title">All Image</h4>
                                 <div class="table-responsive pt-3">
                                     <form method="POST" action="{{ url('admin/edit-atribute/'.$product['id']) }}">
                                         @csrf
@@ -109,13 +99,7 @@
                                                         No
                                                     </th>
                                                     <th>
-                                                        Paket
-                                                    </th>
-                                                    <th>
-                                                        Harga
-                                                    </th>
-                                                    <th>
-                                                        Keterangan
+                                                        Gambar
                                                     </th>
                                                     <th>
                                                         status
@@ -127,33 +111,20 @@
                                             </thead>
                                             <tbody>
                                                 <?php $no=1;?>
-                                                @foreach ($product['attribute'] as $attribute)
-                                                <input style="display: none;" name="id[]" id="id[]" value="{{ $attribute['id'] }}">
+                                                @foreach ($product['image'] as $images)
                                                 <tr>
                                                     <td>{{ $no }}</td>
-                                                    <td>{{ $attribute['paket'] }}</td>
+                                                    <td><img src="{{ url('template/images/Photo/Product/Small/'.$images['image']) }}" alt=""></td>
                                                     <td>
-                                                        <input style="width: 70px;" type="number" name="harga[]"
-                                                            value="{{ $attribute['harga'] }}" required>
-                                                    </td>
-                                                    <td>
-                                                        <input style="width: 250px;" type="text" name="keterangan[]"
-                                                            value="{{ $attribute['keterangan'] }}" required>
-                                                    </td>
-                                                    <td>
-                                                        @if($attribute['status']==1)
-                                                        <a class="updateattributeStatus"
-                                                            id="attribute-{{ $attribute['id'] }}"
-                                                            attribute_id="{{ $attribute['id'] }}"
-                                                            href="javascript:void(0)">
+                                                        @if($images['status']==1)
+                                                        <a class="updateimagesStatus" id="image-{{ $images['id'] }}"
+                                                            images_id="{{ $images['id'] }}" href="javascript:void(0)">
                                                             <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                                 status="Active"></i>
                                                         </a>
                                                         @else
-                                                        <a class="updateattributeStatus"
-                                                            id="attribute-{{ $attribute['id'] }}"
-                                                            attribute_id="{{ $attribute['id'] }}"
-                                                            href="javascript:void(0)">
+                                                        <a class="updateimagesStatus" id="image-{{ $images['id'] }}"
+                                                            images_id="{{ $images['id'] }}" href="javascript:void(0)">
                                                             <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                                 status="Inactive"></i>
                                                         </a>
@@ -168,7 +139,7 @@
                                                         */
                                                         ?>
                                                         <a href="javascript:void(0)" class="confirmDelete"
-                                                            module="atrribute" moduleid="{{ $attribute['id'] }}">
+                                                            module="atrribute" moduleid="{{ $images['id'] }}">
                                                             <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                                         </a>
                                                     </td>

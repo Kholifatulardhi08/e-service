@@ -12,6 +12,7 @@ use App\Models\Section;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ProductAtribute;
+use App\Models\Images;
 
 class ProductController extends Controller
 {
@@ -147,6 +148,7 @@ class ProductController extends Controller
 
     public function addAtributeProduct(Request $request, $id)
     {
+        Session::put('page', 'products');
         $product = Product::select('id', 'nama', 'harga', 'gambar')->with('attribute')->find($id);
         // $product = json_decode($product, true);
         // dd($product);
@@ -208,5 +210,38 @@ class ProductController extends Controller
             }
             return redirect()->back()->with('succses_message', 'Product attribute has been updateted!');
         }
+    }
+
+    public function addImage($id, Request $request)
+    {
+        Session::put('page', 'products');
+        $product = Product::select('id', 'nama', 'harga', 'gambar')->with('image')->find($id);
+        
+        if($request->isMethod('POST')){
+            $data = $request->all();
+            if($request->hasFile('image')){
+                $images = $request->file('image');
+                foreach ($images as $key => $image) {
+                    $img_tmp = Image::make($image);
+                    $img_name = $image->getClientOriginalName();
+                    $extension = $image->getClientOriginalExtension();
+                    $imageName = $img_name.rand(111,9999).'.'.$extension;
+                    $imagePathLarge = 'template/images/Photo/Product/Large/'.$imageName;
+                    $imagePathMedium = 'template/images/Photo/Product/Medium/'.$imageName;
+                    $imagePathSmall = 'template/images/Photo/Product/Small/'.$imageName;
+                    Image::make($img_tmp)->resize(1000, 1000)->save($imagePathLarge);
+                    Image::make($img_tmp)->resize(500, 500)->save($imagePathMedium);
+                    Image::make($img_tmp)->resize(255, 255)->save($imagePathSmall);
+                    
+                    $image = new Images;
+                    $image->nama = $imageName;
+                    $image->product_id = $id;
+                    $image->status = 1;
+                    $image->save();
+                }
+            }
+        return redirect()->back()->with('succses_message', 'Product attribute has been added!');
+        }
+        return view('admin.Image.add_images')->with(compact('product'));
     }
 }
