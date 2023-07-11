@@ -10,9 +10,9 @@ class Section extends Model
 {
     use HasFactory;
 
-    public function sections()
+    public static function sections()
     {
-        $getSection = Section::where('status' = 1)->get()->toArray();
+        $getSection = Section::with('category')->where('status', 1)->get()->toArray();
         return $getSection;
     }
 
