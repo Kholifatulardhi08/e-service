@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             // CategoryTableSeeder::class,
             // BrandTableSeeder::class,
             // ProductTableSeeder::class,
-            ProducAtributeTableSeeder::class,
+            // ProducAtributeTableSeeder::class,
+            BannerTableSeeder::class,
         ]);
     }
 }
