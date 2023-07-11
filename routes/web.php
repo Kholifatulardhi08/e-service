@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
-
+use App\Http\Controllers\Front\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -98,5 +98,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
 
 
     });
+});
+
+// Route Front
+Route::namespace('App\Http\Controllers\Front')->group( function(){
+    Route::get('/', 'IndexController@index');
 });
 
