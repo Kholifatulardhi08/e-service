@@ -59,6 +59,7 @@ class BannerController extends Controller
         if($request->isMethod('POST')){
             $data = $request->all();
 
+            $banner->type = $data['type'];
             $banner->link = $data['link'];
             $banner->title = $data['title'];
             $banner->alt = $data['alt'];

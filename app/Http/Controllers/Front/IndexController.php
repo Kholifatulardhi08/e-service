@@ -11,6 +11,7 @@ class IndexController extends Controller
     public function index()
     {
        $banners = Banner::where('status', 1)->get()->toArray();
-       return view('front.index')->with(compact('banners')); 
+       $fixbanners = Banner::where('type', 'Fix')->orWhere('status', 1)->get()->toArray();
+       return view('front.index')->with(compact('banners', 'fixbanners')); 
     }
 }

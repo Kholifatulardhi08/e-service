@@ -67,17 +67,26 @@
                             </div>
                             @endif
                             <div class="form-group">
+                                <label for="type">Type</label>
+                                <select class="form-control" id="type" name="type">
+                                    <option value="">select</option>
+                                    <option @if(!empty($banner['type']) && $banner['type']=="Slider" ) selected=""
+                                        @endif value="Slider">Slider</option>
+                                    <option @if(!empty($banner['type']) && $banner['type']=="Fix" ) selected="" @endif
+                                        value="Fix">Fix</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="gambar">Banner gambar</label>
                                 <input type="file" class="form-control" id="gambar" name="gambar">
                                 @if(!empty($banner['gambar']))
-                                <a target="_blank"
-                                    href="{{ url('front/images/main-slider/'.$banner['gambar']) }}">
+                                <a target="_blank" href="{{ url('front/images/main-slider/'.$banner['gambar']) }}">
                                     View gambar
                                 </a>
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label for="link">Name</label>
+                                <label for="link">Link</label>
                                 <input type="text" class="form-control" id="link" name="link"
                                     @if(!empty($banner['link'])) value="{{ $banner['link'] }}" @else
                                     value="{{ old('link') }}" @endif placeholder="Masukkan link category anda" required>
@@ -91,10 +100,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="alt">Alt</label>
-                                <input type="text" class="form-control" id="alt" name="alt"
-                                    @if(!empty($banner['alt'])) value="{{ $banner['alt'] }}" @else
-                                    value="{{ old('alt') }}" @endif placeholder="Masukkan alt banner anda"
-                                    required>
+                                <input type="text" class="form-control" id="alt" name="alt" @if(!empty($banner['alt']))
+                                    value="{{ $banner['alt'] }}" @else value="{{ old('alt') }}" @endif
+                                    placeholder="Masukkan alt banner anda" required>
                             </div>
                             <button type="submit" class="mr-2 btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-light">Cancel</button>

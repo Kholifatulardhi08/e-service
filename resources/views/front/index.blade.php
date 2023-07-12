@@ -3,37 +3,36 @@
 <!-- Main-Slider -->
 <div class="default-height ph-item">
     <div class="slider-main owl-carousel">
+        @foreach ($banners as $banner)
         <div class="bg-image">
             <div class="slide-content">
-                <h1><img src="{{ url('front/images/banners/banner-1.png') }}"></h1>
-                <h2>Spring Collection</h2>
+                <h1><a @if(!empty($banner['link'])) href="{{ url($banner['link']) }}" @else href="javascript:;"
+                        @endif></a><img title="{{ $banner['title'] }}" alt="{{ $banner['title'] }}"
+                        src="{{ asset('front/images/main-slider/'.$banner['gambar']) }}"></h1>
+                <h2>{{ $banner['title'] }}</h2>
             </div>
         </div>
-        <div class="bg-image">
-            <div class="slide-content">
-                <h1><img src="{{ url('front/images/banners/banner-2.png') }}"></h1>
-                <h2>Summer Collection</h2>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 <!-- Main-Slider /- -->
+@if (isset($fixbanners[0]['gambar']))
 <!-- Banner-Layer -->
 <div class="banner-layer">
     <div class="container">
         <div class="image-banner">
-            <a target="_blank" rel="nofollow" href="https://youtube.com/stackdevelopers"
-                class="mx-auto banner-hover effect-dark-opacity">
-                <img class="img-fluid" src="{{ url('front/images/banners/stack-developers.png') }}" alt="Winter Season Banner">
+            <a target="_blank" rel="nofollow" href="{{ url($fixbanners[0]['link']) }}" class="mx-auto banner-hover effect-dark-opacity">
+                <img class="img-fluid" src="{{ asset('front/images/main-slider/'.$fixbanners[0]['gambar']) }}" alt="Winter Season Banner">
             </a>
         </div>
     </div>
 </div>
 <!-- Banner-Layer /- -->
+@endif
 <!-- Top Collection -->
 <section class="section-maker">
     <div class="container">
-        <div class="sec-maker-header text-center">
+        <div class="text-center sec-maker-header">
             <h3 class="sec-maker-h3">TOP COLLECTION</h3>
             <ul class="nav tab-nav-style-1-a justify-content-center">
                 <li class="nav-item">
@@ -59,7 +58,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -102,7 +102,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -142,7 +143,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -182,7 +184,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -225,7 +228,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -268,7 +272,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -308,7 +313,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -349,7 +355,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -399,7 +406,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -442,7 +450,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -482,7 +491,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -522,7 +532,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="url('front/images/product/product@3x.jpg')" alt="Product">
+                                            <img class="img-fluid" src="url('front/images/product/product@3x.jpg')"
+                                                alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -565,7 +576,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="url('front/images/product/product@3x.jpg')" alt="Product">
+                                            <img class="img-fluid" src="url('front/images/product/product@3x.jpg')"
+                                                alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -608,7 +620,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -648,7 +661,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -689,7 +703,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -739,7 +754,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -782,7 +798,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -822,7 +839,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -862,7 +880,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -912,7 +931,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -955,7 +975,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -995,7 +1016,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -1035,7 +1057,8 @@
                                 <div class="item">
                                     <div class="image-container">
                                         <a class="item-img-wrapper-link" href="single-product.html">
-                                            <img class="img-fluid" src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
+                                            <img class="img-fluid"
+                                                src="{{ url('front/images/product/product@3x.jpg') }}" alt="Product">
                                         </a>
                                         <div class="item-action-behaviors">
                                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
@@ -1085,18 +1108,6 @@
     </div>
 </section>
 <!-- Top Collection /- -->
-<!-- Banner-Layer -->
-<div class="banner-layer">
-    <div class="container">
-        <div class="image-banner">
-            <a target="_blank" rel="nofollow" href="https://youtube.com/stackdevelopers"
-                class="mx-auto banner-hover effect-dark-opacity">
-                <img class="img-fluid" src="{{ url('front/images/banners/stack-developers.png') }}" alt="Winter Season Banner">
-            </a>
-        </div>
-    </div>
-</div>
-<!-- Banner-Layer /- -->
 <!-- Site-Priorities -->
 <section class="app-priority">
     <div class="container">

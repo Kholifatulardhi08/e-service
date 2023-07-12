@@ -28,6 +28,9 @@
                                             Gambar
                                         </th>
                                         <th>
+                                           Type 
+                                        </th>
+                                        <th>
                                             Link
                                         </th>
                                         <th>
@@ -56,6 +59,7 @@
                                                 src="{{ asset('front/images/main-slider/'.$banner['gambar']) }}"
                                                 alt="gambar">
                                         </td>
+                                        <td>{{ $banner['type'] }}</td>
                                         <td>{{ $banner['link'] }}</td>
                                         <td>{{ $banner['title'] }}</td>
                                         <td>{{ $banner['alt'] }}</td>
