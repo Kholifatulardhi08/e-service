@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <h4 class="card-title">banners</h4>
                         <a style="max-width: 150px; float:right; display:inline-block"
-                            href="{{ url('admin/add-edit-banners') }}" class="btn btn-block btn-primary">Add banners</a>
+                            href="{{ url('admin/add-edit-banner') }}" class="btn btn-block btn-primary">Add banners</a>
                         @if(Session::has('succses_message'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Succses: </strong> {{ Session::get('succses_message') }}
