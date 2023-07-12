@@ -33,4 +33,22 @@ class Product extends Model
     {
         return $this->hasMany(Images::class);
     }
+
+    public static function getdiskonharga($product_id)
+    {
+        $prodetails = Product::select('harga', 'diskon', 'category_id')->where('id', $product_id)->first();
+        $prodetails = json_decode($prodetails, true);
+        $catdetails = Category::select('diskon')->where('id', $prodetails['category_id'])->first();
+        $catdetails = json_decode($catdetails, true);
+        // json_decode($view_penyedia_details,true);
+
+        if($prodetails['diskon']>0) {
+            $diskon_harga = $prodetails['harga'] - ($prodetails['harga']*$prodetails['diskon']/100);
+        } elseif($catdetails['diskon']>0) {
+            $diskon_harga = $prodetails['harga'] - ($prodetails['harga']*$catdetails['diskon']/100);
+        } else {
+            $diskon_harga = 0;
+        }
+        return $diskon_harga;
+    }
 }
