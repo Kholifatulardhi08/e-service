@@ -8,6 +8,49 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        @if (Auth::guard('admin')->user()->type=="superadmin")
+        <li class="nav-item">
+            <a @if ( Session::get('page')=='view_penyedia' || Session::get('page')=='view_all' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#tables"
+                aria-expanded="false" aria-controls="#tables">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Manage Admin</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='view_penyedia' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/admins/penyedia') }}">Penyedia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='view_all' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/admins') }}">All</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a @if ( Session::get('page')=='banners' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#banner"
+                aria-expanded="false" aria-controls="#banner">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Manage Banners</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="banner">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='banners' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/banners') }}">Banners</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        @endif
         @if(Auth::guard('admin')->user()->type=="penyedia")
         <li class="nav-item">
             <a @if (Session::get('page')=='penyedia' || Session::get('page')=='jasadetail' ||
@@ -70,29 +113,6 @@
             </div>
         </li>
         @endif
-        <li class="nav-item">
-            <a @if ( Session::get('page')=='view_penyedia' || Session::get('page')=='view_all' ) style="background: #4B4BAC !important;
-            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#tables"
-                aria-expanded="false" aria-controls="#tables">
-                <i class="icon-columns menu-icon"></i>
-                <span class="menu-title">Manage Admin</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tables">
-                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='view_penyedia' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/admins/penyedia') }}">Penyedia</a>
-                    </li>
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='view_all' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/admins') }}">All</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
         <li class="nav-item" @if (Session::get('page')=='sections' || Session::get('page')=='category' ||
             Session::get('page')=='products' ) style="background: #4B4BAC !important;
             color: #fff !important;" @endif>
@@ -127,20 +147,7 @@
                 </ul>
             </div>
         </li>
-        {{-- <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                <i class="icon-bar-graph menu-icon"></i>
-                <span class="menu-title">Charts</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        {{--
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
                 <i class="icon-contract menu-icon"></i>

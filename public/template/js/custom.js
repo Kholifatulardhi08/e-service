@@ -7,6 +7,8 @@ $(document).ready(function(){
     $('#categories').DataTable();
     $('#brands').DataTable();
     $('#products').DataTable();
+    $('#banners').DataTable();
+    
 
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
@@ -258,10 +260,35 @@ $(document).ready(function(){
             data:{'status':status,'image_id':image_id},
             success:function(resp){
                 if(resp['status']==0){
-                    $("#image-"+image_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    $("#banner-"+image_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
                     location.reload();
                 }else if(resp['status']==1){
-                    $("#image-"+image_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    $("#banner-"+image_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
+
+    $(document).on("click",".updatebannerstatus", function(){
+        var status = $(this).children("i").attr("status");
+        var banner_id = $(this).attr("banner_id");
+        alert(status);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url:'/admin/update-banner-status',
+            data:{'status':status,'banner_id':banner_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#image-"+banner_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#image-"+banner_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
                     location.reload();
                 }
             }, error:function(){

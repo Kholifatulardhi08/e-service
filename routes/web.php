@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\BannerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -95,6 +96,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::post('update-images-status', 'ProductController@updateStatusImage');
         Route::get('delete-images/{id}', 'ProductController@deleteimages');
         
+        // Get Banner Controller
+        Route::get('banners', 'BannerController@index');
+        Route::post('update-banner-status', 'BannerController@updatebannerstatus');
+        Route::get('delete-banner/{id}', 'BannerController@deletebanner');
 
 
     });

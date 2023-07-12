@@ -247,7 +247,7 @@ $sections = Section::sections();
                                                             <ul>
                                                                 @foreach ($categories['subcategory'] as $subcategories)
                                                                 <li>
-                                                                    <a href="{{ url('$subcategories['url']') }}">{{ $subcategories['nama'] }}</a>
+                                                                    <a href="{{ url($subcategories['url']) }}">{{ $subcategories['nama'] }}</a>
                                                                 </li>
                                                                 @endforeach
                                                             </ul>
