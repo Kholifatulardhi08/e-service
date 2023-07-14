@@ -67,13 +67,13 @@
                                         </td>
                                         <td>
                                             @if($admin['status']==1)
-                                            <a class="updateAdminStatus" id="admin-{{ $admin['id'] }}" admin_id="{{ $admin['id'] }}"
+                                            <a title="Status aktif" class="updateAdminStatus" id="admin-{{ $admin['id'] }}" admin_id="{{ $admin['id'] }}"
                                                 href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a class="updateAdminStatus" id="admin-{{ $admin['id'] }}" admin_id="{{ $admin['id'] }}"
+                                            <a title="Status nonaktif" class="updateAdminStatus" id="admin-{{ $admin['id'] }}" admin_id="{{ $admin['id'] }}"
                                                 href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>
@@ -82,7 +82,7 @@
                                         </td>
                                         <td>
                                             @if($admin['type']=="penyedia")
-                                            <a href="{{ url('admin/view_penyedia_details/'.$admin['id']) }}">
+                                            <a title="Lihat detail penyedia" href="{{ url('admin/view_penyedia_details/'.$admin['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-file-document"></i>
                                             </a>
                                             @endif

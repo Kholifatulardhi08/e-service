@@ -65,14 +65,14 @@
                                         <td>{{ $banner['alt'] }}</td>
                                         <td>
                                             @if($banner['status']==1)
-                                            <a title="Ubah Status" class="updatebannerstatus"
+                                            <a title="Status aktif" class="updatebannerstatus"
                                                 id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}"
                                                 href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a class="updatebannerstatus" id="banner-{{ $banner['id'] }}"
+                                            <a title="Status nonaktif" class="updatebannerstatus" id="banner-{{ $banner['id'] }}"
                                                 banner_id="{{ $banner['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>

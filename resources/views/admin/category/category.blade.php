@@ -71,13 +71,13 @@
                                         </td>
                                         <td>
                                             @if($categories['status']==1)
-                                            <a class="updatecategoriesStatus" id="categories-{{ $categories['id'] }}"
+                                            <a title="Status aktif" class="updatecategoriesStatus" id="categories-{{ $categories['id'] }}"
                                                 categories_id="{{ $categories['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a class="updatecategoriesStatus" id="categories-{{ $categories['id'] }}"
+                                            <a title="Status nonaktif" class="updatecategoriesStatus" id="categories-{{ $categories['id'] }}"
                                                 categories_id="{{ $categories['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>
@@ -85,7 +85,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('admin/add-edit-category/'.$categories['id']) }}">
+                                            <a title="Edit category" href="{{ url('admin/add-edit-category/'.$categories['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
                                             </a>
                                             <?php
@@ -95,7 +95,7 @@
                                             </a>
                                             */
                                             ?>
-                                            <a href="javascript:void(0)" class="confirmDelete" module="categories"
+                                            <a title="Hapus category"  href="javascript:void(0)" class="confirmDelete" module="categories"
                                                 moduleid="{{ $categories['id'] }}">
                                                 <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                             </a>

@@ -151,9 +151,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-
-        </div>
     </div>
     <!-- content-wrapper ends -->
     <!-- partial:partials/_footer.html -->

@@ -150,6 +150,7 @@
                                             </tbody>
                                         </table>
                                         <button type="submit" class="btn btn-primary">Update</button>
+                                        <button type="reset" class="btn btn-primary">Cancel</button>
                                     </form>
                                 </div>
                             </div>

@@ -87,13 +87,13 @@
                                         </td>
                                         <td>
                                             @if($products['status']==1)
-                                            <a title="Ubah Status" class="updateproductStatus" id="product-{{ $products['id'] }}"
+                                            <a title="Status aktif" title="Ubah Status" class="updateproductStatus" id="product-{{ $products['id'] }}"
                                                 product_id="{{ $products['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a class="updateproductStatus" id="product-{{ $products['id'] }}"
+                                            <a title="Status aktif" class="updateproductStatus" id="product-{{ $products['id'] }}"
                                                 product_id="{{ $products['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>

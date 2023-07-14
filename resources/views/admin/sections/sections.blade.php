@@ -46,13 +46,13 @@
                                         </td>
                                         <td>
                                             @if($section['status']==1)
-                                            <a class="updateSectionStatus" id="section-{{ $section['id'] }}"
+                                            <a title="Status aktif" class="updateSectionStatus" id="section-{{ $section['id'] }}"
                                                 section_id="{{ $section['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a class="updateSectionStatus" id="section-{{ $section['id'] }}"
+                                            <a title="Status nonaktif" class="updateSectionStatus" id="section-{{ $section['id'] }}"
                                                 section_id="{{ $section['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>
@@ -60,7 +60,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('admin/add-edit-section/'.$section['id']) }}">
+                                            <a title="Edit section" href="{{ url('admin/add-edit-section/'.$section['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
                                             </a>
                                             <?php
@@ -70,7 +70,7 @@
                                             </a>
                                             */
                                             ?>
-                                            <a href="javascript:void(0)" class="confirmDelete" module="section"
+                                            <a title="Hapus section" href="javascript:void(0)" class="confirmDelete" module="section"
                                                 moduleid="{{ $section['id'] }}">
                                                 <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                             </a>
