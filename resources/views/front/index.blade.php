@@ -59,7 +59,7 @@ use App\Models\Product;
                 <div class="tab-content">
                     <div class="tab-pane active show fade" id="men-latest-products">
                         <div class="slider-fouc">
-                            <div class="products-slider owl-carousel" data-item="4">
+                            <div class="products-slider owl-carousel" data-item="5">
                                 @foreach ($product as $products)
                                 <?php
                                     $products_imgPath = 'template/images/Photo/Product/Small/'.$products['gambar']
@@ -131,6 +131,146 @@ use App\Models\Product;
                         <div class="slider-fouc">
                             <div class="products-slider owl-carousel" data-item="4">
                                 @foreach ($bestseller as $products)
+                                <?php
+                                    $products_imgPath = 'template/images/Photo/Product/Small/'.$products['gambar']
+                                ?>
+                                <div class="item">
+                                    <div class="image-container">
+                                        <a class="item-img-wrapper-link" href="{{ url('products/'.$products['id']) }}">
+                                            @if(!empty($products['gambar']) && file_exists($products_imgPath) )
+                                            <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
+                                            @else
+                                            <img class="img-fluid" <img style="width: 120px; height: 120px;"
+                                                src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
+                                                alt="No Image">
+                                            @endif
+                                        </a>
+                                        <div class="item-action-behaviors">
+                                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
+                                            </a>
+                                            <a class="item-mail" href="javascript:void(0)">Mail</a>
+                                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
+                                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-content">
+                                        <div class="what-product-is">
+                                            <ul class="bread-crumb">
+                                                <li>
+                                                    <a href="{{ url('products/'.$products['id']) }}">{{
+                                                        $products['nama'] }}</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="item-title">
+                                                <a href="{{ url('products/'.$products['id']) }}">{{ $products['nama']
+                                                    }}</a>
+                                            </h6>
+                                            <div class="item-stars">
+                                                <div class='star' title="0 out of 5 - based on 0 Reviews">
+                                                    <span style='width:0'></span>
+                                                </div>
+                                                <span>(0)</span>
+                                            </div>
+                                        </div>
+                                        <?php 
+                                         $getdiskon = Product::getdiskonharga($products['id'])
+                                        ?>
+                                        @if($getdiskon>0)
+                                        <div class="price-template">
+                                            <div class="item-new-price">
+                                                Rp {{ $getdiskon }}
+                                            </div>
+                                            <div class="item-old-price">
+                                                {{ $products['harga'] }}
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                    </div>
+                                    <div class="tag new">
+                                        <span>{{ $products['meta_title'] }}</span>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active show fade" id="discounted-products">
+                        <div class="slider-fouc">
+                            <div class="products-slider owl-carousel" data-item="4">
+                                @foreach ($diskonproduct as $products)
+                                <?php
+                                    $products_imgPath = 'template/images/Photo/Product/Small/'.$products['gambar']
+                                ?>
+                                <div class="item">
+                                    <div class="image-container">
+                                        <a class="item-img-wrapper-link" href="{{ url('products/'.$products['id']) }}">
+                                            @if(!empty($products['gambar']) && file_exists($products_imgPath) )
+                                            <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
+                                            @else
+                                            <img class="img-fluid" <img style="width: 120px; height: 120px;"
+                                                src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
+                                                alt="No Image">
+                                            @endif
+                                        </a>
+                                        <div class="item-action-behaviors">
+                                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
+                                            </a>
+                                            <a class="item-mail" href="javascript:void(0)">Mail</a>
+                                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
+                                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-content">
+                                        <div class="what-product-is">
+                                            <ul class="bread-crumb">
+                                                <li>
+                                                    <a href="{{ url('products/'.$products['id']) }}">{{
+                                                        $products['nama'] }}</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="item-title">
+                                                <a href="{{ url('products/'.$products['id']) }}">{{ $products['nama']
+                                                    }}</a>
+                                            </h6>
+                                            <div class="item-stars">
+                                                <div class='star' title="0 out of 5 - based on 0 Reviews">
+                                                    <span style='width:0'></span>
+                                                </div>
+                                                <span>(0)</span>
+                                            </div>
+                                        </div>
+                                        <?php 
+                                         $getdiskon = Product::getdiskonharga($products['id'])
+                                        ?>
+                                        @if($getdiskon>0)
+                                        <div class="price-template">
+                                            <div class="item-new-price">
+                                                Rp {{ $getdiskon }}
+                                            </div>
+                                            <div class="item-old-price">
+                                                {{ $products['harga'] }}
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                    </div>
+                                    <div class="tag new">
+                                        <span>{{ $products['meta_title'] }}</span>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active show fade" id="men-featured-products">
+                        <div class="slider-fouc">
+                            <div class="products-slider owl-carousel" data-item="4">
+                                @foreach ($featured as $products)
                                 <?php
                                     $products_imgPath = 'template/images/Photo/Product/Small/'.$products['gambar']
                                 ?>

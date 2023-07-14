@@ -13,8 +13,10 @@ class IndexController extends Controller
     {
        $banners = Banner::where('status', 1)->get()->toArray();
        $fixbanners = Banner::where('type', 'Fix')->orWhere('status', 1)->get()->toArray();
-       $product = Product::orderBy('id', 'desc')->where('status', 1)->limit(8)->get()->toArray();
+       $product = Product::orderBy('id', 'desc')->where('status', 1)->get()->toArray();
        $bestseller = Product::where(['is_bestseller'=>'Yes', 'status'=>1])->inRandomOrder()->get()->toArray();
-       return view('front.index')->with(compact('banners', 'fixbanners', 'product', 'bestseller')); 
+       $diskonproduct = Product::where('diskon', '>', 0)->orWhere('status', 1)->limit(8)->inRandomOrder()->get()->toArray();
+       $featured = Product::where(['is_featured'=>'Yes', 'status'=>1])->inRandomOrder()->limit(8)->get()->toArray();
+       return view('front.index')->with(compact('banners', 'fixbanners', 'product', 'bestseller', 'diskonproduct', 'featured')); 
     }
 }
