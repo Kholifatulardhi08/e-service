@@ -74,27 +74,27 @@
                             <div id="gallery-quick-view" class="u-s-m-t-10">
                                 <a class="active" data-image="{{ url('front/images/product/product@4x.jpg')  }}"
                                     data-zoom-image="{{ url('front/images/product/product@4x.jpg')  }}">
-                                    <img src="images/product/product@2x.jpg" alt="Product">
+                                    <img src="{{ url('front/images/product/product@2x.jpg')  }}" alt="Product">
                                 </a>
                                 <a data-image="{{ url('front/images/product/product@4x.jpg')  }}"
                                     data-zoom-image="{{ url('front/images/product/product@4x.jpg')  }}">
-                                    <img src="images/product/product@2x.jpg" alt="Product">
+                                    <img src="{{ url('front/images/product/product@2x.jpg')  }}" alt="Product">
                                 </a>
                                 <a data-image="{{ url('front/images/product/product@4x.jpg')  }}"
                                     data-zoom-image="{{ url('front/images/product/product@4x.jpg')  }}">
-                                    <img src="images/product/product@2x.jpg" alt="Product">
+                                    <img src="{{ url('front/images/product/product@2x.jpg')  }}" alt="Product">
                                 </a>
                                 <a data-image="{{ url('front/images/product/product@4x.jpg')  }}"
                                     data-zoom-image="{{ url('front/images/product/product@4x.jpg')  }}">
-                                    <img src="images/product/product@2x.jpg" alt="Product">
+                                    <img src="{{ url('front/images/product/product@2x.jpg')  }}" alt="Product">
                                 </a>
                                 <a data-image="{{ url('front/images/product/product@4x.jpg')  }}"
                                     data-zoom-image="{{ url('front/images/product/product@4x.jpg')  }}">
-                                    <img src="images/product/product@2x.jpg" alt="Product">
+                                    <img src="{{ url('front/images/product/product@2x.jpg')  }}" alt="Product">
                                 </a>
                                 <a data-image="{{ url('front/images/product/product@4x.jpg')  }}"
                                     data-zoom-image="{{ url('front/images/product/product@4x.jpg')  }}">
-                                    <img src="images/product/product@2x.jpg" alt="Product">
+                                    <img src="{{ url('front/images/product/product@2x.jpg')  }}" alt="Product">
                                 </a>
                             </div>
                         </div>
