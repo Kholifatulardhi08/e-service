@@ -14,7 +14,7 @@ class BannerTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('banners')->insert([
-            "gambar" => "pxfuel.jpg",
+            "gambar" => "",
             "link" => "Banner-1",
             "title" => "Banner-1",
             "alt" => "Banner",
