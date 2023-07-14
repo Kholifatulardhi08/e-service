@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Front\IndexController;
-use App\Http\Controllers\Front\BannerController;
+use App\Http\Controllers\Front\ListeningController;
+use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -107,5 +108,11 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
 // Route Front
 Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::get('/', 'IndexController@index');
+
+    // listenig for route url
+    $caturls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($caturls as $key => $url) {
+        Route::get('/'.$url, 'ListeningController@listening');
+    }
 });
 

@@ -23,4 +23,17 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id')->where('status', 1);
     }
+
+    public static function categorydetails($url)
+    {
+        $categorydetails = Category::select('id', 'nama', 'url')->with('subcategory')->where('url', $url)->first()->toArray();
+        // dd($categorydetails);
+        $catid = array();
+        $catid[] = $categorydetails['id'];
+        foreach ($categorydetails['subcategory'] as $key => $subcat) {
+            $catid[] = $subcat['id'];
+        }
+        $resp = array('catid'=>$catid, 'categorydetails'=>$categorydetails);
+        return $resp;
+    }
 }
