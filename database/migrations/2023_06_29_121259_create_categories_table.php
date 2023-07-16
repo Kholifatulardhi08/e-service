@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('section_id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('nama');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->float('diskon');
             $table->text('deskripsi');
             $table->string('url');

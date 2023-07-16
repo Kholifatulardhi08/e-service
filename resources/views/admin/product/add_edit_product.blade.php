@@ -76,6 +76,11 @@
                                         value="{{ $categories['id'] }}">---&nbsp;{{
                                         $categories['nama'] }}</option>
                                     @endforeach
+                                    @foreach ($categories['subcategory'] as $subcategories)
+                                    <option @if(!empty($product['category_id']==$categories['id'])) @endif selected=""
+                                        value="{{ $subcategories['id'] }}">&nbsp;&nbsp;&nbsp;---&nbsp;{{
+                                        $subcategories['nama'] }}</option>
+                                    @endforeach
                                     @endforeach
                                 </select>
                             </div>

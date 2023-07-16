@@ -75,7 +75,7 @@ class BannerController extends Controller
                     $banner->gambar = $image_name;
                 }
             }else{
-                $category->gambar = "";
+                $banner->gambar = "";
             }
             $banner->save();
             return redirect('admin/banners')->with('succses_message', $message);
