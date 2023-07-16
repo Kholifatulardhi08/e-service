@@ -112,7 +112,7 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     // listenig for route url
     $caturls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($caturls as $key => $url) {
-        Route::get('/'.$url, 'ListeningController@listening');
+        Route::match(['get', 'post'], '/'.$url, 'ListeningController@listening');
     }
 });
 
