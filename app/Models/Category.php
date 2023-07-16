@@ -26,14 +26,26 @@ class Category extends Model
 
     public static function categorydetails($url)
     {
-        $categorydetails = Category::select('id', 'nama', 'url')->with('subcategory')->where('url', $url)->first()->toArray();
+        $categorydetails = Category::select('id', 'parent_id', 'nama', 'url', 'deskripsi')->with(['subcategory'=>function($query){
+            $query->select('id', 'parent_id', 'nama', 'url', 'deskripsi');
+        }])->where('url', $url)->first()->toArray();
         // dd($categorydetails);
         $catid = array();
         $catid[] = $categorydetails['id'];
+
+        if($categorydetails['parent_id']==0){
+            //show main root in breadcumb
+            $breadcum = '<li class="is-marked"><a href="'.url($categorydetails['url']).'">'.$categorydetails['nama'].'</a></li>';
+        }else{
+            $parentcategory = Category::select('nama', 'url')->where('id', $categorydetails['parent_id'])->first()->toArray();
+            $breadcum = '<li class="has-separator"><a href="'.url($parentcategory['url']).'">'.$parentcategory['nama'].'</a>
+            </li><li class="is-marked"><a href="'.url($parentcategory['url']).'">'.$parentcategory['nama'].'</a></li>';
+        }
+
         foreach ($categorydetails['subcategory'] as $key => $subcat) {
             $catid[] = $subcat['id'];
         }
-        $resp = array('catid'=>$catid, 'categorydetails'=>$categorydetails);
+        $resp = array('catid'=>$catid, 'categorydetails'=>$categorydetails, 'breadcum'=>$breadcum);
         return $resp;
     }
 }

@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Section;
-use App\Models\penyedia;
+use App\Models\Penyedia;
 use App\Models\ProductAtribute;
 use App\Models\Images;
+use App\Models\Brands;
+use App\Models\JasaDetail;
 
 class Product extends Model
 {
@@ -22,6 +24,11 @@ class Product extends Model
     public function section()
     {
         return $this->belongsTo(Section::class, 'section_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function attribute()
@@ -50,5 +57,17 @@ class Product extends Model
             $diskon_harga = 0;
         }
         return $diskon_harga;
+    }
+
+    public static function isproductnew($product_id){
+        $product_ids = Product::select('id')->where('status', 1)->orderby('id', 'DESC')->limit(3)->pluck('id');
+        $product_ids = json_decode($product_ids, true);
+        // dd($product_ids);
+        if(in_array($product_id, $product_ids)) {
+            $isproductnew = "Yes";
+        }else{
+            $isproductnew = "No";
+        }
+        return $isproductnew;
     }
 }

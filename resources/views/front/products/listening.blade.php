@@ -28,14 +28,9 @@ use App\Models\Product;
         <div class="shop-intro">
             <ul class="bread-crumb">
                 <li class="has-separator">
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                 </li>
-                <li class="has-separator">
-                    <a href="shop-v1-root-category.html">Men Clothing</a>
-                </li>
-                <li class="is-marked">
-                    <a href="listing.html">T-Shirts</a>
-                </li>
+                <?php echo $categorydetails['breadcum'] ?>
             </ul>
         </div>
         <!-- Shop-Intro /- -->
@@ -72,9 +67,8 @@ use App\Models\Product;
                         <div class="select-box-wrapper">
                             <label class="sr-only" for="show-records">Show Records Per Page</label>
                             <select class="select-box" id="show-records">
-                                <option selected="selected" value="">Show: 8</option>
-                                <option value="">Show: 16</option>
-                                <option value="">Show: 28</option>
+                                <option selected="selected" value="">Show: {{ count($categoryproduct) }}</option>
+                                <option value="">Show: All</option>
                             </select>
                         </div>
                     </div>
@@ -141,49 +135,20 @@ use App\Models\Product;
                                     </div>
                                 </div>
                             </div>
+                            <?php $isproductnew = Product::isproductnew($catpro['id']); ?>
+                            @if($isproductnew="Yes")
                             <div class="tag new">
-                                <span>{{ $catpro['meta_keywords'] }}</span>
+                                <span>NEW</span>
                             </div>
+                            @endif
                         </div>
                     </div>
                     @endforeach
                 </div>
                 <!-- Row-of-Product-Container /- -->
+                <div>{{ $categoryproduct->links() }}</div>
             </div>
             <!-- Shop-Right-Wrapper /- -->
-            <!-- Shop-Pagination -->
-            <div class="pagination-area">
-                <div class="pagination-number">
-                    <ul>
-                        <li style="display: none">
-                            <a href="shop-v1-root-category.html" title="Previous">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="shop-v1-root-category.html">1</a>
-                        </li>
-                        <li>
-                            <a href="shop-v1-root-category.html">2</a>
-                        </li>
-                        <li>
-                            <a href="shop-v1-root-category.html">3</a>
-                        </li>
-                        <li>
-                            <a href="shop-v1-root-category.html">...</a>
-                        </li>
-                        <li>
-                            <a href="shop-v1-root-category.html">10</a>
-                        </li>
-                        <li>
-                            <a href="shop-v1-root-category.html" title="Next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Shop-Pagination /- -->
         </div>
     </div>
 </div>
