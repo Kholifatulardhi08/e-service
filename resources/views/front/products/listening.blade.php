@@ -31,7 +31,7 @@ use App\Models\Product;
                     <a href="index.html">Home</a>
                 </li>
                 <li class="has-separator">
-                    <a href="shop-v1-root-category.html">Men Clothing </a>
+                    <a href="shop-v1-root-category.html">Men Clothing</a>
                 </li>
                 <li class="is-marked">
                     <a href="listing.html">T-Shirts</a>
@@ -110,13 +110,10 @@ use App\Models\Product;
                                 <div class="what-product-is">
                                     <ul class="bread-crumb">
                                         <li class="has-separator">
-                                            <a href="shop-v1-root-category.html">{{ $catpro['penyedia_id']['nama'] }}</a>
-                                        </li>
-                                        <li class="has-separator">
-                                            <a href="listing.html">Tops</a>
+                                            <a href="shop-v1-root-category.html">{{ $catpro['meta_title'] }}</a>
                                         </li>
                                         <li>
-                                            <a href="shop-v3-sub-sub-category.html">Hoodies</a>
+                                            <a href="shop-v3-sub-sub-category.html">{{ $catpro['type'] }}</a>
                                         </li>
                                     </ul>
                                     <h6 class="item-title">
@@ -145,7 +142,7 @@ use App\Models\Product;
                                 </div>
                             </div>
                             <div class="tag new">
-                                <span>{{ $catpro['meta_title'] }}</span>
+                                <span>{{ $catpro['meta_keywords'] }}</span>
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,6 @@ class ListeningController extends Controller
         if ($categorycount>0) {
             $categorydetails = Category::categorydetails($url);
             $categoryproduct = Product::whereIn('category_id', $categorydetails['catid'])->where('status', 1)->get()->toArray();
-            dd($categorydetails);
             return view('front.products.listening')->with(compact('categoryproduct', 'categorydetails'));
         } else {
             abort(404);
