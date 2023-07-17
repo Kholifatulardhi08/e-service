@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ url('front/css/utility.css') }}">
     <!-- Main -->
     <link rel="stylesheet" href="{{ url('front/css/bundle.css') }}">
+    <link rel="shortcut icon" href="{{ url('template/images/aa.png') }}" />
 </head>
 
 <body>

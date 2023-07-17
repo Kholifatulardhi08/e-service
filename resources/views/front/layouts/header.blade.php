@@ -12,14 +12,14 @@ $sections = Section::sections();
             <nav>
                 <ul class="primary-nav g-nav">
                     <li>
-                        <a href="tel:+111222333">
+                        <a href="tel:+6289658662848">
                             <i class="fas fa-phone u-c-brand u-s-m-r-9"></i>
-                            Telephone:+111-222-333</a>
+                            Telephone: +6289658662848</a>
                     </li>
                     <li>
-                        <a href="mailto:info@sitemakers.in">
+                        <a href="mailto:ardhi.kholifatul8@gmail.com">
                             <i class="fas fa-envelope u-c-brand u-s-m-r-9"></i>
-                            E-mail: info@sitemakers.in
+                            E-mail: ardhi.kholifatul8@gmail.com
                         </a>
                     </li>
                 </ul>
@@ -52,13 +52,13 @@ $sections = Section::sections();
                                     Customer Login</a>
                             </li>
                             <li>
-                                <a href="account.html">
+                                <a href="{{ url('admin/login') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Vendor Login</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    {{--  <li>
                         <a>USD
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
@@ -70,8 +70,8 @@ $sections = Section::sections();
                                 <a href="#">(£) GBP</a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
+                    </li>  --}}
+                    {{--  <li>
                         <a>ENG
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
@@ -83,6 +83,7 @@ $sections = Section::sections();
                                 <a href="#">ARB</a>
                             </li>
                         </ul>
+                    </li>  --}}
                 </ul>
             </nav>
         </div>
@@ -94,9 +95,9 @@ $sections = Section::sections();
             <div class="row clearfix align-items-center">
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
-                        <a href="index.html">
-                            <img src="{{ url('front/images/main-logo/stack-developers-logo.png') }}"
-                                alt="Stack Developers" class="app-brand-logo">
+                        <a href="/">
+                            <img src="{{ url('template/images/aa.png') }}"
+                                alt="E-service" class="app-brand-logo">
                         </a>
                     </div>
                 </div>

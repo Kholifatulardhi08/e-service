@@ -846,7 +846,7 @@ body {
   .check-box + .label-text {
     position: relative;
     cursor: pointer;
-    user-select: none;
+    /* user-select: none; */
     font-size: 14px;
     color: #292929;
     margin: 0;
@@ -1347,7 +1347,7 @@ body {
   position: absolute;
   border: none;
   font-size: 18px;
-  user-select: none;
+  /* user-select: none; */
   top: 50%;
   transform: translateY(-50%); }
 
@@ -1363,7 +1363,7 @@ body {
   .radio-box + .label-text {
     position: relative;
     cursor: pointer;
-    user-select: none;
+    /* user-select: none; */
     font-size: 14px;
     color: #292929;
     margin: 0;
