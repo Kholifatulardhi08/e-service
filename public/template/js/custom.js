@@ -8,6 +8,9 @@ $(document).ready(function(){
     $('#brands').DataTable();
     $('#products').DataTable();
     $('#banners').DataTable();
+    $('#filter').DataTable();
+    $('#filterValue').DataTable();
+    
     
 
     var maxField = 10; //Input fields increment limitation
@@ -289,6 +292,56 @@ $(document).ready(function(){
                     location.reload();
                 }else if(resp['status']==1){
                     $("#image-"+banner_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
+
+    $(document).on("click",".updatefilterStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var filter_id = $(this).attr("filter_id");
+        alert(status);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url:'/admin/update-filter-status',
+            data:{'status':status,'filter_id':filter_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#filter-"+filter_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#filter-"+filter_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
+
+    $(document).on("click",".updatefilterValueStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var filterValue_id = $(this).attr("filterValue_id");
+        alert(status);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url:'/admin/update-filterValue-status',
+            data:{'status':status,'filterValue_id':filterValue_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#filterValue_id-"+filterValue_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#filterValue_id-"+filterValue_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
                     location.reload();
                 }
             }, error:function(){

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ListeningController;
+use App\Http\Controllers\Admin\FilterController;
 use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +103,13 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::post('update-banner-status', 'BannerController@updatebannerstatus');
         Route::get('delete-banner/{id}', 'BannerController@deletebanner');
         Route::match(['get', 'post'], 'add-edit-banner/{id?}', 'BannerController@addEditBanner');
+
+        // GetFilter && filter value
+        Route::get('filters', 'FilterController@filter');
+        Route::post('update-filter-status', 'FilterController@updatefilterStatus');
+
+        Route::get('filterValue', 'FilterController@filterValue');
+        Route::post('update-filterValue-status', 'FilterController@updatefilterValueStatus');
     });
 });
 
