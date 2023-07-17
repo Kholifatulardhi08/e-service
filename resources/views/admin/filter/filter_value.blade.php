@@ -1,3 +1,4 @@
+<?php use App\Models\ProductFilter; ?>
 @extends('admin.layouts.layout')
 @section('content')
 <div class="main-panel">
@@ -49,7 +50,10 @@
                                             {{ $filterValues['filter_value'] }}
                                         </td>
                                         <td>
-                                            {{ $filterValues['product_filter_id'] }}
+                                            {{--  {{ $filterValues['product_filter_id'] }}  --}}
+                                            <?php
+                                                echo $getFilterName = ProductFilter::getFilterName($filterValues['product_filter_id']);
+                                            ?>
                                         </td>
                                         <td>
                                             @if($filterValues['status']==1)

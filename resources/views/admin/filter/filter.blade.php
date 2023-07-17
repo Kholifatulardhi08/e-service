@@ -1,3 +1,4 @@
+<?php use App\Models\Category; ?>
 @extends('admin.layouts.layout')
 @section('content')
 <div class="main-panel">
@@ -9,6 +10,8 @@
                         <h4 class="card-title">Filter</h4>
                         <a style="max-width: 150px; float:right; display:inline-block"
                             href="{{ url('admin/add-edit-filter') }}" class="btn btn-block btn-primary">Add Filter</a>
+                        <a style="max-width: 150px; float:left; display:inline-block"
+                            href="{{ url('admin/filterValue') }}" class="btn btn-block btn-primary">Filter value</a>
                         @if(Session::has('succses_message'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Succses: </strong> {{ Session::get('succses_message') }}
@@ -55,25 +58,35 @@
                                             {{ $filter['filter_column'] }}
                                         </td>
                                         <td>
-                                            {{ $filter['cat_id'] }}
+                                            <?php 
+                                                $catid = explode(",", $filter['cat_id']);
+                                                foreach($catid as $key => $catids )
+                                                {
+                                                    $category_name = Category::getCategoryName($catids);
+                                                    echo $category_name. " ";
+                                                }
+                                            ?>
                                         </td>
                                         <td>
                                             @if($filter['status']==1)
-                                            <a title="Status aktif" class="updatefilterStatus" id="filter-{{ $filter['id'] }}"
-                                                filter_id="{{ $filter['id'] }}" href="javascript:void(0)">
+                                            <a title="Status aktif" class="updatefilterStatus"
+                                                id="filter-{{ $filter['id'] }}" filter_id="{{ $filter['id'] }}"
+                                                href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a title="Status nonaktif" class="updatefilterStatus" id="filter-{{ $filter['id'] }}"
-                                                filter_id="{{ $filter['id'] }}" href="javascript:void(0)">
+                                            <a title="Status nonaktif" class="updatefilterStatus"
+                                                id="filter-{{ $filter['id'] }}" filter_id="{{ $filter['id'] }}"
+                                                href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>
                                             </a>
                                             @endif
                                         </td>
                                         <td>
-                                            <a title="Edit filter" href="{{ url('admin/add-edit-filter/'.$filter['id']) }}">
+                                            <a title="Edit filter"
+                                                href="{{ url('admin/add-edit-filter/'.$filter['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
                                             </a>
                                             <?php
@@ -83,8 +96,8 @@
                                             </a>
                                             */
                                             ?>
-                                            <a title="Hapus filter"  href="javascript:void(0)" class="confirmDelete" module="filter"
-                                                moduleid="{{ $filter['id'] }}">
+                                            <a title="Hapus filter" href="javascript:void(0)" class="confirmDelete"
+                                                module="filter" moduleid="{{ $filter['id'] }}">
                                                 <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                             </a>
                                         </td>
