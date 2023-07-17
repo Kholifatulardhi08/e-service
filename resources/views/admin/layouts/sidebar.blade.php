@@ -33,7 +33,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a @if ( Session::get('page')=='banners' ) style="background: #4B4BAC !important;
+            <a @if ( Session::get('page')=='banners' || Session::get('page')=='filter'  ) style="background: #4B4BAC !important;
             color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#banner"
                 aria-expanded="false" aria-controls="#banner">
                 <i class="icon-columns menu-icon"></i>
@@ -46,6 +46,11 @@
                         <a @if (Session::get('page')=='banners' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/banners') }}">Banners</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='filter' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/filters') }}">Filters</a>
                     </li>
                 </ul>
             </div>
