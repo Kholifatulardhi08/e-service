@@ -26,6 +26,9 @@
                                             No
                                         </th>
                                         <th>
+                                            filter ID
+                                        </th>
+                                        <th>
                                             Filter Value
                                         </th>
                                         <th>
@@ -47,10 +50,12 @@
                                             {{ $no }}
                                         </td>
                                         <td>
+                                            {{ $filterValues['product_filter_id'] }}
+                                        </td>
+                                        <td>
                                             {{ $filterValues['filter_value'] }}
                                         </td>
                                         <td>
-                                            {{--  {{ $filterValues['product_filter_id'] }}  --}}
                                             <?php
                                                 echo $getFilterName = ProductFilter::getFilterName($filterValues['product_filter_id']);
                                             ?>

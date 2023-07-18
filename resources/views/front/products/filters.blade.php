@@ -1,3 +1,7 @@
+<?php 
+use App\Models\ProductFilter;
+$productfilter = ProductFilter::productFilters();
+?>
 <!-- Shop-Left-Side-Bar-Wrapper -->
 <div class="col-lg-3 col-md-3 col-sm-12">
     <!-- Fetch-Categories-from-Root-Category  -->
@@ -143,29 +147,27 @@
     </div>
     <!-- Filter-Color /- -->
     <!-- Filter-Brand -->
+    @foreach ($productfilter as $filter)
+    <?php 
+        $filterAvailable = ProductFilter::filterAvailable($filter['id'], $categorydetails['categorydetails']['id']);
+    ?>
+    @if($filterAvailable=="Yes")
+    @if(count($filter['product_filter_values'])>0)
     <div class="facet-filter-associates">
-        <h3 class="title-name">Brand</h3>
+        <h3 class="title-name">{{ $filter['filter_nama'] }}</h3>
         <form class="facet-form" action="#" method="post">
             <div class="associate-wrapper">
-                <input type="checkbox" class="check-box" id="cbs-21">
-                <label class="label-text" for="cbs-21">Calvin Klein
-                    <span class="total-fetch-items">(0)</span>
+                @foreach ($filter['product_filter_values'] as $value)
+                <input type="checkbox" class="check-box" id="$value['filter_value']">
+                <label class="label-text" for="$value['filter_value']">{{ ucwords($value['filter_value']) }}
                 </label>
-                <input type="checkbox" class="check-box" id="cbs-22">
-                <label class="label-text" for="cbs-22">Diesel
-                    <span class="total-fetch-items">(0)</span>
-                </label>
-                <input type="checkbox" class="check-box" id="cbs-23">
-                <label class="label-text" for="cbs-23">Polo
-                    <span class="total-fetch-items">(0)</span>
-                </label>
-                <input type="checkbox" class="check-box" id="cbs-24">
-                <label class="label-text" for="cbs-24">Tommy Hilfiger
-                    <span class="total-fetch-items">(0)</span>
-                </label>
+                @endforeach
             </div>
         </form>
     </div>
+    @endif
+    @endif
+    @endforeach
     <!-- Filter-Brand /- -->
     <!-- Filter-Price -->
     <div class="facet-filter-by-price">

@@ -1,4 +1,6 @@
-<?php use App\Models\Category; ?>
+<?php 
+use App\Models\Category;
+?>
 @extends('admin.layouts.layout')
 @section('content')
 <div class="main-panel">
