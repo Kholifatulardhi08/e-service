@@ -67,7 +67,7 @@ class CategoryController extends Controller
                     $category->image = $image_name;
                 }
             }else{
-                $category->category_image = $image_name;
+                $category->image = "";
             }
             $category->nama = $data['nama'];
             $category->parent_id = $data['parent_id'];

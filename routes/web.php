@@ -107,6 +107,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         // GetFilter && filter value
         Route::get('filters', 'FilterController@filter');
         Route::post('update-filter-status', 'FilterController@updatefilterStatus');
+        Route::match(['get', 'post'], 'add-edit-filter/{id?}', 'FilterController@addEditFilter');
 
         Route::get('filterValue', 'FilterController@filterValue');
         Route::post('update-filterValue-status', 'FilterController@updatefilterValueStatus');
