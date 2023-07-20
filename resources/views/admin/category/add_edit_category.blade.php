@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                         <h3 class="font-weight-bold">
-                            Tambah Category
+                            Add Category
                         </h3>
                     </div>
                     <div class="col-12 col-xl-4 mb-0">
@@ -36,36 +36,36 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ $title }}</h4>
+                        @if(Session::has('error_message'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Error: </strong> {{ Session::get('error_message') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        @if(Session::has('succses_message'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Succses: </strong> {{ Session::get('succses_message') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <form class="forms-sample" @if(!empty($category['id']))
                             action="{{ url('admin/add-edit-category') }}" @else
                             action="{{ url('admin/add-edit-category/'.$category['id']) }}" @endif method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            @if(Session::has('error_message'))
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>Error: </strong> {{ Session::get('error_message') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
-                            @if(Session::has('succses_message'))
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>Succses: </strong> {{ Session::get('succses_message') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
-                            @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
                             <div class="form-group">
                                 <label for="nama">Name</label>
                                 <input type="text" class="form-control" id="nama" name="nama"
@@ -86,20 +86,6 @@
                             </div>
                             <div id="appendCategoryLevel">
                                 @include('admin.category.appendCategoryLevel')
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Category Image</label>
-                                <input type="file" class="form-control" id="image" name="image">
-                                @if(!empty($category['image']))
-                                <a target="_blank"
-                                    href="{{ url('template/images/Photo/Category/'.$category['image']) }}">
-                                    View image
-                                </a> &nbsp;|&nbsp;
-                                <a href="javascript:void(0)" class="confirmDelete" module="category-image"
-                                    moduleid="{{ $category['id'] }}">
-                                    Delete image
-                                </a>
-                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="diskon">Category Discount</label>

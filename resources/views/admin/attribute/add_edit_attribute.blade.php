@@ -38,49 +38,38 @@
                         <h4 class="card-title">Add/Edit Attribute</h4>
                         <div class="row">
                             <div class="col-6">
+                                @if(Session::has('error_message'))
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>Error: </strong> {{ Session::get('error_message') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @endif
+                                @if(Session::has('succses_message'))
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>Succses: </strong> {{ Session::get('succses_message') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @endif
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
                                 <form class="forms-sample" action="{{ url('admin/add-edit-atribute/'.$product['id']) }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    @if(Session::has('error_message'))
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Error: </strong> {{ Session::get('error_message') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    @endif
-                                    @if(Session::has('succses_message'))
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Succses: </strong> {{ Session::get('succses_message') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    @endif
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    @endif
                                     <h4>Name : {{ $product['nama'] }}</h4>
                                     <div class="form-group">
-                                        @if(!empty($product['gambar']))
-                                        <img style="width: 120px;"
-                                            src="{{ asset('template/images/Photo/Product/Medium/'.$product['gambar']) }}"
-                                            alt="Gambar">
-                                        @else
-                                        <img style="width: 120px;"
-                                            src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
-                                            alt="No Image">
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
                                         <div class="field_wrapper">
-                                            <div>
+                                            <div class="">
                                                 <input type="text" name="paket[]" placeholder="Paket"
                                                     style="width: 120px;" required="" />
                                                 <input type="text" name="harga[]" placeholder="Harga"
@@ -94,7 +83,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                    <button type="rest" class="btn btn-light">Cancel</button>
+                                    <button type="reset" class="btn btn-light">Cancel</button>
                                 </form>
                             </div>
                             <div class="col-6">
@@ -128,7 +117,8 @@
                                             <tbody>
                                                 <?php $no=1;?>
                                                 @foreach ($product['attribute'] as $attribute)
-                                                <input style="display: none;" name="id[]" id="id[]" value="{{ $attribute['id'] }}">
+                                                <input style="display: none;" name="id[]" id="id[]"
+                                                    value="{{ $attribute['id'] }}">
                                                 <tr>
                                                     <td>{{ $no }}</td>
                                                     <td>{{ $attribute['paket'] }}</td>

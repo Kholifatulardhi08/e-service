@@ -79,6 +79,8 @@
     <script type="text/javascript" src="{{ url('front/js/app.js') }}"></script>
     {{--  custom js  --}}
     <script type="text/javascript" src="{{ url('front/js/custom.js') }}"></script>
+    {{--  Script for filter checkbox  --}}
+    @include('front.layouts.script')
 </body>
 
 </html>

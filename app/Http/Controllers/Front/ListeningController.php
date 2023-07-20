@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Models\ProductFilter;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 
 class ListeningController extends Controller
 {
@@ -21,6 +22,13 @@ class ListeningController extends Controller
             $categorydetails = Category::categorydetails($url);
             $categoryproduct = Product::with('brand')->whereIn('category_id', $categorydetails['catid'])->where('status', 1);
 
+            $productfilter = ProductFilter::productFilters();
+            foreach ($productfilter as $key => $filter) {
+                if(isset($filter['filter_column']) && isset($data[$filter['filter_column']]) 
+                    && !empty($filter['filter_column']) && !empty($data[$filter['filter_column']])){
+                    $categoryproduct->whereIn($filter['filter_column'], $data[$filter['filter_column']]);  
+                }
+            }
             if(isset($data['EO']) && !empty($data['EO'])){
                 $categoryproduct->whereIn('products.EO', $data['EO']);
             }
