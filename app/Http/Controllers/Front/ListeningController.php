@@ -20,6 +20,11 @@ class ListeningController extends Controller
         if ($categorycount>0) {
             $categorydetails = Category::categorydetails($url);
             $categoryproduct = Product::with('brand')->whereIn('category_id', $categorydetails['catid'])->where('status', 1);
+
+            if(isset($data['EO']) && !empty($data['EO'])){
+                $categoryproduct->whereIn('products.EO', $data['EO']);
+            }
+
             if(isset($_GET['sort']) && !empty($_GET['sort'])){
                 if($_GET['sort']=="terakhir"){
                     $categoryproduct->orderBy('products.id', "DESC");

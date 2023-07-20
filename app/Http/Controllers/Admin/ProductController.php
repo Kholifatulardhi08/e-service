@@ -86,7 +86,6 @@ class ProductController extends Controller
 
                 $productfilter = ProductFilter::productFilters();
                 foreach($productfilter as $filter){
-                    // echo $data[$filter['filter_column']]; die;
                     $filterAvailable = ProductFilter::filterAvailable($filter['id'], $data['category_id']);
                     if(isset($filter['filter_column']) && $data[$filter['filter_column']]){
                         $product->{$filter['filter_column']} = $data[$filter['filter_column']];
