@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Session;
 use Auth;
-use Image;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Session;
+use App\Models\Brand;
+use App\Models\Images;
 use App\Models\Product;
 use App\Models\Section;
-use App\Models\Brand;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Models\ProductFilter;
 use App\Models\ProductAtribute;
-use App\Models\Images;
+use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -82,6 +83,16 @@ class ProductController extends Controller
                 $product->section_id = $categoryDetails['section_id'];
                 $product->category_id = $data['category_id'];
                 $product->brand_id = $data['brand_id'];
+
+                $productfilter = ProductFilter::productFilters();
+                foreach($productfilter as $filter){
+                    // echo $data[$filter['filter_column']]; die;
+                    $filterAvailable = ProductFilter::filterAvailable($filter['id'], $data['category_id']);
+                    if(isset($filter['filter_column']) && $data[$filter['filter_column']]){
+                        $product->{$filter['filter_column']} = $data[$filter['filter_column']];
+                    }
+                }
+
                 $admin_type = Auth::guard('admin')->user()->type;
                 $penyedia_id = Auth::guard('admin')->user()->penyedia_id;
                 $admin_id = Auth::guard('admin')->user()->id;

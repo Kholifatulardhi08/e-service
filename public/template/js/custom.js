@@ -350,4 +350,20 @@ $(document).ready(function(){
         })            
     });
 
+    $("#category_id").on('change', function(){
+        var category_id = $(this).val();
+        // alert(category_id);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+           type:'POST',
+           url:'category-filters',
+           data:{category_id:category_id},
+           success:function(resp){
+                $(".loadfilters").html(resp.view);
+           } 
+        });
+    });
+
 });

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\ProductFilter;
-use App\Models\ProductFilterValue;
+use DB;
+use Session;
 use App\Models\Section;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Session;
-use DB;
+use App\Models\ProductFilter;
+use App\Models\ProductFilterValue;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 
 class FilterController extends Controller
 {
@@ -20,7 +21,6 @@ class FilterController extends Controller
         // dd($filters);
         return view('admin.filter.filter')->with(compact('filters'));
     }
-
     public function filterValue()
     {
         Session::put('page', 'valueFilter');
@@ -117,4 +117,15 @@ class FilterController extends Controller
         $filter = ProductFilter::where('status', 1)->get()->toArray(); 
         return view('admin.filter.add-edit-filter-value')->with(compact('title', 'filterValue', 'filter'));
     }
+
+    public function filtercategory(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $category_id = $data['category_id'];
+            return response()->json(['view'=>(String)View::make('admin.filter.category_filter')->with(compact('category_id'))]);
+        }
+    }
+
 }

@@ -158,8 +158,9 @@ $productfilter = ProductFilter::productFilters();
         <form class="facet-form" action="#" method="post">
             <div class="associate-wrapper">
                 @foreach ($filter['product_filter_values'] as $value)
-                <input type="checkbox" class="check-box" id="$value['filter_value']">
-                <label class="label-text" for="$value['filter_value']">{{ ucwords($value['filter_value']) }}
+                <input type="checkbox" class="check-box" id="{{ $value['filter_value'] }}">
+                <label class="label-text" for="{{ $value['filter_value'] }}">
+                    {{ ucwords($value['filter_value']) }}
                 </label>
                 @endforeach
             </div>

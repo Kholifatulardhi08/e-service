@@ -36,36 +36,36 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ $title }}</h4>
+                        @if(Session::has('error_message'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Error: </strong> {{ Session::get('error_message') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        @if(Session::has('succses_message'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Succses: </strong> {{ Session::get('succses_message') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <form class="forms-sample" @if(!empty($product['id']))
                             action="{{ url('admin/add-edit-product') }}" @else
                             action="{{ url('admin/add-edit-product/'.$product['id']) }}" @endif method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            @if(Session::has('error_message'))
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>Error: </strong> {{ Session::get('error_message') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
-                            @if(Session::has('succses_message'))
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>Succses: </strong> {{ Session::get('succses_message') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
-                            @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
                             <div class="form-group">
                                 <label for="category_id">Category</label>
                                 <select class="form-control" name="category_id" id="category_id">
@@ -92,6 +92,9 @@
                                         value="{{ $brands['id'] }}">{{ $brands['nama'] }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="loadfilters">
+                                @include('admin\filter\category_filter')
                             </div>
                             <div class="form-group">
                                 <label for="nama">Name</label>
