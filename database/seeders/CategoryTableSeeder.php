@@ -15,9 +15,9 @@ class CategoryTableSeeder extends Seeder
     {
         DB::table('categories')->insert([
             "parent_id" => 0,
-            "section_id" => 4,
+            "section_id" => 1,
             "nama" => "Pernikahan",
-            "image" => "",
+            
             "diskon" => 0,
             "deskripsi" => "",
             "url" => "wedding",
@@ -28,9 +28,9 @@ class CategoryTableSeeder extends Seeder
         ]);
         DB::table('categories')->insert([
             "parent_id" => 0,
-            "section_id" => 5,
+            "section_id" => 1,
             "nama" => "Pertukangan",
-            "image" => "",
+            
             "diskon" => 0,
             "deskripsi" => "",
             "url" => "tukang",

@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
             PenyediaTableSeeder::class,
             BankDetailSeeder::class,
             JasaDetailSeeder::class,
-            // SectionTableSeeder::class,
-            // CategoryTableSeeder::class,
-            // BrandTableSeeder::class,
-            // ProductTableSeeder::class,
-            // ProducAtributeTableSeeder::class,
+            SectionTableSeeder::class,
+            CategoryTableSeeder::class,
+            BrandTableSeeder::class,
+            ProductTableSeeder::class,
+            ProducAtributeTableSeeder::class,
             // BannerTableSeeder::class,
         ]);
     }

@@ -15,15 +15,7 @@ class SectionTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('sections')->insert([
-            "nama" => "MUA",
-            "status" => 1
-        ]);
-        DB::table('sections')->insert([
-            "nama" => "Khitan",
-            "status" => 1
-        ]);
-        DB::table('sections')->insert([
-            "nama" => "Wedding",
+            "nama" => "Kreatif & event",
             "status" => 1
         ]);
     }

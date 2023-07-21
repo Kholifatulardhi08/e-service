@@ -18,7 +18,6 @@ class ProductTableSeeder extends Seeder
             "section_id" => 2,
             "brand_id" => 1,
             "category_id" => 1,
-            "product_code" => "",
             "type" => "penyedia",
             "nama" => "Product 1",
             "harga" => 15000,
