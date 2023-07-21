@@ -34,6 +34,23 @@ $productfilter = ProductFilter::productFilters();
     @endif
     @endforeach
     <!-- Filter-Brand /- -->
+    <!-- Filter-Size -->
+    <?php 
+    $getPaket = ProductFilter::getPaket($url); 
+    ?>
+    <div class="facet-filter-associates">
+        <h3 class="title-name">Size</h3>
+        <form class="facet-form" action="#" method="post">
+            @foreach ($getPaket as $key => $paket )
+            <div class="associate-wrapper">
+                <input type="checkbox" class="check-box paket" name="paket[]" id="paket{{ $key }}" value="{{ $paket }}">
+                <label class="label-text" for="paket{{ $key }}">{{ $paket }}
+                </label>
+            </div>
+            @endforeach
+        </form>
+    </div>
+    <!-- Filter-Size -->
     <!-- Filter-Price -->
     <div class="facet-filter-by-price">
         <h3 class="title-name">Price</h3>
@@ -55,15 +72,13 @@ $productfilter = ProductFilter::productFilters();
         </form>
     </div>
     <!-- Filter-Price /- -->
+    {{--
     <!-- Filter-Free-Shipping -->
     <div class="facet-filter-by-shipping">
-        <h3 class="title-name">Shipping</h3>
-        <form class="facet-form" action="#" method="post">
-            <input type="checkbox" class="check-box" id="cb-free-ship">
-            <label class="label-text" for="cb-free-ship">Free Shipping</label>
-        </form>
+        <h3 class="title-name">Paket</h3>
+
     </div>
-    <!-- Filter-Free-Shipping /- -->
+    <!-- Filter-Free-Shipping /- --> --}}
     <!-- Filter-Rating -->
     <div class="facet-filter-by-rating">
         <h3 class="title-name">Rating</h3>

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
+use App\Models\ProductAtribute;
 use App\Models\ProductFilterValue;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductFilter extends Model
 {
@@ -38,5 +40,14 @@ class ProductFilter extends Model
             $available = "No";
         }
         return $available;
+    }
+
+    public static function getPaket($url)
+    {
+        $categorydetails = Category::categorydetails($url);
+        $getProductid = Product::whereIn('category_id', $categorydetails['catid'])->pluck('id')->toArray();
+        $getpakets = ProductAtribute::select('paket')->whereIn('product_id', $getProductid)->groupBy('paket')->pluck('paket')->toArray();
+        // echo "<pre>"; print_r($getpakets); die;
+        return $getpakets;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductAtribute;
 use Illuminate\Http\Request;
 use App\Models\ProductFilter;
 use App\Http\Controllers\Controller;
@@ -46,6 +47,13 @@ class ListeningController extends Controller
                     $categoryproduct->orderBy('products.nama', "DESC");
                 }
             }
+
+            
+            if(isset($data['paket']) && !empty($data['paket'])){
+                $getProductid = ProductAtribute::select('product_id')->whereIn('paket', $data['paket'])->pluck('product_id')->toArray();
+                $categoryproduct->whereIn('products.id', $getProductid);
+            }
+
             $categoryproduct = $categoryproduct->paginate(3);
             // dd($categorydetails);
             return view('front.products.sort')->with(compact('categoryproduct', 'categorydetails', 'url'));
@@ -71,7 +79,8 @@ class ListeningController extends Controller
                     $categoryproduct->orderBy('products.nama', "DESC");
                 }
             }
-            $categoryproduct = $categoryproduct->paginate(3);
+
+            $categoryproduct = $categoryproduct->paginate(5);
             return view('front.products.listening')->with(compact('categoryproduct', 'categorydetails', 'url'));
         } else {
             abort(404);
