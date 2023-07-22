@@ -106,11 +106,50 @@ $productfilter = ProductFilter::productFilters();
             })
         });
 
+        $(".brand").on('change', function () {
+            // this.form.submit();
+            var brand = get_filter('brand');
+            var price = get_filter('price');
+            var paket = get_filter('paket');
+            var sort = $("#sort").val();
+            var url = $("#url").val();
+            @foreach ($productfilter as $filters)
+            var {{ $filters['filter_column'] }} = get_filter('{{ $filters['filter_column'] }}');
+            @endforeach
+            // alert(url); return false;
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                method: 'POST',
+                data: {
+                    @foreach ($productfilter as $filters)
+                    {{ $filters['filter_column'] }}:{{ $filters['filter_column'] }},
+                    @endforeach
+                    sort: sort,
+                    url: url,
+                    price: price,
+                    paket: paket,
+                    brand:brand,
+                },
+                success: function (data) {
+                    $('.filter-product').html(data);
+                },
+                error: function () {
+                    alert("Error");
+                }
+            })
+        });
+
         {{--  dynamic filter  --}}
         @foreach ($productfilter as $filter)
         $('.{{ $filter['filter_column'] }}').on('click', function () {
             var sort = $("#sort option:selected").text();
             var url = $("#url").val();
+            var brand = get_filter('brand');
+            var price = get_filter('price');
+            var paket = get_filter('paket');
             @foreach ($productfilter as $filters)
             var {{ $filters['filter_column'] }} = get_filter('{{ $filters['filter_column'] }}');
             @endforeach
@@ -126,6 +165,9 @@ $productfilter = ProductFilter::productFilters();
                     @endforeach
                     url: url,
                     sort: sort,
+                    price: price,
+                    paket: paket,
+                    brand:brand,
                 },
                 success: function (data) {
                     $('.filter-product').html(data);

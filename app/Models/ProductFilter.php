@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductAtribute;
 use App\Models\ProductFilterValue;
@@ -50,4 +51,15 @@ class ProductFilter extends Model
         // echo "<pre>"; print_r($getpakets); die;
         return $getpakets;
     }
+
+    public static function getBrands($url)
+    {
+        $categorydetails = Category::categorydetails($url);
+        $getProductid = Product::whereIn('category_id', $categorydetails['catid'])->pluck('id')->toArray();
+        $getbrandids = Product::select('brand_id')->whereIn('id', $getProductid)->groupBy('brand_id')->pluck('brand_id')->toArray();
+        $getBrands = Brand::select('id', 'nama')->whereIn('id', $getbrandids)->get()->toArray();
+        // echo "<pre>"; print_r($getbrandDetails); die;
+        return $getBrands;
+    }
+
 }

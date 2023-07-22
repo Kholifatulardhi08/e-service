@@ -65,28 +65,26 @@ $productfilter = ProductFilter::productFilters();
         </form>
     </div>
     <!-- Filter-by-price /- -->
-    <?php /*
-    <!-- Filter-Price -->
-    <div class="facet-filter-by-price">
-        <h3 class="title-name">Price</h3>
+    <?php 
+    $getBrands = ProductFilter::getBrands($url); 
+    ?>
+    <!-- Filter-Brand -->
+    <div class="facet-filter-associates">
+        <h3 class="title-name">Brand</h3>
         <form class="facet-form" action="#" method="post">
-            <!-- Final-Result -->
-            <div class="amount-result clearfix">
-                <div class="price-from">$0</div>
-                <div class="price-to">$3000</div>
+            <div class="associate-wrapper">
+                @foreach($getBrands as $key => $brand )
+                <input type="checkbox" class="check-box brand" name="brand[]" value="{{ $brand['id'] }}" id="brand{{ $key }}">
+                <label class="label-text" for="brand{{ $key }}">{{ $brand['nama'] }}
+                    {{--  <span class="total-fetch-items">(0)</span>  --}}
+                </label>
+                @endforeach
             </div>
-            <!-- Final-Result /- -->
-            <!-- Range-Slider  -->
-            <div class="price-filter"></div>
-            <!-- Range-Slider /- -->
-            <!-- Range-Manipulator -->
-            <div class="price-slider-range" data-min="0" data-max="5000" data-default-low="0" data-default-high="3000"
-                data-currency="$"></div>
-            <!-- Range-Manipulator /- -->
-            <button type="submit" class="button button-primary">Filter</button>
         </form>
     </div>
-    <!-- Filter-Price /- -->
+    <!-- Filter-Brand /- -->
+
+    <?php /*
     <!-- Filter-Rating -->
     <div class="facet-filter-by-rating">
         <h3 class="title-name">Rating</h3>

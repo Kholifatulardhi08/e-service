@@ -55,11 +55,17 @@ class ListeningController extends Controller
             }
 
             if(isset($data['price']) && !empty($data['price'])){
-                $implodeprice = implode('-', $data['price']);
-                $explodeprice = explode('-', $implodeprice);
-                $min = reset($explodeprice);
-                $max = end($explodeprice);
-                $getProductid = Product::select('id')->whereBetween('harga', [$min, $max])->pluck('id')->toArray();
+                foreach($data['price'] as $key => $price){
+                    $priceArr = explode("-", $price);
+                    $getProductid[] = Product::select('id')->whereBetween('harga', [$priceArr[0], $priceArr[1]])->pluck('id')->toArray();
+                }
+                $getProductid = call_user_func_array('array_merge', $getProductid);
+                // echo "<pre>"; print_r($getProductid); die;
+                $categoryproduct->whereIn('products.id', $getProductid);
+            }
+
+            if(isset($data['brand']) && !empty($data['brand'])){
+                $getProductid = Product::select('id')->whereIn('brand_id', $data['brand'])->pluck('id')->toArray();
                 $categoryproduct->whereIn('products.id', $getProductid);
             }
 
