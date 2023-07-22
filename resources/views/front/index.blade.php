@@ -108,7 +108,7 @@ use App\Models\Product;
                                         @if($getdiskon>0)
                                         <div class="price-template">
                                             <div class="item-new-price">
-                                                Rp {{ $getdiskon }}
+                                                {{ $getdiskon }}
                                             </div>
                                             <div class="item-old-price">
                                                 {{ $products['harga'] }}
@@ -117,9 +117,9 @@ use App\Models\Product;
                                         @endif
 
                                     </div>
-                                    <div class="tag new">
+                                    {{-- <div class="tag new">
                                         <span>{{ $products['meta_title'] }}</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 @endforeach
                             </div>
@@ -129,7 +129,7 @@ use App\Models\Product;
                 <div class="tab-content">
                     <div class="tab-pane active show fade" id="men-best-selling-products">
                         <div class="slider-fouc">
-                            <div class="products-slider owl-carousel" data-item="4">
+                            <div class="products-slider owl-carousel" data-item="5">
                                 @foreach ($bestseller as $products)
                                 <?php
                                     $products_imgPath = 'template/images/Photo/Product/Small/'.$products['gambar']
@@ -178,7 +178,7 @@ use App\Models\Product;
                                         @if($getdiskon>0)
                                         <div class="price-template">
                                             <div class="item-new-price">
-                                                Rp {{ $getdiskon }}
+                                                {{ $getdiskon }}
                                             </div>
                                             <div class="item-old-price">
                                                 {{ $products['harga'] }}
@@ -187,9 +187,9 @@ use App\Models\Product;
                                         @endif
 
                                     </div>
-                                    <div class="tag new">
+                                    {{-- <div class="tag new">
                                         <span>{{ $products['meta_title'] }}</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 @endforeach
                             </div>
@@ -199,7 +199,7 @@ use App\Models\Product;
                 <div class="tab-content">
                     <div class="tab-pane active show fade" id="discounted-products">
                         <div class="slider-fouc">
-                            <div class="products-slider owl-carousel" data-item="4">
+                            <div class="products-slider owl-carousel" data-item="5">
                                 @foreach ($diskonproduct as $products)
                                 <?php
                                     $products_imgPath = 'template/images/Photo/Product/Small/'.$products['gambar']
@@ -248,7 +248,7 @@ use App\Models\Product;
                                         @if($getdiskon>0)
                                         <div class="price-template">
                                             <div class="item-new-price">
-                                                Rp {{ $getdiskon }}
+                                                {{ $getdiskon }}
                                             </div>
                                             <div class="item-old-price">
                                                 {{ $products['harga'] }}
@@ -257,9 +257,9 @@ use App\Models\Product;
                                         @endif
 
                                     </div>
-                                    <div class="tag new">
+                                    {{-- <div class="tag new">
                                         <span>{{ $products['meta_title'] }}</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 @endforeach
                             </div>
@@ -269,7 +269,7 @@ use App\Models\Product;
                 <div class="tab-content">
                     <div class="tab-pane active show fade" id="men-featured-products">
                         <div class="slider-fouc">
-                            <div class="products-slider owl-carousel" data-item="4">
+                            <div class="products-slider owl-carousel" data-item="5">
                                 @foreach ($featured as $products)
                                 <?php
                                     $products_imgPath = 'template/images/Photo/Product/Small/'.$products['gambar']
@@ -318,7 +318,7 @@ use App\Models\Product;
                                         @if($getdiskon>0)
                                         <div class="price-template">
                                             <div class="item-new-price">
-                                                Rp {{ $getdiskon }}
+                                                {{ $getdiskon }}
                                             </div>
                                             <div class="item-old-price">
                                                 {{ $products['harga'] }}
@@ -327,9 +327,9 @@ use App\Models\Product;
                                         @endif
 
                                     </div>
-                                    <div class="tag new">
+                                    {{-- <div class="tag new">
                                         <span>{{ $products['meta_title'] }}</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 @endforeach
                             </div>

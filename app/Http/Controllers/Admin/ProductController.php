@@ -172,9 +172,9 @@ class ProductController extends Controller
 
             foreach ($data['paket'] as $key => $value) {
                 $paketCount = ProductAtribute::where('paket', $value)->count();
-                if($paketCount > 0){
-                    return redirect()->back()->with('error_message', 'Product Attribute has Duplicated, Please Add another Paket!');
-                }
+                // if($paketCount > 0){
+                //     return redirect()->back()->with('error_message', 'Product Attribute has Duplicated, Please Add another Paket!');
+                // }
                 if (!empty($value)) {
                     $attribute = new ProductAtribute;
                     $attribute -> product_id = $id;

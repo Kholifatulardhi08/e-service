@@ -19,11 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('type');
             $table->string('nama');
-            $table->float('harga')->nullable();
+            $table->float('harga', 20.0)->nullable();
             $table->float('diskon')->nullable();
             $table->string('gambar');
             $table->string('video')->nullable();
-            $table->string('deskripsi');
+            $table->string('deskripsi', 10000);
             $table->string('meta_title');
             $table->string('meta_description');
             $table->string('meta_keywords');
