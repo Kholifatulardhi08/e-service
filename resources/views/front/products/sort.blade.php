@@ -9,8 +9,8 @@ use App\Models\Product;
             <div class="image-container">
                 <a class="item-img-wrapper-link" href="single-product.html">
                     <?php
-                                    $products_imgPath = 'template/images/Photo/Product/Small/'.$catpro['gambar']
-                                    ?>
+                        $products_imgPath = 'template/images/Photo/Product/Small/'.$catpro['gambar']
+                    ?>
                     @if(!empty($catpro['gambar']) && file_exists($products_imgPath))
                     <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
                     @else
