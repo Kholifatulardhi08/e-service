@@ -16,6 +16,8 @@ if(isset($product['category_id'])){
 <div class="form-group">
     <label for="{{ $filter['filter_column'] }}">{{ $filter['filter_column'] }}</label>
     <select class="form-control" name="{{ $filter['filter_column'] }}" id="{{ $filter['filter_column'] }}">
+        <option value="NULL" @if(!empty($filter['filter_column']) && $filter['filter_column']==='NULL' ) selected=""
+            @endif>Select</option>
         @foreach($filter['product_filter_values'] as $value)
         <option value="{{ $value['filter_value'] }}" @if(!empty($filter['filter_column']) &&
             $filter['filter_column']==$value['filter_value']) selected="" @endif>{{

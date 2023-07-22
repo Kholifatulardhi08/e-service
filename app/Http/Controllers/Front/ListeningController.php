@@ -54,6 +54,15 @@ class ListeningController extends Controller
                 $categoryproduct->whereIn('products.id', $getProductid);
             }
 
+            if(isset($data['price']) && !empty($data['price'])){
+                $implodeprice = implode('-', $data['price']);
+                $explodeprice = explode('-', $implodeprice);
+                $min = reset($explodeprice);
+                $max = end($explodeprice);
+                $getProductid = Product::select('id')->whereBetween('harga', [$min, $max])->pluck('id')->toArray();
+                $categoryproduct->whereIn('products.id', $getProductid);
+            }
+
             $categoryproduct = $categoryproduct->paginate(3);
             // dd($categorydetails);
             return view('front.products.sort')->with(compact('categoryproduct', 'categorydetails', 'url'));
