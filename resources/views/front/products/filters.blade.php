@@ -53,7 +53,7 @@ $productfilter = ProductFilter::productFilters();
         <form class="facet-form" action="#" method="post">
             <div class="associate-wrapper">
                 <?php 
-                    $harga = array('0 - 1000000', '1000000 - 100000000');
+                    $harga = array('1000 - 10000', '10000 - 100000', '100000 - 1000000', '1000000 - 100000000');
                 ?>
                 @foreach ( $harga as $key => $price )
                 <input type="checkbox" class="check-box price" name="price[]" value="{{ $price }}" id="price{{ $key }}">
