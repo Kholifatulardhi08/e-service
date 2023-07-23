@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ListeningController;
+use App\Http\Controllers\Front\PenyediaController;
 use App\Http\Controllers\Admin\FilterController;
 use App\Models\Category;
 /*
@@ -125,5 +126,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     foreach ($caturls as $key => $url) {
         Route::match(['get', 'post'], '/'.$url, 'ListeningController@listening');
     }
+
+    // Vendor/Login/Register
+    Route::get('/penyedia/login-register', 'PenyediaController@loginregister');
 });
 
