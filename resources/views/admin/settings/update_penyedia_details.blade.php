@@ -162,35 +162,34 @@
                             <div class="form-group">
                                 <label for="nama_toko">Nama</label>
                                 <input type="text" class="form-control" id="nama_toko" name="nama_toko"
-                                    @if(isset($view_penyedia_details['nama_toko']))
-                                    value="{{ $view_penyedia_details['jasadetail']['nama_toko'] }}" @endif required>
+                                    @if(isset($penyediadetail['nama_toko'])) value="{{ $penyediadetail['nama_toko'] }}"
+                                    @endif required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat_toko">Alamat</label>
                                 <input type="text" class="form-control" id="alamat_toko" name="alamat_toko"
-                                    @if(isset($view_penyedia_details['alamat_toko']))
-                                    value="{{ $view_penyedia_details['jasadetail']['alamat_toko'] }}" @endif required>
+                                    @if(isset($penyediadetail['alamat_toko']))
+                                    value="{{ $penyediadetail['alamat_toko'] }}" @endif required>
                             </div>
                             <div class="form-group">
                                 <label for="kecamatan_toko">Kecamatan</label>
                                 <input type="text" class="form-control" id="kecamatan_toko" name="kecamatan_toko"
-                                    @if(isset($view_penyedia_details['kecamatan_toko']))
-                                    value="{{ $view_penyedia_details['jasadetail']['kecamatan_toko'] }}" @endif
-                                    required>
+                                    @if(isset($penyediadetail['kecamatan_toko']))
+                                    value="{{ $penyediadetail['kecamatan_toko'] }}" @endif required>
                             </div>
                             <div class="form-group">
                                 <label for="kota_toko">Kota</label>
                                 <input type="text" class="form-control" id="kota_toko" name="kota_toko"
-                                    @if(isset($view_penyedia_details['kota_toko']))
-                                    value="{{ $view_penyedia_details['jasadetail']['kota_toko'] }}" @endif required>
+                                    @if(isset($penyediadetail['kota_toko'])) value="{{ $penyediadetail['kota_toko'] }}"
+                                    @endif required>
                             </div>
                             <div class="form-group">
                                 <label for="provinsi_toko">Provinsi</label>
                                 <select class="form-control" name="provinsi_toko" id="provinsi_toko">
                                     <option value="">Pilih Provinsi</option>
                                     @foreach ($provinsi as $items)
-                                    <option value="{{ $items['name'] }}"
-                                        @if(isset($view_penyedia_details['provinsi_toko']) && $items['name']==$penyediadetail['provinsi_toko']) selected @endif>
+                                    <option value="{{ $items['name'] }}" @if(isset($penyediadetail['provinsi_toko']) &&
+                                        $items['name']==$penyediadetail['provinsi_toko']) selected @endif>
                                         {{ $items['name'] }}
                                     </option>
                                     @endforeach
@@ -199,19 +198,9 @@
                             <div class="form-group">
                                 <label for="kode_pos_toko">Kode Pos</label>
                                 <input type="text" class="form-control" id="kode_pos_toko" name="kode_pos_toko"
-                                    @if(isset($view_penyedia_details['kode_pos_toko']))
-                                    value="{{ $view_penyedia_details['jasadetail']['kode_pos_toko'] }}" @endif required>
+                                    @if(isset($penyediadetail['kode_pos_toko']))
+                                    value="{{ $penyediadetail['kode_pos_toko'] }}" @endif required>
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="image">Image</label>
-                                <input type="file" class="form-control" id="image" name="image">
-                                @if (!empty(Auth::guard('admin')->user()->image))
-                                <a target="_blank"
-                                    href="{{ url('template/images/Photo/'.Auth::guard('admin')->user()->image) }}">Preview</a>
-                                <input type="hidden" name="current_hidden_image"
-                                    value="{{ Auth::guard('admin')->user()->image }}">
-                                @endif
-                            </div> --}}
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         </form>
                     </div>
@@ -255,28 +244,34 @@
                             <div class="form-group">
                                 <label for="jenis_bank">Jenis Bank</label>
                                 <select class="form-control" name="jenis_bank" id="jenis_bank">
-                                    <option value="BCA" @if($penyediadetail['jenis_bank']=="BCA" ) selected @endif>BCA
+                                    <option value="BCA" @if(isset($jenis_bank['jenis_bank']) &&
+                                        $penyediadetail['jenis_bank']=="BCA" ) selected @endif>BCA
                                     </option>
-                                    <option value="Mandiri" @if($penyediadetail['jenis_bank']=="Mandiri" ) selected
-                                        @endif>Mandiri</option>
-                                    <option value="BNI" @if($penyediadetail['jenis_bank']=="BNI" ) selected @endif>BNI
+                                    <option value="Mandiri" @if(isset($jenis_bank['jenis_bank']) &&
+                                        $penyediadetail['jenis_bank']=="Mandiri" ) selected @endif>Mandiri</option>
+                                    <option value="BNI" @if(isset($jenis_bank['jenis_bank']) &&
+                                        $penyediadetail['jenis_bank']=="BNI" ) selected @endif>BNI
                                     </option>
-                                    <option value="BRI" @if($penyediadetail['jenis_bank']=="BRI" ) selected @endif>BRI
+                                    <option value="BRI" @if(isset($jenis_bank['jenis_bank']) &&
+                                        $penyediadetail['jenis_bank']=="BRI" ) selected @endif>BRI
                                     </option>
-                                    <option value="BSI" @if($penyediadetail['jenis_bank']=="BSI" ) selected @endif>BSI
+                                    <option value="BSI" @if(isset($jenis_bank['jenis_bank']) &&
+                                        $penyediadetail['jenis_bank']=="BSI" ) selected @endif>BSI
                                     </option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="nomor_bank">No Rekening</label>
                                 <input type="text" class="form-control" id="nomor_bank" name="nomor_bank"
-                                    value="{{ $penyediadetail['nomor_bank'] }}" placeholder="Masukkan no bank anda"
-                                    required>
+                                    @if(isset($penyediadetail['nomor_bank']))
+                                    value="{{ $penyediadetail['nomor_bank'] }}" @endif
+                                    placeholder="Masukkan no bank anda" required>
                             </div>
                             <div class="form-group">
                                 <label for="nama_pemilik_bank">Nama Pemilik Bank</label>
                                 <input type="text" class="form-control" id="nama_pemilik_bank" name="nama_pemilik_bank"
-                                    value="{{ $penyediadetail['nama_pemilik_bank'] }}"
+                                    @if(isset($penyediadetail['nama_pemilik_bank']))
+                                    value="{{ $penyediadetail['nama_pemilik_bank'] }}" @endif
                                     placeholder="Masukkan Nama sesuai Nama bank anda" required>
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>

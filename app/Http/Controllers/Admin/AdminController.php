@@ -183,7 +183,7 @@ class AdminController extends Controller
     
                 $this->validate($request, $rules, $customMessages);
                 // echo Auth::guard('admin')->user()->penyedia_id; die;
-                $penyediaCount = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
+                $penyediaCount = JasaDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->count();
                 if ($penyediaCount>0) {
                     JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->update([
                         'nama_toko'=>$data['nama_toko'], 
@@ -206,9 +206,9 @@ class AdminController extends Controller
                 }
                 return redirect()->back()->with('succses_message', 'Penyewa toko details updated Succsesfully!');
             }
-            $penyediaCount =  JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
+            $penyediaCount =  JasaDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->count();
             if($penyediaCount>0) {
-                $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+                $penyediadetail = JasaDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
             } else {
                 $penyediadetail = array();
             }
@@ -229,16 +229,26 @@ class AdminController extends Controller
                 ];
     
                 $this->validate($request, $rules, $customMessages);
-                BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->update([
-                    'jenis_bank'=>$data['jenis_bank'], 
-                    'nomor_bank'=>$data['nomor_bank'], 
-                    'nama_pemilik_bank'=>$data['nama_pemilik_bank']
-                ]);
+                $penyediaCount = BankDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->count();
+                if ($penyediaCount>0) {
+                    BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->update([
+                        'jenis_bank'=>$data['jenis_bank'], 
+                        'nomor_bank'=>$data['nomor_bank'], 
+                        'nama_pemilik_bank'=>$data['nama_pemilik_bank']
+                    ]);
+                } else {
+                    BankDetail::insert([
+                        'penyedia_id'=>Auth::guard('admin')->user()->penyedia_id,
+                        'jenis_bank'=>$data['jenis_bank'], 
+                        'nomor_bank'=>$data['nomor_bank'], 
+                        'nama_pemilik_bank'=>$data['nama_pemilik_bank']
+                    ]);
+                }
                 return redirect()->back()->with('succses_message', 'Penyewa bank details updated Succsesfully!');
             }
-            $penyediaCount =  BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
+            $penyediaCount =  BankDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->count();
             if($penyediaCount>0) {
-                $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+                $penyediadetail = BankDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
             } else {
                 $penyediadetail = array();
             }
