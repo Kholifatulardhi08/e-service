@@ -130,7 +130,7 @@ class AdminController extends Controller
                 $data = $request->all();
 
                 $rules = [
-                    'nama' => 'required|regex:/^[\pL\s\-]+$/u',
+                    // 'nama' => 'required|regex:/^[\pL\s\-]+$/u',
                     'no_hp' => 'required',
                 ];
                 $customMessages = [
@@ -182,17 +182,36 @@ class AdminController extends Controller
                 ];
     
                 $this->validate($request, $rules, $customMessages);
-                JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->update([
-                    'nama_toko'=>$data['nama_toko'], 
-                    'alamat_toko'=>$data['alamat_toko'], 
-                    'kecamatan_toko'=>$data['kecamatan_toko'],
-                    'kota_toko'=>$data['kota_toko'],
-                    'provinsi_toko'=>$data['provinsi_toko'],
-                    'kode_pos_toko'=>$data['kode_pos_toko'],
-                ]);
+                // echo Auth::guard('admin')->user()->penyedia_id; die;
+                $penyediaCount = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
+                if ($penyediaCount>0) {
+                    JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->update([
+                        'nama_toko'=>$data['nama_toko'], 
+                        'alamat_toko'=>$data['alamat_toko'], 
+                        'kecamatan_toko'=>$data['kecamatan_toko'],
+                        'kota_toko'=>$data['kota_toko'],
+                        'provinsi_toko'=>$data['provinsi_toko'],
+                        'kode_pos_toko'=>$data['kode_pos_toko'],
+                    ]);
+                } else {
+                    JasaDetail::insert([
+                        'penyedia_id'=>Auth::guard('admin')->user()->penyedia_id,
+                        'nama_toko'=>$data['nama_toko'], 
+                        'alamat_toko'=>$data['alamat_toko'], 
+                        'kecamatan_toko'=>$data['kecamatan_toko'],
+                        'kota_toko'=>$data['kota_toko'],
+                        'provinsi_toko'=>$data['provinsi_toko'],
+                        'kode_pos_toko'=>$data['kode_pos_toko'],
+                    ]);
+                }
                 return redirect()->back()->with('succses_message', 'Penyewa toko details updated Succsesfully!');
-        }
-            $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+            }
+            $penyediaCount =  JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
+            if($penyediaCount>0) {
+                $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+            } else {
+                $penyediadetail = array();
+            }
         }elseif($slug=="bank"){
             Session::put('page', 'bank');
             if ($request->isMethod('POST')){
@@ -217,11 +236,16 @@ class AdminController extends Controller
                 ]);
                 return redirect()->back()->with('succses_message', 'Penyewa bank details updated Succsesfully!');
             }
-            $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+            $penyediaCount =  BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
+            if($penyediaCount>0) {
+                $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+            } else {
+                $penyediadetail = array();
+            }
         }
+        $provinsi = \Indonesia::allProvinces()->toArray();
         $kecamatan = \Indonesia::allDistricts()->toArray();
         $kota = \Indonesia::allCities()->toArray();
-        $provinsi = \Indonesia::allProvinces()->toArray();
         return view('admin\settings\update_penyedia_details')->with(compact('slug', 'kecamatan', 'kota', 'penyediadetail', 'provinsi'));
     }
 

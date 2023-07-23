@@ -33,7 +33,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a @if ( Session::get('page')=='banners' || Session::get('page')=='filter'  ) style="background: #4B4BAC !important;
+            <a @if ( Session::get('page')=='banners' || Session::get('page')=='filter' ) style="background: #4B4BAC !important;
             color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#banner"
                 aria-expanded="false" aria-controls="#banner">
                 <i class="icon-columns menu-icon"></i>
@@ -51,6 +51,40 @@
                         <a @if (Session::get('page')=='filter' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/filters') }}">Filters</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item" @if (Session::get('page')=='sections' || Session::get('page')=='category' ||
+            Session::get('page')=='products' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif>
+            <a class="nav-link" data-toggle="collapse" href="#catalog-element" aria-expanded="false"
+                aria-controls="#catalog-element">
+                <i class="mdi mdi-application menu-icon"></i>
+                <span class="menu-title">Manage Catalog</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="catalog-element">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='brands' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/brands') }}">Brand</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='categories' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/category') }}">Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='sections' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/section') }}">Sections</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='products' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/products') }}">Product</a>
                     </li>
                 </ul>
             </div>
@@ -94,6 +128,25 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item" @if (Session::get('page')=='sections' || Session::get('page')=='category' ||
+            Session::get('page')=='products' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif>
+            <a class="nav-link" data-toggle="collapse" href="#catalog-element" aria-expanded="false"
+                aria-controls="#catalog-element">
+                <i class="mdi mdi-application menu-icon"></i>
+                <span class="menu-title">Manage Catalog</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="catalog-element">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='products' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/products') }}">Product</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
         @else
         <li @if (Session::get('page')=='update_admin_password' || Session::get('page')=='update_admin_details' ) style="background: #4B4BAC !important;
         color: #fff !important;" @endif class="nav-item">
@@ -118,42 +171,7 @@
             </div>
         </li>
         @endif
-        <li class="nav-item" @if (Session::get('page')=='sections' || Session::get('page')=='category' ||
-            Session::get('page')=='products' ) style="background: #4B4BAC !important;
-            color: #fff !important;" @endif>
-            <a class="nav-link" data-toggle="collapse" href="#catalog-element" aria-expanded="false"
-                aria-controls="#catalog-element">
-                <i class="mdi mdi-application menu-icon"></i>
-                <span class="menu-title">Manage Catalog</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="catalog-element">
-                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='brands' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/brands') }}">Brand</a>
-                    </li>
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='categories' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/category') }}">Category</a>
-                    </li>
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='products' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/products') }}">Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='sections' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/section') }}">Sections</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        {{--
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
                 <i class="icon-contract menu-icon"></i>
                 <span class="menu-title">Icons</span>

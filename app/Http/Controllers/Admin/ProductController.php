@@ -20,11 +20,23 @@ class ProductController extends Controller
     public function index()
     {
         Session::put('page', 'products');
+        $adminType  = Auth::guard('admin')->user()->type;
+        $penyedia_id  = Auth::guard('admin')->user()->penyedia_id;
+        if($adminType=="penyedia"){
+            $penyediaStatus = Auth::guard('admin')->user()->status;
+            if ($penyediaStatus==0) {
+                return redirect('admin/update_admin_details')->with('error_message', 'Vendor Account ist not approved!');
+            }
+        }
         $product = Product::with(['category'=>function($query){
             $query->select('id', 'nama');
         }, 'section'=>function($query){
             $query->select('id', 'nama');
-        }])->get()->toArray();
+        }]);
+        if ($adminType=="penyedia") {
+            $product = $product->where('penyedia_id', $penyedia_id);
+        }
+        $product = $product->get()->toArray();
         // dd($product);
         return view('admin.product.product')->with(compact('product'));
     }

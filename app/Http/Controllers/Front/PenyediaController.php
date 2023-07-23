@@ -108,7 +108,7 @@ class PenyediaController extends Controller
             });
 
                 $message = "Your penyedia email, you can add personal detail, jasa detail, bank detail and add product!";
-                return redirect('admin/login')->with('success_message', $message);
+                return redirect('penyedia/login-register')->with('success_message', $message);
             }
         }else{
             abort(404);

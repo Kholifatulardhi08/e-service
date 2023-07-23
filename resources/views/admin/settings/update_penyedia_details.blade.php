@@ -99,16 +99,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="provinsi">Provinsi</label>
-                                    <select class="form-control" name="provinsi" id="provinsi">
-                                        <option value="">Pilih Provinsi</option>
-                                        @foreach ($provinsi as $items)
-                                            <option value="{{ $items['name'] }}" @if ($items['name']==$penyediadetail['provinsi'])
-                                                selected
-                                            @endif>
-                                            {{ $items['name'] }}
-                                            </option>                                        
-                                        @endforeach
-                                    </select>
+                                <select class="form-control" name="provinsi" id="provinsi">
+                                    <option value="">Pilih Provinsi</option>
+                                    @foreach ($provinsi as $items)
+                                    <option value="{{ $items['name'] }}"
+                                        @if($items['name']==$penyediadetail['provinsi']) selected @endif>
+                                        {{ $items['name'] }}
+                                    </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="image">Image</label>
@@ -163,44 +162,45 @@
                             <div class="form-group">
                                 <label for="nama_toko">Nama</label>
                                 <input type="text" class="form-control" id="nama_toko" name="nama_toko"
-                                    value="{{ $penyediadetail['nama_toko'] }}" required>
+                                    @if(isset($view_penyedia_details['nama_toko']))
+                                    value="{{ $view_penyedia_details['jasadetail']['nama_toko'] }}" @endif required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat_toko">Alamat</label>
                                 <input type="text" class="form-control" id="alamat_toko" name="alamat_toko"
-                                    value="{{ $penyediadetail['alamat_toko'] }}" placeholder="Masukkan alamat toko anda"
-                                    required>
+                                    @if(isset($view_penyedia_details['alamat_toko']))
+                                    value="{{ $view_penyedia_details['jasadetail']['alamat_toko'] }}" @endif required>
                             </div>
                             <div class="form-group">
                                 <label for="kecamatan_toko">Kecamatan</label>
                                 <input type="text" class="form-control" id="kecamatan_toko" name="kecamatan_toko"
-                                    value="{{ $penyediadetail['kecamatan_toko'] }}"
-                                    placeholder="Masukkan kecamatan anda" required>
+                                    @if(isset($view_penyedia_details['kecamatan_toko']))
+                                    value="{{ $view_penyedia_details['jasadetail']['kecamatan_toko'] }}" @endif
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="kota_toko">Kota</label>
                                 <input type="text" class="form-control" id="kota_toko" name="kota_toko"
-                                    value="{{ $penyediadetail['kota_toko'] }}" placeholder="Masukkan kota anda"
-                                    required>
+                                    @if(isset($view_penyedia_details['kota_toko']))
+                                    value="{{ $view_penyedia_details['jasadetail']['kota_toko'] }}" @endif required>
                             </div>
                             <div class="form-group">
                                 <label for="provinsi_toko">Provinsi</label>
                                 <select class="form-control" name="provinsi_toko" id="provinsi_toko">
                                     <option value="">Pilih Provinsi</option>
                                     @foreach ($provinsi as $items)
-                                        <option value="{{ $items['name'] }}" @if ($items['name']==$penyediadetail['provinsi_toko'])
-                                            selected
-                                        @endif>
+                                    <option value="{{ $items['name'] }}"
+                                        @if(isset($view_penyedia_details['provinsi_toko']) && $items['name']==$penyediadetail['provinsi_toko']) selected @endif>
                                         {{ $items['name'] }}
-                                        </option>                                        
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="kode_pos_toko">Kode Pos</label>
                                 <input type="text" class="form-control" id="kode_pos_toko" name="kode_pos_toko"
-                                    value="{{ $penyediadetail['kode_pos_toko'] }}" placeholder="Masukkan Provinsi anda"
-                                    required>
+                                    @if(isset($view_penyedia_details['kode_pos_toko']))
+                                    value="{{ $view_penyedia_details['jasadetail']['kode_pos_toko'] }}" @endif required>
                             </div>
                             {{-- <div class="form-group">
                                 <label for="image">Image</label>
@@ -257,7 +257,8 @@
                                 <select class="form-control" name="jenis_bank" id="jenis_bank">
                                     <option value="BCA" @if($penyediadetail['jenis_bank']=="BCA" ) selected @endif>BCA
                                     </option>
-                                    <option value="Mandiri" @if($penyediadetail['jenis_bank']=="Mandiri" ) selected @endif>Mandiri</option>
+                                    <option value="Mandiri" @if($penyediadetail['jenis_bank']=="Mandiri" ) selected
+                                        @endif>Mandiri</option>
                                     <option value="BNI" @if($penyediadetail['jenis_bank']=="BNI" ) selected @endif>BNI
                                     </option>
                                     <option value="BRI" @if($penyediadetail['jenis_bank']=="BRI" ) selected @endif>BRI
