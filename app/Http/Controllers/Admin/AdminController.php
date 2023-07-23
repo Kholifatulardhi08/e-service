@@ -32,13 +32,17 @@ class AdminController extends Controller
                 'password' => 'required',
             ]);
 
-            if(Auth::guard('admin')->attempt(['email'=>$data['email'], 'password'=>$data['password'],
-            'status'=>1])){
-                return redirect('admin/dashboard');
-            }else {
+            if(Auth::guard('admin')->attempt(['email'=>$data['email'], 'password'=>$data['password']])){
+                if(Auth::guard('admin')->user()->type=="penyedia" && Auth::guard('admin')->user()->confirm=="No"){
+                    return redirect()->back()->with('error_message', 'please confirm your email & password via link!');
+                }elseif(Auth::guard('admin')->user()->type=="penyedia" && Auth::guard('admin')->user()->status=="0"){
+                    return redirect()->back()->with('error_message', 'your account admin is not active!');
+                }else{
+                    return redirect('admin/dashboard');
+                }
+            }else{
                 return redirect()->back()->with('error_message', 'invalid email and password');
             }
-             return view('admin.dashboard');
         }
         return view('admin.login');
     }

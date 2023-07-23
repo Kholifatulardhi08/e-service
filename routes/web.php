@@ -128,6 +128,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     }
 
     // Vendor/Login/Register
-    Route::get('/penyedia/login-register', 'PenyediaController@loginregister');
+    Route::get('penyedia/login-register', 'PenyediaController@loginregister');
+    Route::post('penyedia/register', 'PenyediaController@register');
+    Route::get('penyedia/confirm/{code}', 'PenyediaController@confirmpenyedia');
 });
 
