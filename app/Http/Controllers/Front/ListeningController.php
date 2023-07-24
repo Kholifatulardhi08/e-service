@@ -103,9 +103,12 @@ class ListeningController extends Controller
         }
     }
 
-    public function detailproduct()
+    public function detailproduct($id)
     {
-        return view('front.products.product_details');
+        $product = Product::with('category', 'section', 'brand', 'attribute', 'image')->find($id)->toArray();
+        $categorydetails = Category::categorydetails($product['category']['url']);
+        // dd($product);
+        return view('front.products.product_details')->with(compact('product', 'categorydetails'));
     }
 
 }

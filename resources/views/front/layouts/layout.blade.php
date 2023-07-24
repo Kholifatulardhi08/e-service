@@ -32,6 +32,9 @@
     <!-- Main -->
     <link rel="stylesheet" href="{{ url('front/css/bundle.css') }}">
     <link rel="shortcut icon" href="{{ url('template/images/aa.png') }}" />
+    <!-- CSS Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -77,9 +80,16 @@
     <script type="text/javascript" src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
     <!-- Main -->
     <script type="text/javascript" src="{{ url('front/js/app.js') }}"></script>
-    {{--  custom js  --}}
+    {{-- custom js --}}
     <script type="text/javascript" src="{{ url('front/js/custom.js') }}"></script>
-    {{--  Script for filter checkbox  --}}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    {{--  <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>  --}}
+
+    {{-- Script for filter checkbox --}}
     @include('front.layouts.script')
 </body>
 

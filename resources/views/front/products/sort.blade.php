@@ -50,8 +50,8 @@ use App\Models\Product;
                 </div>
                 <div class="price-template">
                     <?php 
-                                         $getdiskon = Product::getdiskonharga($catpro['id'])
-                                    ?>
+                        $getdiskon = Product::getdiskonharga($catpro['id'])
+                    ?>
                     <div class="item-new-price">
                         Rp {{ $getdiskon }}
                     </div>
