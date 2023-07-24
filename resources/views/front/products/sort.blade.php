@@ -7,7 +7,7 @@ use App\Models\Product;
     <div class="product-item col-lg-4 col-md-6 col-sm-6">
         <div class="item">
             <div class="image-container">
-                <a class="item-img-wrapper-link" href="single-product.html">
+                <a class="item-img-wrapper-link" href="{{ url('product/'.$catpro['id']) }}">
                     <?php
                         $products_imgPath = 'template/images/Photo/Product/Small/'.$catpro['gambar']
                     ?>
@@ -36,7 +36,7 @@ use App\Models\Product;
                         </li>
                     </ul>
                     <h6 class="item-title">
-                        <a href="single-product.html">{{ $catpro['nama'] }}</a>
+                        <a href="{{ url('product/'.$catpro['id']) }}">{{ $catpro['nama'] }}</a>
                     </h6>
                     <div class="item-description">
                         <p>{{ $catpro['deskripsi'] }}</p>

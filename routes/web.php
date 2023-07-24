@@ -126,10 +126,13 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     foreach ($caturls as $key => $url) {
         Route::match(['get', 'post'], '/'.$url, 'ListeningController@listening');
     }
+    // product detail by id
+    Route::get('product/{id}', 'ListeningController@detailproduct');
 
     // Vendor/Login/Register
     Route::get('penyedia/login-register', 'PenyediaController@loginregister');
     Route::post('penyedia/register', 'PenyediaController@register');
-    Route::get('penyedia/confirm/{code}', 'PenyediaController@confirmpenyedia');
+    Route::get('penyedia/confirm/{code}', 'PenyediaController@confirmpenyedia'); 
+
 });
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\ProductFilter;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductAtribute;
 use Illuminate\Http\Request;
-use App\Models\ProductFilter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
@@ -102,4 +102,10 @@ class ListeningController extends Controller
         }
         }
     }
+
+    public function detailproduct()
+    {
+        return view('front.products.product_details');
+    }
+
 }
