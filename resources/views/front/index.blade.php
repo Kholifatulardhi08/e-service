@@ -41,16 +41,19 @@ use App\Models\Product;
             <h3 class="sec-maker-h3">Product jasa</h3>
             <ul class="nav tab-nav-style-1-a justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#men-latest-products">All Product</a>
+                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#men-latest-products">All Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#men-best-selling-products">Best Sellers</a>
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#men-best-selling-products">Best
+                        Sellers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#discounted-products">Discounted Products</a>
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#discounted-products">Discounted
+                        Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#men-featured-products">Featured Products</a>
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#men-featured-products">Featured
+                        Products</a>
                 </li>
             </ul>
         </div>
@@ -66,7 +69,7 @@ use App\Models\Product;
                                 ?>
                                 <div class="item">
                                     <div class="image-container">
-                                        <a class="item-img-wrapper-link" href="{{ url('products/'.$products['id']) }}">
+                                        <a class="item-img-wrapper-link" href="{{ url('product/'.$products['id']) }}">
                                             @if(!empty($products['gambar']) && file_exists($products_imgPath) )
                                             <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
                                             @else
@@ -127,7 +130,7 @@ use App\Models\Product;
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane active show fade" id="men-best-selling-products">
+                    <div class="tab-pane show fade" id="men-best-selling-products">
                         <div class="slider-fouc">
                             <div class="products-slider owl-carousel" data-item="5">
                                 @foreach ($bestseller as $products)
@@ -197,7 +200,7 @@ use App\Models\Product;
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane active show fade" id="discounted-products">
+                    <div class="tab-pane fade" id="discounted-products">
                         <div class="slider-fouc">
                             <div class="products-slider owl-carousel" data-item="5">
                                 @foreach ($diskonproduct as $products)
@@ -267,7 +270,7 @@ use App\Models\Product;
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane active show fade" id="men-featured-products">
+                    <div class="tab-pane fade" id="men-featured-products">
                         <div class="slider-fouc">
                             <div class="products-slider owl-carousel" data-item="5">
                                 @foreach ($featured as $products)
