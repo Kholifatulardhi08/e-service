@@ -7,9 +7,14 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Filter Value</h4>
+                        <h4 class="card-title">
+                            <a href="{{ url('admin/filters') }}" class="mdi mdi-arrow-left" onclick="goBack()">
+                            </a>
+                            Filter Value
+                        </h4>
                         <a style="max-width: 150px; float:right; display:inline-block"
-                            href="{{ url('admin/add-edit-filtervalue') }}" class="btn btn-block btn-primary">Add Filter Value</a>
+                            href="{{ url('admin/add-edit-filtervalue') }}" class="btn btn-block btn-primary">Add Filter
+                            Value</a>
                         @if(Session::has('succses_message'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Succses: </strong> {{ Session::get('succses_message') }}
@@ -62,13 +67,15 @@
                                         </td>
                                         <td>
                                             @if($filterValues['status']==1)
-                                            <a title="Status aktif" class="updatefilterValueStatus" id="filterValue-{{ $filterValues['id'] }}"
+                                            <a title="Status aktif" class="updatefilterValueStatus"
+                                                id="filterValue-{{ $filterValues['id'] }}"
                                                 filterValue_id="{{ $filterValues['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-check"
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a title="Status nonaktif" class="updatefilterValueStatus" id="filterValue-{{ $filterValues['id'] }}"
+                                            <a title="Status nonaktif" class="updatefilterValueStatus"
+                                                id="filterValue-{{ $filterValues['id'] }}"
                                                 filterValue_id="{{ $filterValues['id'] }}" href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>
@@ -76,7 +83,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a title="Edit filterValue" href="{{ url('admin/add-edit-filtervalue/'.$filterValues['id']) }}">
+                                            <a title="Edit filterValue"
+                                                href="{{ url('admin/add-edit-filtervalue/'.$filterValues['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-pencil-box"></i>
                                             </a>
                                             <?php
@@ -86,8 +94,8 @@
                                             </a>
                                             */
                                             ?>
-                                            <a title="Hapus filterValue"  href="javascript:void(0)" class="confirmDelete" module="filterValue"
-                                                moduleid="{{ $filterValues['id'] }}">
+                                            <a title="Hapus filterValue" href="javascript:void(0)" class="confirmDelete"
+                                                module="filterValue" moduleid="{{ $filterValues['id'] }}">
                                                 <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                             </a>
                                         </td>

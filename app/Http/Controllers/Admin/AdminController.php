@@ -50,7 +50,7 @@ class AdminController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout();
-        return redirect('admin/login');
+        return redirect('penyedia/login-register');
     }
 
     public function update_admin_password(Request $request)

@@ -7,7 +7,9 @@
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                         <h3 class="font-weight-bold">
-                            Products
+                            <a href="{{ url('admin/filters') }}" class="mdi mdi-arrow-left" onclick="goBack()">
+                            </a>
+                            Tambah Filters
                         </h3>
                     </div>
                     <div class="col-12 col-xl-4 mb-0">
@@ -68,7 +70,8 @@
                             @endif
                             <div class="form-group">
                                 <label for="cat_id">Category(select multiple)</label>
-                                <select class="form-control" name="cat_id[]" id="cat_id" multiple="" style="height: 100px;">
+                                <select class="form-control" name="cat_id[]" id="cat_id" multiple=""
+                                    style="height: 100px;">
                                     @foreach ($category as $section)
                                     <optgroup label="{{ $section['nama'] }}"></optgroup>
                                     @foreach ($section['category'] as $categories)
@@ -88,13 +91,15 @@
                                 <label for="filter_column">Name</label>
                                 <input type="text" class="form-control" id="filter_column" name="filter_column"
                                     @if(!empty($filter['filter_column'])) value="{{ $filter['filter_column'] }}" @else
-                                    value="{{ old('filter_column') }}" @endif placeholder="Masukkan Filter column " required>
+                                    value="{{ old('filter_column') }}" @endif placeholder="Masukkan Filter column "
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="filter_nama">Filter Nama</label>
                                 <input type="text" class="form-control" id="filter_nama" name="filter_nama"
                                     @if(!empty($filter['filter_nama'])) value="{{ $filter['filter_nama'] }}" @else
-                                    value="{{ old('filter_nama') }}" @endif placeholder="Masukkan filter nama " required>
+                                    value="{{ old('filter_nama') }}" @endif placeholder="Masukkan filter nama "
+                                    required>
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                             <button type="reset" class="btn btn-light">Cancel</button>

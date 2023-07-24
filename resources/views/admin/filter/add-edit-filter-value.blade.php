@@ -7,6 +7,8 @@
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                         <h3 class="font-weight-bold">
+                            <a href="{{ url('admin/filterValue') }}" class="mdi mdi-arrow-left" onclick="goBack()">
+                            </a>
                             Filter Value
                         </h3>
                     </div>
@@ -71,15 +73,15 @@
                                 <select class="form-control" name="product_filter_id" id="product_filter_id">
                                     <option value="">Select filter</option>
                                     @foreach ($filter as $filters)
-                                        <option value="{{ $filters['id'] }}">{{ $filters['filter_nama'] }}</option>                                    
+                                    <option value="{{ $filters['id'] }}">{{ $filters['filter_nama'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="filter_value">Filter Value</label>
                                 <input type="text" class="form-control" id="filter_value" name="filter_value"
-                                    @if(!empty($filterValue['filter_value'])) value="{{ $filterValue['filter_value'] }}" @else
-                                    value="{{ old('filter_value') }}" @endif placeholder="Masukkan Filter Value"
+                                    @if(!empty($filterValue['filter_value'])) value="{{ $filterValue['filter_value'] }}"
+                                    @else value="{{ old('filter_value') }}" @endif placeholder="Masukkan Filter Value"
                                     required>
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>

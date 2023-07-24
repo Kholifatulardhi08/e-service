@@ -9,6 +9,11 @@
                         <h3 class="font-weight-bold">
                             Tambah Banner
                         </h3>
+                        <h6 class="font-weight-normal mb-0">
+                            <a href="{{ url('admin/banners') }}">
+                                back
+                            </a>
+                        </h6>
                     </div>
                     <div class="mb-0 col-12 col-xl-4">
                         <div class="justify-content-end d-flex">

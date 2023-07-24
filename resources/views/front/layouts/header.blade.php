@@ -52,7 +52,7 @@ $sections = Section::sections();
                                     Customer Login</a>
                             </li>
                             <li>
-                                <a href="{{ url('admin/login') }}">
+                                <a href="{{ url('penyedia/login-register') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Vendor Login</a>
                             </li>

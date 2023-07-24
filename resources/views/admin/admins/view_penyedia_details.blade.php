@@ -42,34 +42,40 @@
                     <div class="card-body">
                         <h4 class="card-title">Informasi Data Toko</h4>
                         <div class="form-group">
-                            <label for="nama">Nama</label>
+                            <label for="nama_toko">Nama</label>
                             <input type="text" class="form-control" id="nama" name="nama"
-                                value="{{ $view_penyedia_details['jasadetail']['nama_toko'] }}" readonly="">
+                                @if(isset($penyediadetail['nama_toko']))
+                                value="{{ $view_penyedia_details['jasadetail']['nama_toko'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat"
-                                value="{{ $view_penyedia_details['jasadetail']['alamat_toko'] }}" readonly="">
+                            <label for="alamat_toko">Alamat</label>
+                            <input type="text" class="form-control" id="alamat_toko" name="alamat_toko"
+                                @if(isset($penyediadetail['alamat_toko']))
+                                value="{{ $view_penyedia_details['jasadetail']['alamat_toko'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="no_hp">No Handphone</label>
-                            <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                value="{{ $view_penyedia_details['jasadetail']['kode_pos_toko'] }}" readonly="">
+                            <label for="kode_pos_toko">No Handphone</label>
+                            <input type="text" class="form-control" id="kode_pos_toko" name="kode_pos_toko"
+                                @if(isset($penyediadetail['kode_pos_toko']))
+                                value="{{ $view_penyedia_details['jasadetail']['kode_pos_toko'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="kecamatan">Kecamatan</label>
-                            <input type="text" class="form-control" id="kecamatan" name="kecamatan"
-                                value="{{ $view_penyedia_details['jasadetail']['kecamatan_toko'] }}" readonly="">
+                            <label for="kecamatan_toko">Kecamatan</label>
+                            <input type="text" class="form-control" id="kecamatan_toko" name="kecamatan_toko"
+                                @if(isset($penyediadetail['kecamatan_toko']))
+                                value="{{ $view_penyedia_details['jasadetail']['kecamatan_toko'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="kota">Kota</label>
-                            <input type="text" class="form-control" id="kota" name="kota"
-                                value="{{ $view_penyedia_details['jasadetail']['kota_toko'] }}" readonly="">
+                            <label for="kota_toko">Kota</label>
+                            <input type="text" class="form-control" id="kota_toko" name="kota_toko"
+                                @if(isset($penyediadetail['kota_toko']))
+                                value="{{ $view_penyedia_details['jasadetail']['kota_toko'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="provinsi">Provinsi</label>
-                            <input type="text" class="form-control" id="provinsi" name="provinsi"
-                                value="{{ $view_penyedia_details['jasadetail']['provinsi_toko'] }}" readonly="">
+                            <label for="provinsi_toko">Provinsi</label>
+                            <input type="text" class="form-control" id="provinsi_toko" name="provinsi_toko"
+                                @if(isset($penyediadetail['kota_toko']))
+                                value="{{ $view_penyedia_details['jasadetail']['provinsi_toko'] }}" @endif readonly="">
                         </div>
                         @if (!empty(Auth::guard('admin')->user()->image))
                         <div class="form-group">
@@ -90,19 +96,23 @@
                     <div class="card-body">
                         <h4 class="card-title">Informasi Data Bank</h4>
                         <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama"
-                                value="{{ $view_penyedia_details['bankdetail']['jenis_bank'] }}" readonly="">
+                            <label for="jenis_bank">Jenis Bank</label>
+                            <input type="text" class="form-control" id="jenis_bank" name="jenis_bank"
+                                @if(isset($penyediadetail['jenis_bank']))
+                                value="{{ $view_penyedia_details['bankdetail']['jenis_bank'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat"
-                                value="{{ $view_penyedia_details['bankdetail']['nomor_bank'] }}" readonly="">
+                            <label for="nomor_bank">Alamat</label>
+                            <input type="text" class="form-control" id="nomor_bank" name="nomor_bank"
+                                @if(isset($penyediadetail['nomor_bank']))
+                                value="{{ $view_penyedia_details['bankdetail']['nomor_bank'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="no_hp">No Handphone</label>
-                            <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                value="{{ $view_penyedia_details['bankdetail']['nama_pemilik_bank'] }}" readonly="">
+                            <label for="nama_pemilik_bank">Nama Pemilik Bank</label>
+                            <input type="text" class="form-control" id="nama_pemilik_bank" name="nama_pemilik_bank"
+                                @if(isset($penyediadetail['nama_pemilik_bank']))
+                                value="{{ $view_penyedia_details['bankdetail']['nama_pemilik_bank'] }}" @endif
+                                readonly="">
                         </div>
                     </div>
                 </div>
@@ -114,38 +124,44 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" class="form-control" id="email" name="email"
-                                value="{{ $view_penyedia_details['penyedia']['email'] }}" readonly="">
+                                @if(isset($penyediadetail['email']))
+                                value="{{ $view_penyedia_details['penyedia']['email'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control" id="nama" name="nama"
-                                value="{{ $view_penyedia_details['penyedia']['nama'] }}" readonly="">
+                                @if(isset($penyediadetail['nama']))
+                                value="{{ $view_penyedia_details['penyedia']['nama'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat"
-                                value="{{ $view_penyedia_details['penyedia']['alamat'] }}" readonly="">
+                                @if(isset($penyediadetail['alamat']))
+                                value="{{ $view_penyedia_details['penyedia']['alamat'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
                             <label for="no_hp">No Handphone</label>
                             <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                value="{{ $view_penyedia_details['penyedia']['no_hp'] }}"
-                                placeholder="Masukkan Nomor handpone anda" readonly="">
+                                @if(isset($penyediadetail['no_hp']))
+                                value="{{ $view_penyedia_details['penyedia']['no_hp'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
                             <input type="text" class="form-control" id="kecamatan" name="kecamatan"
-                                value="{{ $view_penyedia_details['penyedia']['kecamatan'] }}" readonly="">
+                                @if(isset($penyediadetail['no_hp']))
+                                value="{{ $view_penyedia_details['penyedia']['kecamatan'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
                             <label for="kota">Kota</label>
                             <input type="text" class="form-control" id="kota" name="kota"
-                                value="{{ $view_penyedia_details['penyedia']['kota'] }}" readonly="">
+                                @if(isset($penyediadetail['no_hp']))
+                                value="{{ $view_penyedia_details['penyedia']['kota'] }}" @endif readonly="">
                         </div>
                         <div class="form-group">
                             <label for="provinsi">Provinsi</label>
                             <input type="text" class="form-control" id="provinsi" name="provinsi"
-                                value="{{ $view_penyedia_details['penyedia']['provinsi'] }}" readonly="">
+                                @if(isset($penyediadetail['no_hp']))
+                                value="{{ $view_penyedia_details['penyedia']['provinsi'] }}" @endif readonly="">
                         </div>
                     </div>
                 </div>
