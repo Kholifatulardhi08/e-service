@@ -109,7 +109,11 @@ class ListeningController extends Controller
         $product = Product::with('penyedia' ,'category', 'section', 'brand', 'attribute', 'image')->find($id)->toArray();
         $categorydetails = Category::categorydetails($product['category']['url']);
         // dd($product);
-        return view('front.products.product_details')->with(compact('product', 'categorydetails'));
+
+        // Get similiar product
+        $similiarproduct = Product::with('brand')->where('category_id', $product['category']['id'])->where('id', '!=', $id)->limit(4)->inRandomOrder()->get()->toArray();
+        // dd($similiarproduct);
+        return view('front.products.product_details')->with(compact('product', 'categorydetails', 'similiarproduct'));
     }
 
     public function getProductharga(Request $request)

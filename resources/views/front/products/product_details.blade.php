@@ -102,11 +102,11 @@ use App\Models\Product;
                     </div>
                     <div class="section-4-penyedia u-s-p-y-14">
                         @if(isset($product['penyedia']))
-                            <span> Penyedia Jasa : 
-                                <a href="{{  url('products/'.$product['penyedia']['id']) }}">
-                                    {{ $product['penyedia']['jasadetail']['nama_toko'] }}
-                                </a>
-                            </span>
+                        <span> Penyedia Jasa :
+                            <a href="{{  url('products/'.$product['penyedia']['id']) }}">
+                                {{ $product['penyedia']['jasadetail']['nama_toko'] }}
+                            </a>
+                        </span>
                         @endif
                     </div>
                     <div class="section-5-product-variants u-s-p-y-14">
@@ -186,21 +186,22 @@ use App\Models\Product;
                 <div class="detail-tabs-wrapper u-s-p-t-80">
                     <div class="detail-nav-wrapper u-s-m-b-30">
                         <ul class="nav single-product-nav justify-content-center">
-                            {{--  <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#description">Video</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab"
                                     data-bs-target="#specification">Specifications</a>
-                            </li>  --}}
+                            </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#review">Reviews (15)</a>
+                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#review">Reviews
+                                    (15)</a>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content">
                         <!-- Description-Tab -->
-                        {{--  <div class="tab-pane fade active show" id="description">
+                        {{-- <div class="tab-pane fade active show" id="description">
                             <div class="description-whole-container text-center">
                                 @if(!empty($product['video']))
                                 <video width="320" height="240" controls>
@@ -282,7 +283,7 @@ use App\Models\Product;
                                 </div>
                             </div>
                         </div>
-                        <!-- Specifications-Tab /- -->  --}}
+                        <!-- Specifications-Tab /- --> --}}
                         <!-- Reviews-Tab -->
                         <div class="tab-pane fade active show" id="review">
                             <div class="review-whole-container">
@@ -538,10 +539,20 @@ use App\Models\Product;
                     </div>
                     <div class="slider-fouc">
                         <div class="products-slider owl-carousel" data-item="4">
+                            @foreach ($similiarproduct as $similiar)
                             <div class="item">
                                 <div class="image-container">
                                     <a class="item-img-wrapper-link" href="single-product.html">
-                                        <img class="img-fluid" src="images/product/product@3x.jpg" alt="Product">
+                                        <?php
+                                        $products_imgPath = 'template/images/Photo/Product/Small/'.$similiar['gambar']
+                                    ?>
+                                        @if(!empty($similiar['gambar']) && file_exists($products_imgPath))
+                                        <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
+                                        @else
+                                        <img class="img-fluid"
+                                            src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
+                                            alt="Product">
+                                        @endif
                                     </a>
                                     <div class="item-action-behaviors">
                                         <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
@@ -554,166 +565,46 @@ use App\Models\Product;
                                     <div class="what-product-is">
                                         <ul class="bread-crumb">
                                             <li class="has-separator">
-                                                <a href="shop-v1-root-category.html">Product Code</a>
+                                                <a href="shop-v1-root-category.html">{{ $similiar['meta_title'] }}</a>
+                                            </li>
+                                            <li>
+                                                <a href="shop-v3-sub-sub-category.html">{{ $similiar['type'] }}</a>
                                             </li>
                                         </ul>
                                         <h6 class="item-title">
-                                            <a href="single-product.html">Product Name</a>
+                                            <a href="{{ url('product/'.$similiar['id']) }}">{{ $similiar['nama'] }}</a>
                                         </h6>
+                                        <div class="item-description">
+                                            <p>{{ $similiar['deskripsi'] }}</p>
+                                        </div>
                                         <div class="item-stars">
-                                            <div class='star' title="0 out of 5 - based on 0 Reviews">
-                                                <span style='width:0'></span>
+                                            <div class='star' title="4.5 out of 5 - based on 23 Reviews">
+                                                <span style='width:67px'></span>
                                             </div>
-                                            <span>(0)</span>
+                                            <span>(23)</span>
                                         </div>
                                     </div>
                                     <div class="price-template">
+                                        <?php 
+                                            $getdiskon = Product::getdiskonharga($similiar['id'])
+                                        ?>
                                         <div class="item-new-price">
-                                            $100.00
+                                            Rp {{ $getdiskon }}
                                         </div>
                                         <div class="item-old-price">
-                                            $120.00
+                                            {{ $similiar['harga'] }}
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tag new">
-                                    <span>NEW</span>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="image-container">
-                                    <a class="item-img-wrapper-link" href="single-product.html">
-                                        <img class="img-fluid" src="images/product/product@3x.jpg" alt="Product">
-                                    </a>
-                                    <div class="item-action-behaviors">
-                                        <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                        <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                        <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                        <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="what-product-is">
-                                        <ul class="bread-crumb">
-                                            <li class="has-separator">
-                                                <a href="shop-v1-root-category.html">Product Code</a>
-                                            </li>
-                                        </ul>
-                                        <h6 class="item-title">
-                                            <a href="single-product.html">Fern Green Mens Jacket</a>
-                                        </h6>
-                                        <div class="item-stars">
-                                            <div class='star' title="0 out of 5 - based on 0 Reviews">
-                                                <span style='width:0'></span>
-                                            </div>
-                                            <span>(0)</span>
-                                        </div>
-                                    </div>
-                                    <div class="price-template">
-                                        <div class="item-new-price">
-                                            $100.00
-                                        </div>
-                                        <div class="item-old-price">
-                                            $120.00
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tag hot">
-                                    <span>HOT</span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="image-container">
-                                    <a class="item-img-wrapper-link" href="single-product.html">
-                                        <img class="img-fluid" src="images/product/product@3x.jpg" alt="Product">
-                                    </a>
-                                    <div class="item-action-behaviors">
-                                        <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                        <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                        <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                        <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="what-product-is">
-                                        <ul class="bread-crumb">
-                                            <li class="has-separator">
-                                                <a href="shop-v1-root-category.html">Product Code</a>
-                                            </li>
-                                        </ul>
-                                        <h6 class="item-title">
-                                            <a href="single-product.html">Brown Dark Tan Round Double Bridge
-                                                Sunglasses</a>
-                                        </h6>
-                                        <div class="item-stars">
-                                            <div class='star' title="0 out of 5 - based on 0 Reviews">
-                                                <span style='width:0'></span>
-                                            </div>
-                                            <span>(0)</span>
-                                        </div>
-                                    </div>
-                                    <div class="price-template">
-                                        <div class="item-new-price">
-                                            $100.00
-                                        </div>
-                                        <div class="item-old-price">
-                                            $120.00
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tag hot">
-                                    <span>HOT</span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="image-container">
-                                    <a class="item-img-wrapper-link" href="single-product.html">
-                                        <img class="img-fluid" src="images/product/product@3x.jpg" alt="Product">
-                                    </a>
-                                    <div class="item-action-behaviors">
-                                        <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                        <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                        <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                        <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="what-product-is">
-                                        <ul class="bread-crumb">
-                                            <li class="has-separator">
-                                                <a href="shop-v1-root-category.html">Product Code</a>
-                                            </li>
-                                        </ul>
-                                        <h6 class="item-title">
-                                            <a href="single-product.html">Black Round Double Bridge Sunglasses</a>
-                                        </h6>
-                                        <div class="item-stars">
-                                            <div class='star' title="0 out of 5 - based on 0 Reviews">
-                                                <span style='width:0'></span>
-                                            </div>
-                                            <span>(0)</span>
-                                        </div>
-                                    </div>
-                                    <div class="price-template">
-                                        <div class="item-new-price">
-                                            $100.00
-                                        </div>
-                                        <div class="item-old-price">
-                                            $120.00
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tag hot">
-                                    <span>HOT</span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </section>
             <!-- Similar-Products /- -->
             <!-- Recently-View-Products  -->
-            <section class="section-maker">
+            {{-- <section class="section-maker">
                 <div class="container">
                     <div class="sec-maker-header text-center">
                         <h3 class="sec-maker-h3">Recently View</h3>
@@ -736,17 +627,23 @@ use App\Models\Product;
                                     <div class="what-product-is">
                                         <ul class="bread-crumb">
                                             <li class="has-separator">
-                                                <a href="shop-v1-root-category.html">Product Code</a>
+                                                <a href="shop-v1-root-category.html">{{ $catpro['meta_title'] }}</a>
+                                            </li>
+                                            <li>
+                                                <a href="shop-v3-sub-sub-category.html">{{ $catpro['type'] }}</a>
                                             </li>
                                         </ul>
                                         <h6 class="item-title">
-                                            <a href="single-product.html">Maire Battlefield Jeep Mens Jacket</a>
+                                            <a href="{{ url('product/'.$catpro['id']) }}">{{ $catpro['nama'] }}</a>
                                         </h6>
+                                        <div class="item-description">
+                                            <p>{{ $catpro['deskripsi'] }}</p>
+                                        </div>
                                         <div class="item-stars">
-                                            <div class='star' title="0 out of 5 - based on 0 Reviews">
-                                                <span style='width:0'></span>
+                                            <div class='star' title="4.5 out of 5 - based on 23 Reviews">
+                                                <span style='width:67px'></span>
                                             </div>
-                                            <span>(0)</span>
+                                            <span>(23)</span>
                                         </div>
                                     </div>
                                     <div class="price-template">
@@ -765,7 +662,7 @@ use App\Models\Product;
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- Recently-View-Products /- -->
         </div>
         <!-- Different-Product-Section /- -->
