@@ -84,48 +84,31 @@ use App\Models\Product;
                         <?php 
                             $getdiskon = Product::getdiskonharga($product['id'])
                         ?>
-                        @if ($getdiskon>0)
-                        <div class="price">
-                            <h4>Rp.{{ $getdiskon}}</h4>
-                        </div>
-                        <div class="original-price">
-                            <span>Original Price:</span>
-                            <span>Rp.{{ $product['harga'] }}</span>
-                        </div>
-                        @else
-                        <div class="price">
-                            <h4>Rp.{{ $getdiskon}}</h4>
-                        </div>
-                        @endif
+                        <span class="getAttributeharga">
+                            @if ($getdiskon>0)
+                            <div class="price">
+                                <h4>Rp.{{ $getdiskon}}</h4>
+                            </div>
+                            <div class="original-price">
+                                <span>Original Price:</span>
+                                <span>Rp.{{ $product['harga'] }}</span>
+                            </div>
+                            @else
+                            <div class="price">
+                                <h4>Rp.{{ $getdiskon}}</h4>
+                            </div>
+                            @endif
+                        </span>
                     </div>
-                    {{-- <div class="section-4-sku-information u-s-p-y-14">
-                        <h6 class="information-heading u-s-m-b-8">Sku Information:</h6>
-                        <div class="availability">
-                            <span>Availability:</span>
-                            <span>In Stock</span>
-                        </div>
-                        <div class="left">
-                            <span>Only:</span>
-                            <span>50 left</span>
-                        </div>
-                    </div> --}}
                     <div class="section-5-product-variants u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Product Variants:</h6>
-                        {{-- <div class="color u-s-m-b-11">
-                            <span>Available Color:</span>
-                            <div class="color-variant select-box-wrapper">
-                                <select class="select-box product-color">
-                                    <option value="1">Heather Grey</option>
-                                    <option value="3">Black</option>
-                                    <option value="5">White</option>
-                                </select>
-                            </div>
-                        </div> --}}
                         <div class="sizes u-s-m-b-11">
                             <span>Varian Paket :</span>
                             <div class="size-variant select-box-wrapper">
                                 @if (count($product['attribute']) > 0)
-                                <select class="select-box product-size">
+                                <select name="paket" id="getPaket" product-id="{{ $product['id'] }}"
+                                    class="select-box product-size">
+                                    <option value="">Select</option>
                                     @foreach ($product['attribute'] as $attribute)
                                     <option value="{{ $attribute['paket'] }}">{{ $attribute['paket'] }}</option>
                                     @endforeach
@@ -217,7 +200,7 @@ use App\Models\Product;
                                 </video>
                                 @else
                                 <p class="desc-p u-s-m-b-26">
-                                    Tidak ada video di product ini.
+                                    <i>Tidak ada video di product ini.</i>
                                 </p>
                                 @endif
                             </div>

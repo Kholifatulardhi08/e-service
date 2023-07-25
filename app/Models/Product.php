@@ -59,6 +59,27 @@ class Product extends Model
         return $diskon_harga;
     }
 
+    public static function hargaattribute($product_id, $paket)
+    {
+        $hargaattribute = ProductAtribute::where(['product_id'=>$product_id, 'paket'=>$paket])->first()->toArray();
+        $prodetails = Product::select('diskon', 'category_id')->where('id', $product_id)->first();
+        $prodetails = json_decode($prodetails, true);
+        $catdetails = Category::select('diskon')->where('id', $prodetails['category_id'])->first();
+        $catdetails = json_decode($catdetails, true);
+
+        if($prodetails['diskon']>0) {
+            $final_harga = $hargaattribute['harga'] - ($hargaattribute['harga']*$prodetails['diskon']/100);
+            $diskon = $hargaattribute['harga'] - $final_harga;
+        } elseif($catdetails['diskon']>0) {
+            $final_harga = $hargaattribute['harga'] - ($hargaattribute['harga']*$catdetails['diskon']/100);
+            $diskon = $hargaattribute['harga'] - $final_harga;
+        } else {
+            $final_harga = $hargaattribute['harga'];
+            $diskon = 0;
+        }
+        return array('harga'=>$hargaattribute['harga'], 'final_harga'=>$final_harga, 'diskon'=>$diskon);
+    }
+
     public static function isproductnew($product_id){
         $product_ids = Product::select('id')->where('status', 1)->orderby('id', 'DESC')->limit(3)->pluck('id');
         $product_ids = json_decode($product_ids, true);

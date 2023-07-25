@@ -111,4 +111,13 @@ class ListeningController extends Controller
         return view('front.products.product_details')->with(compact('product', 'categorydetails'));
     }
 
+    public function getProductharga(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            $hargaattribute = Product::hargaattribute($data['product_id'], $data['paket']);
+            return $hargaattribute;
+        }
+    }
+
 }
