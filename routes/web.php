@@ -128,6 +128,7 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     }
     // product detail by id
     Route::get('product/{id}', 'ListeningController@detailproduct');
+    Route::get('products/{penyedia_id}', 'ListeningController@jasadetails');
 
     // Vendor/Login/Register
     Route::get('penyedia/login-register', 'PenyediaController@loginregister');

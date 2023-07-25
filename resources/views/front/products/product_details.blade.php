@@ -103,7 +103,7 @@ use App\Models\Product;
                     <div class="section-4-penyedia u-s-p-y-14">
                         @if(isset($product['penyedia']))
                             <span> Penyedia Jasa : 
-                                <a href="">
+                                <a href="{{  url('products/'.$product['penyedia']['id']) }}">
                                     {{ $product['penyedia']['jasadetail']['nama_toko'] }}
                                 </a>
                             </span>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Penyedia;
 use App\Models\ProductFilter;
 use App\Models\Product;
 use App\Models\Category;
@@ -120,4 +121,11 @@ class ListeningController extends Controller
         }
     }
 
+    public function jasadetails($penyedia_id)
+    {
+        $jasadetails = Penyedia::jasadetails($penyedia_id);
+        $penyediaproduct = Product::with('brand')->where('penyedia_id', $penyedia_id)->Where('status', 1);
+        $penyediaproduct = $penyediaproduct->paginate(10);
+        return view('front.products.toko')->with(compact('jasadetails', 'penyediaproduct'));
+    }
 }

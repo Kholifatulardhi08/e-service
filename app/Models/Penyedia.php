@@ -14,4 +14,10 @@ class Penyedia extends Model
     {
         return $this->belongsTo(JasaDetail::class, 'id', 'penyedia_id');
     }
+
+    public static function jasadetails($penyedia_id)
+    {
+        $jasadetails = JasaDetail::select('nama_toko')->where('penyedia_id', $penyedia_id)->first()->toArray();
+        return $jasadetails['nama_toko'];
+    }
 }
