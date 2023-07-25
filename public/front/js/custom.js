@@ -12,7 +12,7 @@ $(document).ready(function(){
             success:function(resp){
                 // alert(resp['final_harga']);
                 if (resp['diskon']>0) {
-                    $(".getAttributeharga").html("<div class='price'><h4>Rp."+resp['final_harga']+"</h4></div><div class='original-price'><span>Rp."+resp['harga']+"</span></div>");
+                    $(".getAttributeharga").html("<div class='price'><h4>Rp."+ resp['final_harga']+"</h4></div><div class='original-price'><span>Rp."+ resp['harga']+"</span></div>");
                 } else {
                     $(".getAttributeharga").html("<div class='price'><h4>Rp."+resp['final_harga']+"</h4></div>");
                 } 

@@ -100,6 +100,15 @@ use App\Models\Product;
                             @endif
                         </span>
                     </div>
+                    <div class="section-4-penyedia u-s-p-y-14">
+                        @if(isset($product['penyedia']))
+                            <span> Penyedia Jasa : 
+                                <a href="">
+                                    {{ $product['penyedia']['jasadetail']['nama_toko'] }}
+                                </a>
+                            </span>
+                        @endif
+                    </div>
                     <div class="section-5-product-variants u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Product Variants:</h6>
                         <div class="sizes u-s-m-b-11">
@@ -177,21 +186,21 @@ use App\Models\Product;
                 <div class="detail-tabs-wrapper u-s-p-t-80">
                     <div class="detail-nav-wrapper u-s-m-b-30">
                         <ul class="nav single-product-nav justify-content-center">
-                            <li class="nav-item">
+                            {{--  <li class="nav-item">
                                 <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#description">Video</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab"
                                     data-bs-target="#specification">Specifications</a>
-                            </li>
+                            </li>  --}}
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#review">Reviews (15)</a>
+                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#review">Reviews (15)</a>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content">
                         <!-- Description-Tab -->
-                        <div class="tab-pane fade active show" id="description">
+                        {{--  <div class="tab-pane fade active show" id="description">
                             <div class="description-whole-container text-center">
                                 @if(!empty($product['video']))
                                 <video width="320" height="240" controls>
@@ -205,7 +214,6 @@ use App\Models\Product;
                                 @endif
                             </div>
                         </div>
-
                         <!-- Description-Tab /- -->
                         <!-- Specifications-Tab -->
                         <div class="tab-pane fade" id="specification">
@@ -274,9 +282,9 @@ use App\Models\Product;
                                 </div>
                             </div>
                         </div>
-                        <!-- Specifications-Tab /- -->
+                        <!-- Specifications-Tab /- -->  --}}
                         <!-- Reviews-Tab -->
-                        <div class="tab-pane fade" id="review">
+                        <div class="tab-pane fade active show" id="review">
                             <div class="review-whole-container">
                                 <div class="row r-1 u-s-m-b-26 u-s-p-b-22">
                                     <div class="col-lg-6 col-md-6">

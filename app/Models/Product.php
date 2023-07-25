@@ -41,6 +41,11 @@ class Product extends Model
         return $this->hasMany(Images::class);
     }
 
+    public function penyedia()
+    {
+        return $this->belongsTo(Penyedia::class, 'penyedia_id')->with('jasadetail');
+    }
+
     public static function getdiskonharga($product_id)
     {
         $prodetails = Product::select('harga', 'diskon', 'category_id')->where('id', $product_id)->first();
