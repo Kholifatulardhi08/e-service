@@ -98,7 +98,7 @@ use App\Models\Product;
                         </div>
                         @endif
                     </div>
-                    <div class="section-4-sku-information u-s-p-y-14">
+                    {{-- <div class="section-4-sku-information u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Sku Information:</h6>
                         <div class="availability">
                             <span>Availability:</span>
@@ -108,10 +108,10 @@ use App\Models\Product;
                             <span>Only:</span>
                             <span>50 left</span>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="section-5-product-variants u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Product Variants:</h6>
-                        <div class="color u-s-m-b-11">
+                        {{-- <div class="color u-s-m-b-11">
                             <span>Available Color:</span>
                             <div class="color-variant select-box-wrapper">
                                 <select class="select-box product-color">
@@ -120,27 +120,19 @@ use App\Models\Product;
                                     <option value="5">White</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="sizes u-s-m-b-11">
-                            <span>Available Size:</span>
+                            <span>Varian Paket :</span>
                             <div class="size-variant select-box-wrapper">
+                                @if (count($product['attribute']) > 0)
                                 <select class="select-box product-size">
-                                    <option value="">Male 2XL</option>
-                                    <option value="">Male 3XL</option>
-                                    <option value="">Kids 4</option>
-                                    <option value="">Kids 6</option>
-                                    <option value="">Kids 8</option>
-                                    <option value="">Kids 10</option>
-                                    <option value="">Kids 12</option>
-                                    <option value="">Female Small</option>
-                                    <option value="">Male Small</option>
-                                    <option value="">Female Medium</option>
-                                    <option value="">Male Medium</option>
-                                    <option value="">Female Large</option>
-                                    <option value="">Male Large</option>
-                                    <option value="">Female XL</option>
-                                    <option value="">Male XL</option>
+                                    @foreach ($product['attribute'] as $attribute)
+                                    <option value="{{ $attribute['paket'] }}">{{ $attribute['paket'] }}</option>
+                                    @endforeach
                                 </select>
+                                @else
+                                <p>Tidak ada paket attribute yang tersedia untuk produk ini.</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -203,10 +195,11 @@ use App\Models\Product;
                     <div class="detail-nav-wrapper u-s-m-b-30">
                         <ul class="nav single-product-nav justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#description">Description</a>
+                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#description">Video</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#specification">Specifications</a>
+                                <a class="nav-link" data-bs-toggle="tab"
+                                    data-bs-target="#specification">Specifications</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" data-bs-target="#review">Reviews (15)</a>
@@ -217,15 +210,19 @@ use App\Models\Product;
                         <!-- Description-Tab -->
                         <div class="tab-pane fade active show" id="description">
                             <div class="description-whole-container text-center">
+                                @if(!empty($product['video']))
+                                <video width="320" height="240" controls>
+                                    <source src="{{ asset('template/images/Photo/Product/Large/'.$product['video']) }}"
+                                        type="video/mp4">
+                                </video>
+                                @else
                                 <p class="desc-p u-s-m-b-26">
-                                    {{ $product['deskripsi'] }}
+                                    Tidak ada video di product ini.
                                 </p>
-                                {{-- <img class="desc-img img-fluid u-s-m-b-26" src="images/product/product@3x.jpg"
-                                    alt="Product"> --}}
-                                {{-- <iframe class="desc-iframe u-s-m-b-45" width="710" height="400"
-                                    src="images/product/iframe-youtube.jpg" allowfullscreen></iframe> --}}
+                                @endif
                             </div>
                         </div>
+
                         <!-- Description-Tab /- -->
                         <!-- Specifications-Tab -->
                         <div class="tab-pane fade" id="specification">
@@ -612,7 +609,7 @@ use App\Models\Product;
                                             </li>
                                         </ul>
                                         <h6 class="item-title">
-                                            <a href="single-product.html">Fern Green Men's Jacket</a>
+                                            <a href="single-product.html">Fern Green Mens Jacket</a>
                                         </h6>
                                         <div class="item-stars">
                                             <div class='star' title="0 out of 5 - based on 0 Reviews">
