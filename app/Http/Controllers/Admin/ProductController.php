@@ -72,6 +72,7 @@ class ProductController extends Controller
 
         if($request->isMethod('POST')){
             $data = $request->all();
+            
             if($data['diskon']==""){
                 $data['diskon'] = 0;
             }

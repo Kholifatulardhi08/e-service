@@ -94,7 +94,7 @@
                                 </select>
                             </div>
                             <div class="loadfilters">
-                                @include('admin\filter\category_filter')
+                                @include('admin.filter.category_filter')
                             </div>
                             <div class="form-group">
                                 <label for="nama">Name</label>

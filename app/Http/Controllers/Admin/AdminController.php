@@ -206,9 +206,9 @@ class AdminController extends Controller
                 }
                 return redirect()->back()->with('succses_message', 'Penyewa toko details updated Succsesfully!');
             }
-            $penyediaCount =  JasaDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->count();
+            $penyediaCount =  JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
             if($penyediaCount>0) {
-                $penyediadetail = JasaDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+                $penyediadetail = JasaDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
             } else {
                 $penyediadetail = array();
             }
@@ -246,9 +246,9 @@ class AdminController extends Controller
                 }
                 return redirect()->back()->with('succses_message', 'Penyewa bank details updated Succsesfully!');
             }
-            $penyediaCount =  BankDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->count();
+            $penyediaCount =  BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->count();
             if($penyediaCount>0) {
-                $penyediadetail = BankDetail::where('penyedia_id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
+                $penyediadetail = BankDetail::where('id', Auth::guard('admin')->user()->penyedia_id)->first()->toArray();
             } else {
                 $penyediadetail = array();
             }
