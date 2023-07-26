@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });

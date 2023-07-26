@@ -33,7 +33,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a @if ( Session::get('page')=='banners' || Session::get('page')=='filter' ) style="background: #4B4BAC !important;
+            <a @if ( Session::get('page')=='banners' ) style="background: #4B4BAC !important;
             color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#banner"
                 aria-expanded="false" aria-controls="#banner">
                 <i class="icon-columns menu-icon"></i>
@@ -47,6 +47,19 @@
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/banners') }}">Banners</a>
                     </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a @if (Session::get('page')=='filter' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#filteres"
+                aria-expanded="false" aria-controls="#filteres">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Manage Filter</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="filteres">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
                     <li class="nav-item">
                         <a @if (Session::get('page')=='filter' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
@@ -67,9 +80,9 @@
             <div class="collapse" id="catalog-element">
                 <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
                     <li class="nav-item">
-                        <a @if (Session::get('page')=='brands' ) style="background: #4B4BAC !important; 
+                        <a @if (Session::get('page')=='sections' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/brands') }}">Brand</a>
+                            @endif class="nav-link" href="{{ url('admin/section') }}">Sections</a>
                     </li>
                     <li class="nav-item">
                         <a @if (Session::get('page')=='categories' ) style="background: #4B4BAC !important; 
@@ -77,9 +90,9 @@
                             @endif class="nav-link" href="{{ url('admin/category') }}">Category</a>
                     </li>
                     <li class="nav-item">
-                        <a @if (Session::get('page')=='sections' ) style="background: #4B4BAC !important; 
+                        <a @if (Session::get('page')=='brands' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/section') }}">Sections</a>
+                            @endif class="nav-link" href="{{ url('admin/brands') }}">Brand</a>
                     </li>
                     <li class="nav-item">
                         <a @if (Session::get('page')=='products' ) style="background: #4B4BAC !important; 

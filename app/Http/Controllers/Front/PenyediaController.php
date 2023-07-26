@@ -59,6 +59,7 @@ class PenyediaController extends Controller
             $admin->no_hp = $data['no_hp'];
             $admin->email = $data['email'];
             $admin->password = bcrypt($data['password']);
+            $admin->image = "";
             $admin->status = 1; 
             $admin->save();
 
