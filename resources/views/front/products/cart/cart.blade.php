@@ -1,5 +1,8 @@
 @extends('front.layouts.layout')
 @section('content')
+<?php
+use App\Models\Product;
+?>
 <!-- Page Introduction Wrapper -->
 <div class="page-style-a">
     <div class="container">
@@ -30,33 +33,62 @@
                             <thead>
                                 <tr>
                                     <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
+                                    <th>Nama Produk</th>
+                                    <th>Harga</th>
+                                    <th>Diskon</th>
                                     <th>Subtotal</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($getCartItem as $cart)
+                                <?php
+                                    $hargaattribute = Product::hargaattribute($cart['product_id'], $cart['paket']);
+                                    {{--  echo "<pre>"; print_r($hargaattribute); die;  --}}
+                                ?>
                                 <tr>
                                     <td>
                                         <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="images/product/product@1x.jpg" alt="Product">
-                                                <h6>Product Name</h6>
+                                            <?php
+                                                $products_imgPath = 'template/images/Photo/Product/Small/'.$cart['product']['gambar']
+                                            ?>
+                                            <a href="#">
+                                                <img src="{{ $products_imgPath }}" alt="Product">
                                             </a>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="cart-price">
-                                            $100.00
+                                        <div class="cart-anchor-image">
+                                            <a href="#">
+                                                <h6>{{ $cart['product']['nama'] }}<br>
+                                                    {{ $cart['paket'] }}
+                                                </h6>
+                                            </a>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
+                                        <div class="price-template">
+                                            <div class="item-new-price">
+                                                Rp. {{ $hargaattribute['harga'] }}
                                             </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="price-template">
+                                            <div class="item-new-price">
+                                                Rp. {{ $hargaattribute['diskon'] }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="cart-price">
+                                            @if($hargaattribute['diskon']>0)
+                                            <div class="price-template">
+                                                <div class="item-new-price">
+                                                    Rp. {{ $hargaattribute['final_harga'] }}
+                                                </div>
+                                            </div>
+                                            @endif
                                         </div>
                                     </td>
                                     <td>
@@ -66,96 +98,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="images/product/product@1x.jpg" alt="Product">
-                                                <h6>Black Rock Dress with High Jewelery Necklace</h6>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-price">
-                                            $100.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-wrapper">
-                                            <button class="button button-outline-secondary fas fa-sync"></button>
-                                            <button class="button button-outline-secondary fas fa-trash"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="images/product/product@1x.jpg" alt="Product">
-                                                <h6>Xiaomi Note 2 Black Color</h6>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-price">
-                                            $100.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-wrapper">
-                                            <button class="button button-outline-secondary fas fa-sync"></button>
-                                            <button class="button button-outline-secondary fas fa-trash"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="images/product/product@1x.jpg" alt="Product">
-                                                <h6>Dell Inspiron 15</h6>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-price">
-                                            $100.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-wrapper">
-                                            <button class="button button-outline-secondary fas fa-sync"></button>
-                                            <button class="button button-outline-secondary fas fa-trash"></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

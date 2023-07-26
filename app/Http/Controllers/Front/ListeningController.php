@@ -150,10 +150,10 @@ class ListeningController extends Controller
             // if cart ready in user cart
             if(Auth::check()){
                 $user_id = Auth::guard()->user()->id;
-                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'paket'=>$data['paket'], 'user_id'=>$data['user_id']])->count();
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'paket'=>$data['paket'], 'user_id'=>$user_id])->count();
             }else{
                 $user_id = 0;
-                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'paket'=>$data['paket'], 'session_id'=>$data['session_id']])->count();
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'paket'=>$data['paket'], 'session_id'=>$session_id])->count();
             }
 
             $item = New Cart;
@@ -162,13 +162,15 @@ class ListeningController extends Controller
             $item->product_id = $data['product_id'];
             $item->paket = $data['paket'];
             $item->save();
-            return redirect()->back()->with('succses_message', 'Product has been added in Cart!');
+            return redirect()->back()->with('succses_message', 'Product has been added in Cart! <a href="/cart">View Cart</a>');
         }
     }
 
     public function cart()
     {
-        return view('front.products.cart.cart');
+        $getCartItem = Cart::getCartItem();
+        // dd($getCartItem);
+        return view('front.products.cart.cart')->with(compact('getCartItem'));
     }
 
 }
