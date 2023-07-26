@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Models\Penyedia;
-use App\Models\ProductFilter;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\ProductAtribute;
+use App\Models\Penyedia;
 use Illuminate\Http\Request;
+use App\Models\ProductFilter;
+use App\Models\ProductAtribute;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 class ListeningController extends Controller
 {
@@ -137,7 +139,19 @@ class ListeningController extends Controller
     {
         if($request->isMethod('POST')){
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
+            $session_id = Session::get('session_id');
+            if(empty($session_id)){
+                $session_id = Session::getId();
+                Session::put('session_id', $session_id);
+            }
+            
+            $item = New Cart;
+            $item->session_id = $session_id;
+            $item->product_id = $data['product_id'];
+            $item->paket = $data['paket'];
+            $item->save();
+            return redirect()->back()->with('succses_message', 'Product has been added in Cart!');
         }
     }
 

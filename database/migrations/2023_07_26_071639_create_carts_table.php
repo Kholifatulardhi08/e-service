@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('session_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('paket')->nullable();
             $table->timestamps();
         });

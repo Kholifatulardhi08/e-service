@@ -52,6 +52,31 @@ use App\Models\Product;
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <!-- Product-details -->
                 <div class="all-information-wrapper">
+                    @if(Session::has('error_message'))
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Error: </strong> {{ Session::get('error_message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+                    @if(Session::has('succses_message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Succses: </strong> {{ Session::get('succses_message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <div class="section-1-title-breadcrumb-rating">
                         <div class="product-title">
                             <h1>
@@ -111,7 +136,7 @@ use App\Models\Product;
                     </div>
                     <form action="{{ url('cart/add') }}" class="post-form" method="POST">
                         @csrf
-                        <input type="hidden" name="product_id" value="{{ $product['id'] }}" >
+                        <input type="hidden" name="product_id" value="{{ $product['id'] }}">
                         <div class="section-5-product-variants u-s-p-y-14">
                             <h6 class="information-heading u-s-m-b-8">Product Variants:</h6>
                             <div class="sizes u-s-m-b-11">
