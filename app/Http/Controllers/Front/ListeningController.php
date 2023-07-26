@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductFilter;
 use App\Models\ProductAtribute;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -145,14 +146,29 @@ class ListeningController extends Controller
                 $session_id = Session::getId();
                 Session::put('session_id', $session_id);
             }
-            
+
+            // if cart ready in user cart
+            if(Auth::check()){
+                $user_id = Auth::guard()->user()->id;
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'paket'=>$data['paket'], 'user_id'=>$data['user_id']])->count();
+            }else{
+                $user_id = 0;
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'paket'=>$data['paket'], 'session_id'=>$data['session_id']])->count();
+            }
+
             $item = New Cart;
             $item->session_id = $session_id;
+            $item->user_id = $user_id;
             $item->product_id = $data['product_id'];
             $item->paket = $data['paket'];
             $item->save();
             return redirect()->back()->with('succses_message', 'Product has been added in Cart!');
         }
+    }
+
+    public function cart()
+    {
+        return view('front.products.cart.cart');
     }
 
 }

@@ -139,6 +139,7 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
 
     // get cart
     Route::post('cart/add', 'ListeningController@addTocart');
+    Route::get('cart', 'ListeningController@cart');
 
 });
 
