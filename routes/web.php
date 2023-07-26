@@ -135,7 +135,10 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::post('penyedia/register', 'PenyediaController@register');
     Route::get('penyedia/confirm/{code}', 'PenyediaController@confirmpenyedia'); 
 
-    Route::post('/get-product-harga', 'ListeningController@getProductharga');
+    Route::post('get-product-harga', 'ListeningController@getProductharga');
+
+    // get cart
+    Route::post('cart/add', 'ListeningController@addTocart');
 
 });
 

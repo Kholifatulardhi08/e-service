@@ -22,7 +22,7 @@ use App\Models\Product;
 </div>
 <!-- Page Introduction Wrapper /- -->
 <!-- Single-Product-Full-Width-Page -->
-<div class="page-detail u-s-p-t-80">
+<div class="page-detail u-s-p-t-80 pt-3">
     <div class="container">
         <!-- Product-Detail -->
         <div class="row">
@@ -109,63 +109,25 @@ use App\Models\Product;
                         </span>
                         @endif
                     </div>
-                    <div class="section-5-product-variants u-s-p-y-14">
-                        <h6 class="information-heading u-s-m-b-8">Product Variants:</h6>
-                        <div class="sizes u-s-m-b-11">
-                            <span>Varian Paket :</span>
-                            <div class="size-variant select-box-wrapper">
-                                @if (count($product['attribute']) > 0)
-                                <select name="paket" id="getPaket" product-id="{{ $product['id'] }}"
-                                    class="select-box product-size">
-                                    <option value="">Select</option>
-                                    @foreach ($product['attribute'] as $attribute)
-                                    <option value="{{ $attribute['paket'] }}">{{ $attribute['paket'] }}</option>
-                                    @endforeach
-                                </select>
-                                @else
-                                <p>Tidak ada paket attribute yang tersedia untuk produk ini.</p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="section-6-social-media-quantity-actions u-s-p-y-14">
-                        <form action="#" class="post-form">
-                            <div class="quick-social-media-wrapper u-s-m-b-22">
-                                <span>Share:</span>
-                                <ul class="social-media-list">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-google-plus-g"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fas fa-rss"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-pinterest"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="quantity-wrapper u-s-m-b-22">
-                                <span>Quantity:</span>
-                                <div class="quantity">
-                                    <input type="text" class="quantity-text-field" value="1">
-                                    <a class="plus-a" data-max="1000">&#43;</a>
-                                    <a class="minus-a" data-min="1">&#45;</a>
+                    <form action="{{ url('cart/add') }}" class="post-form" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product['id'] }}" >
+                        <div class="section-5-product-variants u-s-p-y-14">
+                            <h6 class="information-heading u-s-m-b-8">Product Variants:</h6>
+                            <div class="sizes u-s-m-b-11">
+                                <span>Varian Paket :</span>
+                                <div class="size-variant select-box-wrapper">
+                                    @if (count($product['attribute']) > 0)
+                                    <select name="paket" id="getPaket" product-id="{{ $product['id'] }}"
+                                        class="select-box product-size" required="">
+                                        <option value="">Select</option>
+                                        @foreach ($product['attribute'] as $attribute)
+                                        <option value="{{ $attribute['paket'] }}">{{ $attribute['paket'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @else
+                                    <p>Tidak ada paket attribute yang tersedia untuk produk ini.</p>
+                                    @endif
                                 </div>
                             </div>
                             <div>
@@ -173,500 +135,531 @@ use App\Models\Product;
                                 <button class="button button-outline-secondary far fa-heart u-s-m-l-6"></button>
                                 <button class="button button-outline-secondary far fa-envelope u-s-m-l-6"></button>
                             </div>
-                        </form>
+                        </div>
+                    </form>
+                    <div class="section-6-social-media-quantity-actions u-s-p-y-14">
+                        <div class="quick-social-media-wrapper u-s-m-b-22">
+                            <span>Share:</span>
+                            <ul class="social-media-list">
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-google-plus-g"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-rss"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-pinterest"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <!-- Product-details /- -->
             </div>
+            <!-- Product-details /- -->
         </div>
-        <!-- Product-Detail /- -->
-        <!-- Detail-Tabs -->
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="detail-tabs-wrapper u-s-p-t-80">
-                    <div class="detail-nav-wrapper u-s-m-b-30">
-                        <ul class="nav single-product-nav justify-content-center">
-                            {{-- <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#description">Video</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab"
-                                    data-bs-target="#specification">Specifications</a>
-                            </li> --}}
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#review">Reviews
-                                    (15)</a>
-                            </li>
-                        </ul>
+    </div>
+    <!-- Product-Detail /- -->
+    <!-- Detail-Tabs -->
+    <div class="row pt-1">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="detail-tabs-wrapper u-s-p-t-80">
+                <div class="detail-nav-wrapper u-s-m-b-30">
+                    <ul class="nav single-product-nav justify-content-center">
+                        {{-- <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#description">Video</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#specification">Specifications</a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#review">Reviews
+                                (15)</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <!-- Description-Tab -->
+                    {{-- <div class="tab-pane fade active show" id="description">
+                        <div class="description-whole-container text-center">
+                            @if(!empty($product['video']))
+                            <video width="320" height="240" controls>
+                                <source src="{{ asset('template/images/Photo/Product/Large/'.$product['video']) }}"
+                                    type="video/mp4">
+                            </video>
+                            @else
+                            <p class="desc-p u-s-m-b-26">
+                                <i>Tidak ada video di product ini.</i>
+                            </p>
+                            @endif
+                        </div>
                     </div>
-                    <div class="tab-content">
-                        <!-- Description-Tab -->
-                        {{-- <div class="tab-pane fade active show" id="description">
-                            <div class="description-whole-container text-center">
-                                @if(!empty($product['video']))
-                                <video width="320" height="240" controls>
-                                    <source src="{{ asset('template/images/Photo/Product/Large/'.$product['video']) }}"
-                                        type="video/mp4">
-                                </video>
-                                @else
-                                <p class="desc-p u-s-m-b-26">
-                                    <i>Tidak ada video di product ini.</i>
-                                </p>
-                                @endif
+                    <!-- Description-Tab /- -->
+                    <!-- Specifications-Tab -->
+                    <div class="tab-pane fade" id="specification">
+                        <div class="specification-whole-container">
+                            <div class="spec-ul u-s-m-b-50">
+                                <h4 class="spec-heading">Key Features</h4>
+                                <ul>
+                                    <li>Heather Grey</li>
+                                    <li>Black</li>
+                                    <li>White</li>
+                                </ul>
+                            </div>
+                            <div class="u-s-m-b-50">
+                                <h4 class="spec-heading">Whats in the Box?</h4>
+                                <h3 class="spec-answer">1 x hoodie</h3>
+                            </div>
+                            <div class="spec-table u-s-m-b-50">
+                                <h4 class="spec-heading">General Information</h4>
+                                <table>
+                                    <tr>
+                                        <td>Sku</td>
+                                        <td>AY536FA08JT86NAFAMZ</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="spec-table u-s-m-b-50">
+                                <h4 class="spec-heading">Product Information</h4>
+                                <table>
+                                    <tr>
+                                        <td>Main Material</td>
+                                        <td>Cotton</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Color</td>
+                                        <td>Heather Grey, Black, White</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sleeves</td>
+                                        <td>Long Sleeve</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Top Fit</td>
+                                        <td>Regular</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Print</td>
+                                        <td>Not Printed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Neck</td>
+                                        <td>Round Neck</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pieces Count</td>
+                                        <td>1 piece</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Occasion</td>
+                                        <td>Casual</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shipping Weight (kg)</td>
+                                        <td>0.5</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
-                        <!-- Description-Tab /- -->
-                        <!-- Specifications-Tab -->
-                        <div class="tab-pane fade" id="specification">
-                            <div class="specification-whole-container">
-                                <div class="spec-ul u-s-m-b-50">
-                                    <h4 class="spec-heading">Key Features</h4>
-                                    <ul>
-                                        <li>Heather Grey</li>
-                                        <li>Black</li>
-                                        <li>White</li>
-                                    </ul>
+                    </div>
+                    <!-- Specifications-Tab /- --> --}}
+                    <!-- Reviews-Tab -->
+                    <div class="tab-pane fade active show" id="review">
+                        <div class="review-whole-container">
+                            <div class="row r-1 u-s-m-b-26 u-s-p-b-22">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="total-score-wrapper">
+                                        <h6 class="review-h6">Average Rating</h6>
+                                        <div class="circle-wrapper">
+                                            <h1>4.5</h1>
+                                        </div>
+                                        <h6 class="review-h6">Based on 23 Reviews</h6>
+                                    </div>
                                 </div>
-                                <div class="u-s-m-b-50">
-                                    <h4 class="spec-heading">Whats in the Box?</h4>
-                                    <h3 class="spec-answer">1 x hoodie</h3>
-                                </div>
-                                <div class="spec-table u-s-m-b-50">
-                                    <h4 class="spec-heading">General Information</h4>
-                                    <table>
-                                        <tr>
-                                            <td>Sku</td>
-                                            <td>AY536FA08JT86NAFAMZ</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="spec-table u-s-m-b-50">
-                                    <h4 class="spec-heading">Product Information</h4>
-                                    <table>
-                                        <tr>
-                                            <td>Main Material</td>
-                                            <td>Cotton</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Color</td>
-                                            <td>Heather Grey, Black, White</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sleeves</td>
-                                            <td>Long Sleeve</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Top Fit</td>
-                                            <td>Regular</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Print</td>
-                                            <td>Not Printed</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Neck</td>
-                                            <td>Round Neck</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pieces Count</td>
-                                            <td>1 piece</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Occasion</td>
-                                            <td>Casual</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping Weight (kg)</td>
-                                            <td>0.5</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Specifications-Tab /- --> --}}
-                        <!-- Reviews-Tab -->
-                        <div class="tab-pane fade active show" id="review">
-                            <div class="review-whole-container">
-                                <div class="row r-1 u-s-m-b-26 u-s-p-b-22">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="total-score-wrapper">
-                                            <h6 class="review-h6">Average Rating</h6>
-                                            <div class="circle-wrapper">
-                                                <h1>4.5</h1>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="total-star-meter">
+                                        <div class="star-wrapper">
+                                            <span>5 Stars</span>
+                                            <div class="star">
+                                                <span style='width:0'></span>
                                             </div>
-                                            <h6 class="review-h6">Based on 23 Reviews</h6>
+                                            <span>(0)</span>
+                                        </div>
+                                        <div class="star-wrapper">
+                                            <span>4 Stars</span>
+                                            <div class="star">
+                                                <span style='width:67px'></span>
+                                            </div>
+                                            <span>(23)</span>
+                                        </div>
+                                        <div class="star-wrapper">
+                                            <span>3 Stars</span>
+                                            <div class="star">
+                                                <span style='width:0'></span>
+                                            </div>
+                                            <span>(0)</span>
+                                        </div>
+                                        <div class="star-wrapper">
+                                            <span>2 Stars</span>
+                                            <div class="star">
+                                                <span style='width:0'></span>
+                                            </div>
+                                            <span>(0)</span>
+                                        </div>
+                                        <div class="star-wrapper">
+                                            <span>1 Star</span>
+                                            <div class="star">
+                                                <span style='width:0'></span>
+                                            </div>
+                                            <span>(0)</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="total-star-meter">
-                                            <div class="star-wrapper">
-                                                <span>5 Stars</span>
-                                                <div class="star">
-                                                    <span style='width:0'></span>
-                                                </div>
-                                                <span>(0)</span>
+                                </div>
+                            </div>
+                            <div class="row r-2 u-s-m-b-26 u-s-p-b-22">
+                                <div class="col-lg-12">
+                                    <div class="your-rating-wrapper">
+                                        <h6 class="review-h6">Your Review is matter.</h6>
+                                        <h6 class="review-h6">Have you used this product before?</h6>
+                                        <div class="star-wrapper u-s-m-b-8">
+                                            <div class="star">
+                                                <span id="your-stars" style='width:0'></span>
                                             </div>
-                                            <div class="star-wrapper">
-                                                <span>4 Stars</span>
+                                            <label for="your-rating-value"></label>
+                                            <input id="your-rating-value" type="text" class="text-field"
+                                                placeholder="0.0">
+                                            <span id="star-comment"></span>
+                                        </div>
+                                        <form>
+                                            <label for="your-name">Name
+                                                <span class="astk"> *</span>
+                                            </label>
+                                            <input id="your-name" type="text" class="text-field"
+                                                placeholder="Your Name">
+                                            <label for="your-email">Email
+                                                <span class="astk"> *</span>
+                                            </label>
+                                            <input id="your-email" type="text" class="text-field"
+                                                placeholder="Your Email">
+                                            <label for="review-title">Review Title
+                                                <span class="astk"> *</span>
+                                            </label>
+                                            <input id="review-title" type="text" class="text-field"
+                                                placeholder="Review Title">
+                                            <label for="review-text-area">Review
+                                                <span class="astk"> *</span>
+                                            </label>
+                                            <textarea class="text-area u-s-m-b-8" id="review-text-area"
+                                                placeholder="Review"></textarea>
+                                            <button class="button button-outline-secondary">Submit Review</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Get-Reviews -->
+                            <div class="get-reviews u-s-p-b-22">
+                                <!-- Review-Options -->
+                                <div class="review-options u-s-m-b-16">
+                                    <div class="review-option-heading">
+                                        <h6>Reviews
+                                            <span> (15) </span>
+                                        </h6>
+                                    </div>
+                                    <div class="review-option-box">
+                                        <div class="select-box-wrapper">
+                                            <label class="sr-only" for="review-sort">Review Sorter</label>
+                                            <select class="select-box" id="review-sort">
+                                                <option value="">Sort by: Best Rating</option>
+                                                <option value="">Sort by: Worst Rating</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Review-Options /- -->
+                                <!-- All-Reviews -->
+                                <div class="reviewers">
+                                    <div class="review-data">
+                                        <div class="reviewer-name-and-date">
+                                            <h6 class="reviewer-name">John</h6>
+                                            <h6 class="review-posted-date">10 May 2018</h6>
+                                        </div>
+                                        <div class="reviewer-stars-title-body">
+                                            <div class="reviewer-stars">
                                                 <div class="star">
                                                     <span style='width:67px'></span>
                                                 </div>
-                                                <span>(23)</span>
+                                                <span class="review-title">Good!</span>
                                             </div>
-                                            <div class="star-wrapper">
-                                                <span>3 Stars</span>
+                                            <p class="review-body">
+                                                Good Quality...!
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="review-data">
+                                        <div class="reviewer-name-and-date">
+                                            <h6 class="reviewer-name">Doe</h6>
+                                            <h6 class="review-posted-date">10 June 2018</h6>
+                                        </div>
+                                        <div class="reviewer-stars-title-body">
+                                            <div class="reviewer-stars">
                                                 <div class="star">
-                                                    <span style='width:0'></span>
+                                                    <span style='width:67px'></span>
                                                 </div>
-                                                <span>(0)</span>
+                                                <span class="review-title">Well done!</span>
                                             </div>
-                                            <div class="star-wrapper">
-                                                <span>2 Stars</span>
+                                            <p class="review-body">
+                                                Cotton is good.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="review-data">
+                                        <div class="reviewer-name-and-date">
+                                            <h6 class="reviewer-name">Tim</h6>
+                                            <h6 class="review-posted-date">10 July 2018</h6>
+                                        </div>
+                                        <div class="reviewer-stars-title-body">
+                                            <div class="reviewer-stars">
                                                 <div class="star">
-                                                    <span style='width:0'></span>
+                                                    <span style='width:67px'></span>
                                                 </div>
-                                                <span>(0)</span>
+                                                <span class="review-title">Well done!</span>
                                             </div>
-                                            <div class="star-wrapper">
-                                                <span>1 Star</span>
+                                            <p class="review-body">
+                                                Excellent condition
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="review-data">
+                                        <div class="reviewer-name-and-date">
+                                            <h6 class="reviewer-name">Johnny</h6>
+                                            <h6 class="review-posted-date">10 March 2018</h6>
+                                        </div>
+                                        <div class="reviewer-stars-title-body">
+                                            <div class="reviewer-stars">
                                                 <div class="star">
-                                                    <span style='width:0'></span>
+                                                    <span style='width:67px'></span>
                                                 </div>
-                                                <span>(0)</span>
+                                                <span class="review-title">Bright!</span>
                                             </div>
+                                            <p class="review-body">
+                                                Cotton
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="review-data">
+                                        <div class="reviewer-name-and-date">
+                                            <h6 class="reviewer-name">Alexia C. Marshall</h6>
+                                            <h6 class="review-posted-date">12 May 2018</h6>
+                                        </div>
+                                        <div class="reviewer-stars-title-body">
+                                            <div class="reviewer-stars">
+                                                <div class="star">
+                                                    <span style='width:67px'></span>
+                                                </div>
+                                                <span class="review-title">Well done!</span>
+                                            </div>
+                                            <p class="review-body">
+                                                Good polyester Cotton
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row r-2 u-s-m-b-26 u-s-p-b-22">
-                                    <div class="col-lg-12">
-                                        <div class="your-rating-wrapper">
-                                            <h6 class="review-h6">Your Review is matter.</h6>
-                                            <h6 class="review-h6">Have you used this product before?</h6>
-                                            <div class="star-wrapper u-s-m-b-8">
-                                                <div class="star">
-                                                    <span id="your-stars" style='width:0'></span>
-                                                </div>
-                                                <label for="your-rating-value"></label>
-                                                <input id="your-rating-value" type="text" class="text-field"
-                                                    placeholder="0.0">
-                                                <span id="star-comment"></span>
-                                            </div>
-                                            <form>
-                                                <label for="your-name">Name
-                                                    <span class="astk"> *</span>
-                                                </label>
-                                                <input id="your-name" type="text" class="text-field"
-                                                    placeholder="Your Name">
-                                                <label for="your-email">Email
-                                                    <span class="astk"> *</span>
-                                                </label>
-                                                <input id="your-email" type="text" class="text-field"
-                                                    placeholder="Your Email">
-                                                <label for="review-title">Review Title
-                                                    <span class="astk"> *</span>
-                                                </label>
-                                                <input id="review-title" type="text" class="text-field"
-                                                    placeholder="Review Title">
-                                                <label for="review-text-area">Review
-                                                    <span class="astk"> *</span>
-                                                </label>
-                                                <textarea class="text-area u-s-m-b-8" id="review-text-area"
-                                                    placeholder="Review"></textarea>
-                                                <button class="button button-outline-secondary">Submit Review</button>
-                                            </form>
-                                        </div>
+                                <!-- All-Reviews /- -->
+                                <!-- Pagination-Review -->
+                                <div class="pagination-review-area">
+                                    <div class="pagination-review-number">
+                                        <ul>
+                                            <li style="display: none">
+                                                <a href="single-product.html" title="Previous">
+                                                    <i class="fas fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="single-product.html">1</a>
+                                            </li>
+                                            <li>
+                                                <a href="single-product.html">2</a>
+                                            </li>
+                                            <li>
+                                                <a href="single-product.html">3</a>
+                                            </li>
+                                            <li>
+                                                <a href="single-product.html">...</a>
+                                            </li>
+                                            <li>
+                                                <a href="single-product.html">10</a>
+                                            </li>
+                                            <li>
+                                                <a href="single-product.html" title="Next">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <!-- Get-Reviews -->
-                                <div class="get-reviews u-s-p-b-22">
-                                    <!-- Review-Options -->
-                                    <div class="review-options u-s-m-b-16">
-                                        <div class="review-option-heading">
-                                            <h6>Reviews
-                                                <span> (15) </span>
-                                            </h6>
-                                        </div>
-                                        <div class="review-option-box">
-                                            <div class="select-box-wrapper">
-                                                <label class="sr-only" for="review-sort">Review Sorter</label>
-                                                <select class="select-box" id="review-sort">
-                                                    <option value="">Sort by: Best Rating</option>
-                                                    <option value="">Sort by: Worst Rating</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Review-Options /- -->
-                                    <!-- All-Reviews -->
-                                    <div class="reviewers">
-                                        <div class="review-data">
-                                            <div class="reviewer-name-and-date">
-                                                <h6 class="reviewer-name">John</h6>
-                                                <h6 class="review-posted-date">10 May 2018</h6>
-                                            </div>
-                                            <div class="reviewer-stars-title-body">
-                                                <div class="reviewer-stars">
-                                                    <div class="star">
-                                                        <span style='width:67px'></span>
-                                                    </div>
-                                                    <span class="review-title">Good!</span>
-                                                </div>
-                                                <p class="review-body">
-                                                    Good Quality...!
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="review-data">
-                                            <div class="reviewer-name-and-date">
-                                                <h6 class="reviewer-name">Doe</h6>
-                                                <h6 class="review-posted-date">10 June 2018</h6>
-                                            </div>
-                                            <div class="reviewer-stars-title-body">
-                                                <div class="reviewer-stars">
-                                                    <div class="star">
-                                                        <span style='width:67px'></span>
-                                                    </div>
-                                                    <span class="review-title">Well done!</span>
-                                                </div>
-                                                <p class="review-body">
-                                                    Cotton is good.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="review-data">
-                                            <div class="reviewer-name-and-date">
-                                                <h6 class="reviewer-name">Tim</h6>
-                                                <h6 class="review-posted-date">10 July 2018</h6>
-                                            </div>
-                                            <div class="reviewer-stars-title-body">
-                                                <div class="reviewer-stars">
-                                                    <div class="star">
-                                                        <span style='width:67px'></span>
-                                                    </div>
-                                                    <span class="review-title">Well done!</span>
-                                                </div>
-                                                <p class="review-body">
-                                                    Excellent condition
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="review-data">
-                                            <div class="reviewer-name-and-date">
-                                                <h6 class="reviewer-name">Johnny</h6>
-                                                <h6 class="review-posted-date">10 March 2018</h6>
-                                            </div>
-                                            <div class="reviewer-stars-title-body">
-                                                <div class="reviewer-stars">
-                                                    <div class="star">
-                                                        <span style='width:67px'></span>
-                                                    </div>
-                                                    <span class="review-title">Bright!</span>
-                                                </div>
-                                                <p class="review-body">
-                                                    Cotton
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="review-data">
-                                            <div class="reviewer-name-and-date">
-                                                <h6 class="reviewer-name">Alexia C. Marshall</h6>
-                                                <h6 class="review-posted-date">12 May 2018</h6>
-                                            </div>
-                                            <div class="reviewer-stars-title-body">
-                                                <div class="reviewer-stars">
-                                                    <div class="star">
-                                                        <span style='width:67px'></span>
-                                                    </div>
-                                                    <span class="review-title">Well done!</span>
-                                                </div>
-                                                <p class="review-body">
-                                                    Good polyester Cotton
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- All-Reviews /- -->
-                                    <!-- Pagination-Review -->
-                                    <div class="pagination-review-area">
-                                        <div class="pagination-review-number">
-                                            <ul>
-                                                <li style="display: none">
-                                                    <a href="single-product.html" title="Previous">
-                                                        <i class="fas fa-angle-left"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="active">
-                                                    <a href="single-product.html">1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-product.html">2</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-product.html">3</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-product.html">...</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-product.html">10</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-product.html" title="Next">
-                                                        <i class="fas fa-angle-right"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Pagination-Review /- -->
-                                </div>
-                                <!-- Get-Reviews /- -->
+                                <!-- Pagination-Review /- -->
                             </div>
+                            <!-- Get-Reviews /- -->
                         </div>
-                        <!-- Reviews-Tab /- -->
                     </div>
+                    <!-- Reviews-Tab /- -->
                 </div>
             </div>
         </div>
-        <!-- Detail-Tabs /- -->
-        <!-- Different-Product-Section -->
-        <div class="detail-different-product-section u-s-p-t-80">
-            <!-- Similar-Products -->
-            <section class="section-maker">
-                <div class="container">
-                    <div class="sec-maker-header text-center">
-                        <h3 class="sec-maker-h3">Similar Products</h3>
-                    </div>
-                    <div class="slider-fouc">
-                        <div class="products-slider owl-carousel" data-item="4">
-                            @foreach ($similiarproduct as $similiar)
-                            <div class="item">
-                                <div class="image-container">
-                                    <a class="item-img-wrapper-link" href="single-product.html">
-                                        <?php
+    </div>
+    <!-- Detail-Tabs /- -->
+    <!-- Different-Product-Section -->
+    <div class="detail-different-product-section u-s-p-t-80">
+        <!-- Similar-Products -->
+        <section class="section-maker">
+            <div class="container">
+                <div class="sec-maker-header text-center">
+                    <h3 class="sec-maker-h3">Similar Products</h3>
+                </div>
+                <div class="slider-fouc">
+                    <div class="products-slider owl-carousel" data-item="4">
+                        @foreach ($similiarproduct as $similiar)
+                        <div class="item">
+                            <div class="image-container">
+                                <a class="item-img-wrapper-link" href="single-product.html">
+                                    <?php
                                         $products_imgPath = 'template/images/Photo/Product/Small/'.$similiar['gambar']
                                     ?>
-                                        @if(!empty($similiar['gambar']) && file_exists($products_imgPath))
-                                        <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
-                                        @else
-                                        <img class="img-fluid"
-                                            src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
-                                            alt="Product">
-                                        @endif
-                                    </a>
-                                    <div class="item-action-behaviors">
-                                        <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                        <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                        <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                        <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                                    @if(!empty($similiar['gambar']) && file_exists($products_imgPath))
+                                    <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
+                                    @else
+                                    <img class="img-fluid"
+                                        src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
+                                        alt="Product">
+                                    @endif
+                                </a>
+                                <div class="item-action-behaviors">
+                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
+                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
+                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
+                                    <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="what-product-is">
+                                    <ul class="bread-crumb">
+                                        <li class="has-separator">
+                                            <a href="shop-v1-root-category.html">{{ $similiar['meta_title'] }}</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-v3-sub-sub-category.html">{{ $similiar['type'] }}</a>
+                                        </li>
+                                    </ul>
+                                    <h6 class="item-title">
+                                        <a href="{{ url('product/'.$similiar['id']) }}">{{ $similiar['nama'] }}</a>
+                                    </h6>
+                                    <div class="item-description">
+                                        <p>{{ $similiar['deskripsi'] }}</p>
+                                    </div>
+                                    <div class="item-stars">
+                                        <div class='star' title="4.5 out of 5 - based on 23 Reviews">
+                                            <span style='width:67px'></span>
+                                        </div>
+                                        <span>(23)</span>
                                     </div>
                                 </div>
-                                <div class="item-content">
-                                    <div class="what-product-is">
-                                        <ul class="bread-crumb">
-                                            <li class="has-separator">
-                                                <a href="shop-v1-root-category.html">{{ $similiar['meta_title'] }}</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-v3-sub-sub-category.html">{{ $similiar['type'] }}</a>
-                                            </li>
-                                        </ul>
-                                        <h6 class="item-title">
-                                            <a href="{{ url('product/'.$similiar['id']) }}">{{ $similiar['nama'] }}</a>
-                                        </h6>
-                                        <div class="item-description">
-                                            <p>{{ $similiar['deskripsi'] }}</p>
-                                        </div>
-                                        <div class="item-stars">
-                                            <div class='star' title="4.5 out of 5 - based on 23 Reviews">
-                                                <span style='width:67px'></span>
-                                            </div>
-                                            <span>(23)</span>
-                                        </div>
-                                    </div>
-                                    <div class="price-template">
-                                        <?php 
+                                <div class="price-template">
+                                    <?php 
                                             $getdiskon = Product::getdiskonharga($similiar['id'])
                                         ?>
-                                        <div class="item-new-price">
-                                            Rp {{ $getdiskon }}
-                                        </div>
-                                        <div class="item-old-price">
-                                            {{ $similiar['harga'] }}
-                                        </div>
+                                    <div class="item-new-price">
+                                        Rp {{ $getdiskon }}
+                                    </div>
+                                    <div class="item-old-price">
+                                        {{ $similiar['harga'] }}
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
                         </div>
+                        @endforeach
                     </div>
                 </div>
-            </section>
-            <!-- Similar-Products /- -->
-            <!-- Recently-View-Products  -->
-            {{-- <section class="section-maker">
-                <div class="container">
-                    <div class="sec-maker-header text-center">
-                        <h3 class="sec-maker-h3">Recently View</h3>
-                    </div>
-                    <div class="slider-fouc">
-                        <div class="products-slider owl-carousel" data-item="4">
-                            <div class="item">
-                                <div class="image-container">
-                                    <a class="item-img-wrapper-link" href="single-product.html">
-                                        <img class="img-fluid" src="images/product/product@3x.jpg" alt="Product">
-                                    </a>
-                                    <div class="item-action-behaviors">
-                                        <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                        <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                        <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                        <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+            </div>
+        </section>
+        <!-- Similar-Products /- -->
+        <!-- Recently-View-Products  -->
+        {{-- <section class="section-maker">
+            <div class="container">
+                <div class="sec-maker-header text-center">
+                    <h3 class="sec-maker-h3">Recently View</h3>
+                </div>
+                <div class="slider-fouc">
+                    <div class="products-slider owl-carousel" data-item="4">
+                        <div class="item">
+                            <div class="image-container">
+                                <a class="item-img-wrapper-link" href="single-product.html">
+                                    <img class="img-fluid" src="images/product/product@3x.jpg" alt="Product">
+                                </a>
+                                <div class="item-action-behaviors">
+                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
+                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
+                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
+                                    <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="what-product-is">
+                                    <ul class="bread-crumb">
+                                        <li class="has-separator">
+                                            <a href="shop-v1-root-category.html">{{ $catpro['meta_title'] }}</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-v3-sub-sub-category.html">{{ $catpro['type'] }}</a>
+                                        </li>
+                                    </ul>
+                                    <h6 class="item-title">
+                                        <a href="{{ url('product/'.$catpro['id']) }}">{{ $catpro['nama'] }}</a>
+                                    </h6>
+                                    <div class="item-description">
+                                        <p>{{ $catpro['deskripsi'] }}</p>
+                                    </div>
+                                    <div class="item-stars">
+                                        <div class='star' title="4.5 out of 5 - based on 23 Reviews">
+                                            <span style='width:67px'></span>
+                                        </div>
+                                        <span>(23)</span>
                                     </div>
                                 </div>
-                                <div class="item-content">
-                                    <div class="what-product-is">
-                                        <ul class="bread-crumb">
-                                            <li class="has-separator">
-                                                <a href="shop-v1-root-category.html">{{ $catpro['meta_title'] }}</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-v3-sub-sub-category.html">{{ $catpro['type'] }}</a>
-                                            </li>
-                                        </ul>
-                                        <h6 class="item-title">
-                                            <a href="{{ url('product/'.$catpro['id']) }}">{{ $catpro['nama'] }}</a>
-                                        </h6>
-                                        <div class="item-description">
-                                            <p>{{ $catpro['deskripsi'] }}</p>
-                                        </div>
-                                        <div class="item-stars">
-                                            <div class='star' title="4.5 out of 5 - based on 23 Reviews">
-                                                <span style='width:67px'></span>
-                                            </div>
-                                            <span>(23)</span>
-                                        </div>
+                                <div class="price-template">
+                                    <div class="item-new-price">
+                                        $100.00
                                     </div>
-                                    <div class="price-template">
-                                        <div class="item-new-price">
-                                            $100.00
-                                        </div>
-                                        <div class="item-old-price">
-                                            $120.00
-                                        </div>
+                                    <div class="item-old-price">
+                                        $120.00
                                     </div>
                                 </div>
-                                <div class="tag hot">
-                                    <span>HOT</span>
-                                </div>
+                            </div>
+                            <div class="tag hot">
+                                <span>HOT</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section> --}}
-            <!-- Recently-View-Products /- -->
-        </div>
-        <!-- Different-Product-Section /- -->
+            </div>
+        </section> --}}
+        <!-- Recently-View-Products /- -->
     </div>
+    <!-- Different-Product-Section /- -->
 </div>
 <!-- Single-Product-Full-Width-Page /- -->
 @endsection

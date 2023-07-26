@@ -132,4 +132,13 @@ class ListeningController extends Controller
         $penyediaproduct = $penyediaproduct->paginate(10);
         return view('front.products.toko')->with(compact('jasadetails', 'penyediaproduct'));
     }
+
+    public function addTocart(Request $request)
+    {
+        if($request->isMethod('POST')){
+            $data = $request->all();
+            echo "<pre>"; print_r($data); die;
+        }
+    }
+
 }
