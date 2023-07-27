@@ -26,7 +26,7 @@ use App\Models\Product;
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="appendcartharga">
+                <div class="appendCartHarga">
                     @include('front.products.cart.cart_items')
                 </div>
             </div>

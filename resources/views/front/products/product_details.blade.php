@@ -131,7 +131,22 @@ use App\Models\Product;
                             @endif
                         </span>
                     </div>
-                    <div class="section-4-penyedia u-s-p-y-14">
+                    <div class="section-4-sku-information u-s-p-y-14">
+                        <h6 class="information-heading u-s-m-b-8">Sku Information:</h6>
+                        <div class="availability">
+                            <span>Availability :</span>
+                            @if($totalStock>0)
+                            <span>Tersedia Jam/Hari</span>
+                            @else
+                            <span>Tidak Tersedia Stock Jam/Hari</span>
+                            @endif
+                        </div>
+                        <div class="left">
+                            <span>Only:</span>
+                            <span>{{ $totalStock }} jam/Hari</span>
+                        </div>
+                    </div>
+                    <div class="section-5-penyedia u-s-p-y-14 pt-2">
                         @if(isset($product['penyedia']))
                         <span> Penyedia Jasa :
                             <a href="{{  url('products/'.$product['penyedia']['id']) }}">
@@ -142,6 +157,14 @@ use App\Models\Product;
                     </div>
                     <form action="{{ url('cart/add') }}" class="post-form" method="POST">
                         @csrf
+                        <div class="quantity-wrapper u-s-m-b-22">
+                            <span>Quantity:</span>
+                            <div class="quantity">
+                                <input type="number" name="quantity" class="quantity-text-field" value="1">
+                                <a class="plus-a" data-max="1000">&#43;</a>
+                                <a class="minus-a" data-min="1">&#45;</a>
+                            </div>
+                        </div>
                         <input type="hidden" name="product_id" value="{{ $product['id'] }}">
                         <div class="section-5-product-variants u-s-p-y-14">
                             <h6 class="information-heading u-s-m-b-8">Product Variants:</h6>
@@ -225,90 +248,6 @@ use App\Models\Product;
                     </ul>
                 </div>
                 <div class="tab-content">
-                    <!-- Description-Tab -->
-                    {{-- <div class="tab-pane fade active show" id="description">
-                        <div class="description-whole-container text-center">
-                            @if(!empty($product['video']))
-                            <video width="320" height="240" controls>
-                                <source src="{{ asset('template/images/Photo/Product/Large/'.$product['video']) }}"
-                                    type="video/mp4">
-                            </video>
-                            @else
-                            <p class="desc-p u-s-m-b-26">
-                                <i>Tidak ada video di product ini.</i>
-                            </p>
-                            @endif
-                        </div>
-                    </div>
-                    <!-- Description-Tab /- -->
-                    <!-- Specifications-Tab -->
-                    <div class="tab-pane fade" id="specification">
-                        <div class="specification-whole-container">
-                            <div class="spec-ul u-s-m-b-50">
-                                <h4 class="spec-heading">Key Features</h4>
-                                <ul>
-                                    <li>Heather Grey</li>
-                                    <li>Black</li>
-                                    <li>White</li>
-                                </ul>
-                            </div>
-                            <div class="u-s-m-b-50">
-                                <h4 class="spec-heading">Whats in the Box?</h4>
-                                <h3 class="spec-answer">1 x hoodie</h3>
-                            </div>
-                            <div class="spec-table u-s-m-b-50">
-                                <h4 class="spec-heading">General Information</h4>
-                                <table>
-                                    <tr>
-                                        <td>Sku</td>
-                                        <td>AY536FA08JT86NAFAMZ</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="spec-table u-s-m-b-50">
-                                <h4 class="spec-heading">Product Information</h4>
-                                <table>
-                                    <tr>
-                                        <td>Main Material</td>
-                                        <td>Cotton</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Color</td>
-                                        <td>Heather Grey, Black, White</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sleeves</td>
-                                        <td>Long Sleeve</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Top Fit</td>
-                                        <td>Regular</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Print</td>
-                                        <td>Not Printed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Neck</td>
-                                        <td>Round Neck</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pieces Count</td>
-                                        <td>1 piece</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Occasion</td>
-                                        <td>Casual</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping Weight (kg)</td>
-                                        <td>0.5</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Specifications-Tab /- --> --}}
                     <!-- Reviews-Tab -->
                     <div class="tab-pane fade active show" id="review">
                         <div class="review-whole-container">

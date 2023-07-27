@@ -11,6 +11,7 @@ use App\Models\ProductFilter;
 use App\Models\ProductAtribute;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -113,10 +114,12 @@ class ListeningController extends Controller
         $categorydetails = Category::categorydetails($product['category']['url']);
         // dd($product);
 
+        $totalStock = ProductAtribute::where('product_id', $id)->sum('stock');
+
         // Get similiar product
         $similiarproduct = Product::with('brand')->where('category_id', $product['category']['id'])->where('id', '!=', $id)->limit(4)->inRandomOrder()->get()->toArray();
         // dd($similiarproduct);
-        return view('front.products.product_details')->with(compact('product', 'categorydetails', 'similiarproduct'));
+        return view('front.products.product_details')->with(compact('product', 'categorydetails', 'similiarproduct', 'totalStock'));
     }
 
     public function getProductharga(Request $request)
@@ -147,6 +150,12 @@ class ListeningController extends Controller
                 Session::put('session_id', $session_id);
             }
 
+            // get stock is available
+            $isStockReady = ProductAtribute::isStockReady($data['product_id'], $data['paket']);
+            if($isStockReady<$data['quantity']){
+                return redirect()->back()->with('error_message', 'Required quantity is not Avaibale!');
+            }
+            
             // if cart ready in user cart
             if(Auth::check()){
                 $user_id = Auth::guard()->user()->id;
@@ -161,6 +170,7 @@ class ListeningController extends Controller
             $item->user_id = $user_id;
             $item->product_id = $data['product_id'];
             $item->paket = $data['paket'];
+            $item->quantity = $data['quantity'];
             $item->save();
             return redirect()->back()->with('succses_message', 'Product has been added in Cart! <a href="/cart">View Cart</a>');
         }
@@ -171,6 +181,21 @@ class ListeningController extends Controller
         $getCartItem = Cart::getCartItem();
         // dd($getCartItem);
         return view('front.products.cart.cart')->with(compact('getCartItem'));
+    }
+
+    public function updateCart(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>", print_r($data); die;
+
+            Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
+            $getCartItem = Cart::getCartItem();
+            return response()->json([
+                'status'=>true, 
+                'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+            ]);
+        }
     }
 
 }
