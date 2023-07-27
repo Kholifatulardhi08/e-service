@@ -49,7 +49,7 @@ use App\Models\Product;
                                 <div class="item-new-price">
                                     {{ $hargaattribute['final_harga'] }}
                                 </div>
-                                <div class="item-old-price" style="margin-left:-60px;">
+                                <div class="item-old-price" style="margin-left:-30px;">
                                     {{ $hargaattribute['harga'] }}
                                 </div>
                             </div>
@@ -84,6 +84,7 @@ use App\Models\Product;
                     </td>
                     <td>
                         <div class="action-wrapper">
+                            {{--  <button class="button button-outline-secondary fas fa-sync"></button>  --}}
                             <button class="button button-outline-secondary fas fa-trash"></button>
                         </div>
                     </td>

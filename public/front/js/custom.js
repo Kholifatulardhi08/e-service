@@ -44,6 +44,9 @@ $(document).ready(function(){
             url: '/update-cart',
             type: 'POST',
             success:function(resp){
+                if(resp.status==false){
+                    alert(resp.message);
+                }
                 $('.appendCartHarga').html(resp.view);
             }, error:function(){
                 alert("Error");

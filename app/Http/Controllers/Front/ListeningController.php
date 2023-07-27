@@ -188,6 +188,30 @@ class ListeningController extends Controller
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>", print_r($data); die;
+            $getcartdetail = Cart::find($data['cartid']);
+
+            // check available stock
+            $avaiablestock = ProductAtribute::select('stock')->where(['product_id'=>$getcartdetail['product_id'], 'paket'=>$getcartdetail['paket']])->first()->toArray();
+            // echo "<pre>"; print_r($avaiablestock); die;
+            if($data['qty']>$avaiablestock['stock']){
+                $getCartItem = Cart::getCartItem();
+                return response()->json([
+                    'status'=>false,
+                    'message' => 'Product Stock is not Available',
+                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+                ]);
+            }
+
+            // check product paket is available
+            $availablepaket = ProductAtribute::where(['product_id'=>$getcartdetail['product_id'], 'paket'=>$getcartdetail['paket'], 'status'=>1])->count();
+            if($availablepaket==0){
+                $getCartItem = Cart::getCartItem();
+                return response()->json([
+                    'status'=>false,
+                    'message' => 'Product Paket is not Available, chooice another paket!',
+                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+                ]);   
+            }
 
             Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
             $getCartItem = Cart::getCartItem();
