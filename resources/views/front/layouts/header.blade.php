@@ -47,14 +47,14 @@ $sections = Section::sections();
                                     Checkout</a>
                             </li>
                             <li>
-                                <a href="account.html">
+                                <a href="{{ url('penyewa/login-register') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                    Customer Login</a>
+                                    Penyewa Login</a>
                             </li>
                             <li>
                                 <a href="{{ url('penyedia/login-register') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                    Vendor Login</a>
+                                    Penyedia Login</a>
                             </li>
                         </ul>
                     </li>

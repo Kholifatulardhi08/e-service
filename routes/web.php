@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Front\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Admin\FilterController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Front\IndexController;
-use App\Http\Controllers\Front\ListeningController;
 use App\Http\Controllers\Front\PenyediaController;
-use App\Http\Controllers\Admin\FilterController;
-use App\Models\Category;
+use App\Http\Controllers\Front\ListeningController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -143,5 +144,7 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::post('/update-cart', 'ListeningController@updateCart');
     Route::post('/delete-cart', 'ListeningController@deleteCart');
 
+    // get user penyewa
+    Route::get('penyewa/login-register', 'UserController@loginregister');
 });
 
