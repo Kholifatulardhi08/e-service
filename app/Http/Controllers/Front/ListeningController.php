@@ -222,4 +222,17 @@ class ListeningController extends Controller
         }
     }
 
+    public function deletecart(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>", print_r($data); die;
+            Cart::where('id', $data['cartid'])->delete();
+            $getCartItem = Cart::getCartItem();
+                return response()->json([
+                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+                ]);
+        }
+    }
+
 }

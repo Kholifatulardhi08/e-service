@@ -84,8 +84,9 @@ use App\Models\Product;
                     </td>
                     <td>
                         <div class="action-wrapper">
-                            {{--  <button class="button button-outline-secondary fas fa-sync"></button>  --}}
-                            <button class="button button-outline-secondary fas fa-trash"></button>
+                            <button class="button button-outline-secondary fas fa-trash deleteCartItem" data-cartid="{{ $cart['id'] }}">
+
+                            </button>
                         </div>
                     </td>
                 </tr>
