@@ -87,6 +87,7 @@
                             </label>
                             <input type="text" id="name" name="name" class="text-field"
                                 placeholder="Masukkan Nama anda">
+                                <p id="register-name"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <label for="no_hp">No. Handphone
@@ -94,12 +95,14 @@
                             </label>
                             <input type="text" id="no_hp" name="no_hp" class="text-field"
                                 placeholder="Masukkan No HP anda">
+                                <p id="register-no_hp"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <label for="email">Email
                                 <span class="astk">*</span>
                             </label>
                             <input type="email" id="email" name="email" class="text-field" placeholder="Masukkan Email">
+                            <p id="register-email"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <label for="password">Password
@@ -107,12 +110,14 @@
                             </label>
                             <input type="password" id="password" name="password" class="text-field"
                                 placeholder="Password">
+                                <p id="register-password"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <input type="checkbox" class="check-box" id="accept" name="accept">
                             <label class="label-text no-color" for="accept">I’ve read and accept the
                                 <a href="terms-and-conditions.html" class="u-c-brand">terms & conditions</a>
                             </label>
+                            <p id="register-accept"></p>
                         </div>
                         <div class="u-s-m-b-45">
                             <button class="button button-primary w-100">Register</button>

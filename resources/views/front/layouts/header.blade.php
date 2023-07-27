@@ -27,7 +27,11 @@ $sections = Section::sections();
             <nav>
                 <ul class="secondary-nav g-nav">
                     <li>
-                        <a>My Account
+                        <a> @if(Auth::check())
+                            My Account
+                            @else
+                            login/register
+                            @endif
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
                         <ul class="g-dropdown" style="width:200px">
@@ -41,11 +45,23 @@ $sections = Section::sections();
                                     <i class="far fa-heart u-s-m-r-9"></i>
                                     My Wishlist</a>
                             </li>
-                            <li>
+                            {{--  <li>
                                 <a href="checkout.html">
                                     <i class="far fa-check-circle u-s-m-r-9"></i>
                                     Checkout</a>
+                            </li>  --}}
+                            @if(Auth::check())
+                            <li>
+                                <a href="{{ url('penyewa/account') }}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    My Account</a>
                             </li>
+                            <li>
+                                <a href="{{ url('penyewa/logout') }}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    Logout</a>
+                            </li>
+                            @else
                             <li>
                                 <a href="{{ url('penyewa/login-register') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
@@ -56,34 +72,9 @@ $sections = Section::sections();
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Penyedia Login</a>
                             </li>
+                            @endif
                         </ul>
                     </li>
-                    {{--  <li>
-                        <a>USD
-                            <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:90px">
-                            <li>
-                                <a href="#" class="u-c-brand">($) USD</a>
-                            </li>
-                            <li>
-                                <a href="#">(£) GBP</a>
-                            </li>
-                        </ul>
-                    </li>  --}}
-                    {{--  <li>
-                        <a>ENG
-                            <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:70px">
-                            <li>
-                                <a href="#" class="u-c-brand">ENG</a>
-                            </li>
-                            <li>
-                                <a href="#">ARB</a>
-                            </li>
-                        </ul>
-                    </li>  --}}
                 </ul>
             </nav>
         </div>
@@ -96,8 +87,7 @@ $sections = Section::sections();
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
                         <a href="/">
-                            <img src="{{ url('template/images/aa.png') }}"
-                                alt="E-service" class="app-brand-logo">
+                            <img src="{{ url('template/images/aa.png') }}" alt="E-service" class="app-brand-logo">
                         </a>
                     </div>
                 </div>
@@ -244,11 +234,13 @@ $sections = Section::sections();
                                                 <div class="col-lg-4">
                                                     <ul class="v-level-2">
                                                         <li>
-                                                            <a href="{{ url($categories['url']) }}">{{ $categories['nama'] }}</a>
+                                                            <a href="{{ url($categories['url']) }}">{{
+                                                                $categories['nama'] }}</a>
                                                             <ul>
                                                                 @foreach ($categories['subcategory'] as $subcategories)
                                                                 <li>
-                                                                    <a href="{{ url($subcategories['url']) }}">{{ $subcategories['nama'] }}</a>
+                                                                    <a href="{{ url($subcategories['url']) }}">{{
+                                                                        $subcategories['nama'] }}</a>
                                                                 </li>
                                                                 @endforeach
                                                             </ul>

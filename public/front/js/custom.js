@@ -86,20 +86,36 @@ $(document).ready(function () {
         }
     });
 
-    $("#registerForm").submit(function(){
+    $("#registerForm").submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission
         var formdata = $(this).serialize();
         $.ajax({
             url: '/penyewa/register',
             type: 'POST',
             data: formdata,
-            success:function(resp){
-                alert(resp.url);
-                window.location.href = resp.url;
-            }, error:function(){
-                alert("Error");
+            success: function (resp) {
+                if (resp.type === 'error') {
+                    // Handle validation errors
+                    $.each(resp.errors, function (i, error) {
+                        $("#register-" + i).attr('style', 'color:red');
+                        $("#register-" + i).html(error);
+                        setTimeout(function () {
+                            $(".register-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                    });
+                } else if (resp.type === 'success') {
+                    // Redirect to the success URL
+                    window.location.href = resp.url;
+                }
+            },
+            error: function () {
+                alert("Error occurred during registration. Please try again later.");
             }
-        })
+        });
     });
+
 
 });
 
