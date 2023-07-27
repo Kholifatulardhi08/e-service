@@ -79,7 +79,7 @@ class PenyediaController extends Controller
 
             // redirect back 
             $message = "Terima Kasih telah registrasi, konfirmasi melalui email anda ketika anda disetujui!";
-            return redirect()->back()->with('success_message', $message);
+            return redirect()->back()->with('succses_message', $message);
         }
 
     }

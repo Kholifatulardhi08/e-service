@@ -23,16 +23,18 @@
     <div class="container">
         @if(Session::has('error_message'))
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Error: </strong> {{ Session::get('error_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <strong>Error: </strong>
+            {{ Session::get('error_message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         @endif
-        @if(Session::has('success_message'))
+        @if(Session::has('succses_message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Succses: </strong> {{ Session::get('succses_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <strong>Success: </strong>
+            {{ Session::get('success_message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -64,7 +66,8 @@
                             <label for="password">Password
                                 <span class="astk">*</span>
                             </label>
-                            <input type="password" name="password" id="password" class="text-field" placeholder="Password">
+                            <input type="password" name="password" id="password" class="text-field"
+                                placeholder="Password">
                         </div>
                         <div class="m-b-45">
                             <button class="button button-outline-secondary w-100">Login</button>

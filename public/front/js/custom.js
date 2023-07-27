@@ -85,6 +85,22 @@ $(document).ready(function () {
             });
         }
     });
+
+    $("#registerForm").submit(function(){
+        var formdata = $(this).serialize();
+        $.ajax({
+            url: '/penyewa/register',
+            type: 'POST',
+            data: formdata,
+            success:function(resp){
+                alert(resp.url);
+                window.location.href = resp.url;
+            }, error:function(){
+                alert("Error");
+            }
+        })
+    });
+
 });
 
 function get_filter(class_name) {

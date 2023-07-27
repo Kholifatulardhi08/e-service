@@ -79,13 +79,13 @@
                     <h2 class="account-h2 u-s-m-b-20">Register</h2>
                     <h6 class="account-h6 u-s-m-b-30">Registering for this site allows you to access your order status
                         and history.</h6>
-                    <form id="penyediaForm" action="{{ url('/penyedia/register') }}" method="POST">
+                    <form id="registerForm" action="javascript:;" method="POST">
                         @csrf
                         <div class="u-s-m-b-30">
-                            <label for="nama">Nama
+                            <label for="name">Nama
                                 <span class="astk">*</span>
                             </label>
-                            <input type="text" id="nama" name="nama" class="text-field"
+                            <input type="text" id="name" name="name" class="text-field"
                                 placeholder="Masukkan Nama anda">
                         </div>
                         <div class="u-s-m-b-30">
