@@ -80,7 +80,9 @@
                                                 <input type="text" name="harga[]" placeholder="Harga"
                                                     style="width: 120px;" required="" />
                                                 <input type="text" name="keterangan[]" placeholder="Keterangan"
-                                                    style="width: 120px;" required="" />
+                                                    style="width: 150px;" required="" />
+                                                <input type="text" name="stock[]" placeholder="jam/hari"
+                                                    style="width: 100px;" required="" />
                                                 <a href="javascript:void(0);" class="add_button" title="Add field">
                                                     Add
                                                 </a>
@@ -109,6 +111,9 @@
                                                         Harga
                                                     </th>
                                                     <th>
+                                                        Stock
+                                                    </th>
+                                                    <th>
                                                         Keterangan
                                                     </th>
                                                     <th>
@@ -130,6 +135,10 @@
                                                     <td>
                                                         <input style="width: 70px;" type="number" name="harga[]"
                                                             value="{{ $attribute['harga'] }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input style="width: 70px;" type="text" name="stock[]"
+                                                            value="{{ $attribute['stock'] }}" required>
                                                     </td>
                                                     <td>
                                                         <input style="width: 250px;" type="text" name="keterangan[]"

@@ -14,7 +14,7 @@ $(document).ready(function(){
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div><input type="text" name="paket[]" placeholder="Paket" style="width: 120px;"/>&nbsp;<input type="text" name="harga[]" placeholder="Harga" style="width: 120px;"/>&nbsp;<input type="text" name="keterangan[]" placeholder="Keterangan" style="width: 120px;"/>&nbsp;<a href="javascript:void(0);" class="remove_button">Hapus</a></div>'; //New input field html 
+    var fieldHTML = '<div><input type="text" name="paket[]" placeholder="Paket" style="width: 120px;"/>&nbsp;<input type="text" name="harga[]" placeholder="Harga" style="width: 120px;"/>&nbsp;<input type="text" name="keterangan[]" placeholder="Keterangan" style="width: 120px;"/>&nbsp;<input type="text" name="stock[]" placeholder="Stock" style="width: 120px;"/>&nbsp;<a href="javascript:void(0);" class="remove_button">Hapus</a></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     
     //Once add button is clicked

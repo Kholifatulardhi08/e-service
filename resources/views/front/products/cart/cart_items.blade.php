@@ -28,14 +28,14 @@ use App\Models\Product;
                             <?php
                                 $products_imgPath = 'template/images/Photo/Product/Small/'.$cart['product']['gambar']
                             ?>
-                            <a href="#">
+                            <a href="{{ url('product/'.$cart['product_id']) }}">
                                 <img src="{{ $products_imgPath }}" alt="Product">
                             </a>
                         </div>
                     </td>
                     <td>
                         <div class="cart-anchor-image">
-                            <a href="#">
+                            <a href="{{ url('product/'.$cart['product_id']) }}">
                                 <h6>{{ $cart['product']['nama'] }}<br>
                                     {{ $cart['paket'] }}
                                 </h6>
@@ -69,7 +69,6 @@ use App\Models\Product;
                     </td>
                     <td>
                         <div class="action-wrapper">
-                            <button class="button button-outline-secondary fas fa-sync"></button>
                             <button class="button button-outline-secondary fas fa-trash"></button>
                         </div>
                     </td>

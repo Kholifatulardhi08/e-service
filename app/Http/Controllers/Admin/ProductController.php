@@ -193,6 +193,7 @@ class ProductController extends Controller
                     $attribute -> product_id = $id;
                     $attribute -> paket = $value;
                     $attribute -> harga = $data['harga'][$key];
+                    $attribute -> stock = $data['stock'][$key];
                     $attribute -> keterangan = $data['keterangan'][$key];
                     $attribute -> status = 1;
                     $attribute -> save();
