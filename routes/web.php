@@ -149,5 +149,6 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::post('penyewa/register', 'UserController@register');
     Route::post('penyewa/login', 'UserController@login');
     Route::get('penyewa/logout', 'UserController@logout');
+    Route::get('penyewa/confirm/{code}', 'UserController@confirmpenyewa');
 });
 

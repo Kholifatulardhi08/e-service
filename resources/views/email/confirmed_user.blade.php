@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Welcome to E-service</title>
+    <title>Penyewa Confirmation</title>
     <style>
         /* Add your custom CSS styles here */
         body {
@@ -33,13 +33,20 @@
             border: 1px solid #e0e0e0;
         }
 
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
+        .details {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .details th,
+        .details td {
+            border: 1px solid #e0e0e0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .details th {
+            background-color: #f2f2f2;
         }
 
         .footer {
@@ -54,22 +61,33 @@
     <table cellspacing="0" cellpadding="0">
         <tr>
             <td class="header">
-                Welcome to E-service
+                Penyewa Confirmation
             </td>
         </tr>
         <tr>
             <td class="content">
                 <p>Dear {{ $name }},</p>
-                <p>Please click below to activate your penyedia account:</p>
-                <p>
-                    <a class="button" href="{{ url('penyewa/confirm/'.$code) }}">
-                        Activate Account
-                    </a>
+                <p>Your account is confirmed. You can now log in and add your personal data. Choice your service!
                 </p>
-                <p>If the button above does not work, you can also copy and paste the following link into your browser:</p>
-                <p>
-                    {{ url('penyedia/confirm/'.$code) }}
-                </p>
+                <p>Your Details:</p>
+                <table class="details">
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ $name }}</td>
+                    </tr>
+                    <tr>
+                        <th>No Handphone</th>
+                        <td>{{ $no_hp }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ $email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Password</th>
+                        <td>****** as Chose by you.</td>
+                    </tr>
+                </table>
                 <p>Thank you,</p>
                 <p>E-service</p>
             </td>

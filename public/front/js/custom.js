@@ -107,7 +107,8 @@ $(document).ready(function () {
                     });
                 } else if (resp.type == 'success') {
                     // Redirect to the success URL
-                    window.location.href = resp.url;
+                    alert(resp.message);
+                    // window.location.href = resp.url;
                 }
             },
             error: function () {
