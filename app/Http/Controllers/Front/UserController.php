@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -21,7 +22,6 @@ class UserController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:100',
-                'no_hp' => 'required|numeric|max:14',
                 'email' => 'required|email|max:150|unique:users',
                 'password' => 'required|min:6',
                 'accept' => 'required'
@@ -38,6 +38,16 @@ class UserController extends Controller
                 $user->password = bcrypt($data['password']);
                 $user->status = 1;
                 $user->save();
+
+                $email = $data['email'];
+                $messageData = [
+                    'name'=>$data['name'],
+                    'no_hp' =>$data['no_hp'],
+                    'email' =>$data['email'],
+                ];
+                Mail::send('email.confirmation_user', $messageData, function($message)use($email){
+                    $message->to($email)->subject('Welcome to E-service!');
+                });
 
                 if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
                     $redirectTo = url('cart');
