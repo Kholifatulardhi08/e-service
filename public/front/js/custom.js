@@ -116,6 +116,53 @@ $(document).ready(function () {
         });
     });
 
+    $("#loginForm").submit(function (event) {
+        // event.preventDefault(); // Prevent the default form submission
+        var formdata = $(this).serialize();
+        $.ajax({
+            url: '/penyewa/login',
+            type: 'POST',
+            data: formdata,
+            success: function (resp) {
+                if (resp.type == 'error') {
+                    // Handle validation errors
+                    $.each(resp.errors, function (i, error) {
+                        $("#login-" + i).attr('style', 'color:red');
+                        $("#login-" + i).html(error);
+                        setTimeout(function () {
+                            $("#login-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                    });
+                } else if (resp.type == 'incorrect') {
+                    // alert(resp.message);
+                    $("#login-error").attr('style', 'color:red');
+                        $("#login-error").html(resp.message);
+                        setTimeout(function () {
+                            $("#login-error-").css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                }else if (resp.type == 'inactive') {
+                    // alert(resp.message);
+                    $("#login-error").attr('style', 'color:red');
+                        $("#login-error").html(resp.message);
+                        setTimeout(function () {
+                            $("#login-error-").css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                } else {
+                    // Redirect to the success URL
+                    window.location.href = resp.url;
+                }
+            },
+            error: function () {
+                alert("Error occurred during registration. Please try again later.");
+            }
+        });
+    });
 
 });
 

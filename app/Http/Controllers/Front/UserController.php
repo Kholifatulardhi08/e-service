@@ -25,7 +25,8 @@ class UserController extends Controller
                 'email' => 'required|email|max:150|unique:users',
                 'password' => 'required|min:6',
                 'accept' => 'required'
-            ], [
+            ],
+            [
                 'accept.required' => 'Please accept Terms & Conditions!'
             ]);
 
@@ -59,6 +60,32 @@ class UserController extends Controller
         }
     }
 
+    public function login(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $validator = Validator::make($request->all(), [  
+                'email' => 'required|email|max:150|exists:users',
+                'password' => 'required|min:6',
+            ]);
+
+            if ($validator->passes()) {
+                if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                    if(Auth::user()->status==0){
+                        Auth::logout();
+                        return response()->json(['type'=>'inactive', 'message'=>'Please Contact Admin, Your account is inactive']);
+                    }
+                    $redirectTo = url('cart');
+                    return response()->json(['type' => 'success', 'url' => $redirectTo]);
+                } else {
+                    return response()->json(['type' => 'incorrect', 'message'=>'Incorect Email or Password!']);
+                }
+            } else {
+                return response()->json(['type' => 'error', 'errors' => $validator->getMessageBag()->toArray()]);
+            }
+        }
+    }
 
     public function logout()
     {

@@ -52,19 +52,22 @@
                 <div class="login-wrapper">
                     <h2 class="account-h2 u-s-m-b-20">Login</h2>
                     <h6 class="account-h6 u-s-m-b-30">Welcome back! Sign in to your account.</h6>
-                    <form action="{{ url('admin/login') }}" method="POST">
+                    <p id="login-error"></p>
+                    <form id="loginForm" action="javascript:;" method="POST">
                         @csrf
                         <div class="u-s-m-b-30">
                             <label for="email">Email
                                 <span class="astk">*</span>
                             </label>
                             <input type="email" name="email" id="email" class="text-field" placeholder="Email">
+                            <p id="login-email"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <label for="password">Password
                                 <span class="astk">*</span>
                             </label>
                             <input type="password" name="password" id="password" class="text-field" placeholder="Password">
+                            <p id="login-password"></p>
                         </div>
                         <div class="m-b-45">
                             <button class="button button-outline-secondary w-100">Login</button>
