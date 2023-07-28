@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -205,4 +206,35 @@ class UserController extends Controller
         }
     }
 
+    public function updatepassword(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $validator = Validator::make($request->all(), [
+                'current_password' => 'required',
+                'new_password' => 'required|min:6',
+                'confirm_password' => 'required|min:6|same:new_password'
+            ]);
+
+            if ($validator->passes()) {
+                $current_password = $data['current_password'];
+                $checkPassword = User::where('id', Auth::user()->id)->first();
+                if(Hash::check($current_password, $checkPassword->password)){
+                    // update password in database
+                    $user = User::find(Auth::user()->id);
+                    $user->password = bcrypt($data['new_password']);
+                    $user->save();
+
+                    return response()->json(['type'=> 'success', 'message'=>'Your update is succesfully updated!']);
+                }else{
+                    return response()->json(['type' => 'incorrect', 'message'=>'Incorect Password not same!']);
+                }
+            } else {
+                return response()->json(['type' => 'error', 'errors' => $validator->getMessageBag()->toArray()]);
+            }
+        }else{
+            return view('front.penyewa.akun')->with(compact('provinsi'));
+        }
+    }
 }

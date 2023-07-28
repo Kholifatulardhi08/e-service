@@ -51,7 +51,6 @@
             <div class="col-lg-6">
                 <div class="login-wrapper">
                     <h2 class="account-h2 u-s-m-b-20">Account Setting</h2>
-                    <h6 class="account-h6 u-s-m-b-30"></h6>
                     <p id="account-error"></p>
                     <p id="account-success"></p>
                     <form id="accountForm" action="javascript:;" method="POST">
@@ -134,6 +133,44 @@
             </div>
             <!-- Login /- -->
             <!-- Register -->
+            <div class="col-lg-6">
+                <div class="reg-wrapper">
+                    <h2 class="account-h2 u-s-m-b-20">Update Password</h2>
+                    <p id="password-error"></p>
+                    <p id="password-success"></p>
+                    <form id="passwordForm" action="javascript:;" method="POST">
+                        @csrf
+                        <div class="u-s-m-b-30">
+                            <label for="current_password">Current Password
+                                <span class="astk">*</span>
+                            </label>
+                            <input type="password" id="current_password" name="current_password" class="text-field"
+                                placeholder="Masukkan Password anda">
+                            <p id="password-current_password"></p>
+                        </div>
+                        <div class="u-s-m-b-30">
+                            <label for="new_password">New Password
+                                <span class="astk">*</span>
+                            </label>
+                            <input type="password" id="new_password" name="new_password" class="text-field"
+                                placeholder="Masukkan Password anda">
+                            <p id="password-new_password"></p>
+                        </div>
+                        <div class="u-s-m-b-30">
+                            <label for="confirm_password">Confirm Password
+                                <span class="astk">*</span>
+                            </label>
+                            <input type="password" id="confirm_password" name="confirm_password" class="text-field"
+                                placeholder="Masukkan Password anda">
+                            <p id="password-confirm_password"></p>
+                        </div>
+                        <div class="u-s-m-b-45">
+                            <button type="submit" class="button button-primary w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Register /- -->
         </div>
     </div>
 </div>

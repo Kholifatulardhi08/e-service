@@ -225,6 +225,45 @@ $(document).ready(function () {
         });
     });
 
+    $("#passwordForm").submit(function () {
+        var formdata = $(this).serialize();
+        $.ajax({
+            url: 'update-password',
+            type: 'POST',
+            data: formdata,
+            success: function (resp) {
+                if (resp.type == 'error') {
+                    // Handle validation errors
+                    $.each(resp.errors, function (i, error) {
+                        $("#password-" + i).attr('style', 'color:red');
+                        $("#password-" + i).html(error);
+                        setTimeout(function () {
+                            $("#password-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                    });
+                } else if (resp.type == 'incorrect') {
+                    // alert(resp.message);
+                    $("#password-error").attr('style', 'color:red');
+                    $("#password-error").html(resp.message);
+                    setTimeout(function () {
+                        $("#password-error").css({
+                            'display': 'none'
+                        });
+                    }, 10000);
+                } else if (resp.type == 'success') {
+                    // Redirect to the success URL
+                    alert(resp.message);
+                    location.reload();
+                    // window.location.href = resp.url;
+                }
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
 });
 
 function get_filter(class_name) {
