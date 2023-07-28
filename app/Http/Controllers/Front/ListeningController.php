@@ -165,6 +165,10 @@ class ListeningController extends Controller
                 $countProducts = Cart::where(['product_id'=>$data['product_id'], 'paket'=>$data['paket'], 'session_id'=>$session_id])->count();
             }
 
+            if($countProducts > 0){
+                return redirect()->back()->with('error_message', 'Product Already exists in cart!');
+            }
+
             $item = New Cart;
             $item->session_id = $session_id;
             $item->user_id = $user_id;
