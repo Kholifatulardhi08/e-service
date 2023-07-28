@@ -66,8 +66,18 @@
                             <label for="password">Password
                                 <span class="astk">*</span>
                             </label>
-                            <input type="password" name="password" id="password" class="text-field" placeholder="Password">
+                            <input type="password" name="password" id="password" class="text-field"
+                                placeholder="Password">
                             <p id="login-password"></p>
+                        </div>
+                        <div class="group-inline u-s-m-b-30">
+                            {{-- forgot password  --}}
+                            <div class="group-2 text-right">
+                                <div class="page-anchor">
+                                    <a href="{{ url('lupa-password') }}">
+                                        <i class="fas fa-circle-o-notch u-s-m-r-9"></i>Lost your password?</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="m-b-45">
                             <button class="button button-outline-secondary w-100">Login</button>
@@ -90,7 +100,7 @@
                             </label>
                             <input type="text" id="name" name="name" class="text-field"
                                 placeholder="Masukkan Nama anda">
-                                <p id="register-name"></p>
+                            <p id="register-name"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <label for="no_hp">No. Handphone
@@ -98,7 +108,7 @@
                             </label>
                             <input type="text" id="no_hp" name="no_hp" class="text-field"
                                 placeholder="Masukkan No HP anda">
-                                <p id="register-no_hp"></p>
+                            <p id="register-no_hp"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <label for="email">Email
@@ -113,7 +123,7 @@
                             </label>
                             <input type="password" id="password" name="password" class="text-field"
                                 placeholder="Password">
-                                <p id="register-password"></p>
+                            <p id="register-password"></p>
                         </div>
                         <div class="u-s-m-b-30">
                             <input type="checkbox" class="check-box" id="accept" name="accept">

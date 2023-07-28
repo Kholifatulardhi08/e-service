@@ -86,7 +86,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#registerForm").submit(function (event) {
+    $("#registerForm").submit(function () {
         // event.preventDefault(); // Prevent the default form submission
         var formdata = $(this).serialize();
         $.ajax({
@@ -139,21 +139,21 @@ $(document).ready(function () {
                 } else if (resp.type == 'incorrect') {
                     // alert(resp.message);
                     $("#login-error").attr('style', 'color:red');
-                        $("#login-error").html(resp.message);
-                        setTimeout(function () {
-                            $("#login-error-").css({
-                                'display': 'none'
-                            });
-                        }, 2000);
-                }else if (resp.type == 'inactive') {
+                    $("#login-error").html(resp.message);
+                    setTimeout(function () {
+                        $("#login-error-").css({
+                            'display': 'none'
+                        });
+                    }, 2000);
+                } else if (resp.type == 'inactive') {
                     // alert(resp.message);
                     $("#login-error").attr('style', 'color:red');
-                        $("#login-error").html(resp.message);
-                        setTimeout(function () {
-                            $("#login-error-").css({
-                                'display': 'none'
-                            });
-                        }, 2000);
+                    $("#login-error").html(resp.message);
+                    setTimeout(function () {
+                        $("#login-error-").css({
+                            'display': 'none'
+                        });
+                    }, 2000);
                 } else {
                     // Redirect to the success URL
                     window.location.href = resp.url;
@@ -161,6 +161,36 @@ $(document).ready(function () {
             },
             error: function () {
                 alert("Error occurred during registration. Please try again later.");
+            }
+        });
+    });
+
+    $("#forgotForm").submit(function () {
+        var formdata = $(this).serialize();
+        $.ajax({
+            url: 'lupa-password',
+            type: 'POST',
+            data: formdata,
+            success: function (resp) {
+                if (resp.type == 'error') {
+                    // Handle validation errors
+                    $.each(resp.errors, function (i, error) {
+                        $("#forgot-" + i).attr('style', 'color:red');
+                        $("#forgot-" + i).html(error);
+                        setTimeout(function () {
+                            $("#forgot-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                    });
+                } else if (resp.type == 'success') {
+                    // Redirect to the success URL
+                    alert(resp.message);
+                    // window.location.href = resp.url;
+                }
+            },
+            error: function () {
+
             }
         });
     });

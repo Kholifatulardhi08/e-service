@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Models\Cart;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -129,5 +130,43 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function lupapassword(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|max:150|exists:users',
+            ],
+            [
+                'email.required' => 'your email not found!'
+            ]);
+
+            if ($validator->passes()) {
+                $new_password = Str::random(16);
+                User::where('email', $data['email'])->update(['password'=>bcrypt($new_password)]);
+                
+                // get user
+                $userDetails = User::where('email', $data['email'])->first()->toArray();
+
+                // send email to Penyewa
+                $email = $data['email'];
+                $messageData = [
+                    'name'=>$userDetails['name'],
+                    'email' =>$email,
+                    'password' =>$new_password
+                ];
+                Mail::send('email.forgot_password', $messageData, function($message)use($email){
+                    $message->to($email)->subject('New Password for Penyewa - login E-service!');
+                });
+                return response()->json(['type' => 'success', 'message'=>'Your new password send to your email registered!']);
+            } else {
+                return response()->json(['type' => 'error', 'errors' => $validator->getMessageBag()->toArray()]);
+            }
+        } else {
+            return view('front.penyewa.lupa_password');
+        }
     }
 }

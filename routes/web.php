@@ -150,5 +150,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::post('penyewa/login', 'UserController@login');
     Route::get('penyewa/logout', 'UserController@logout');
     Route::get('penyewa/confirm/{code}', 'UserController@confirmpenyewa');
+
+    // forgot password
+    Route::match(['get', 'post'], 'lupa-password', 'UserController@lupapassword');
 });
 
