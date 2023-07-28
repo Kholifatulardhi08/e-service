@@ -169,4 +169,40 @@ class UserController extends Controller
             return view('front.penyewa.lupa_password');
         }
     }
+
+    public function account(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:100',
+                'alamat' => 'required|string|max:100',
+                'kecamatan' => 'required|string|max:100',
+                'kota' => 'required|string|max:100',
+                'provinsi' => 'required|string|max:100',
+                'kode_pos' => 'required|string|max:100',
+            ]);
+
+            if ($validator->passes()) {
+                User::where('id', Auth::user()->id)->update([
+                    'name' => $data['name'],
+                    'alamat' => $data['alamat'],
+                    'kecamatan' => $data['kecamatan'],
+                    'kota' => $data['kota'],
+                    'provinsi' => $data['provinsi'],
+                    'kode_pos' => $data['kode_pos']
+                ]);
+                $redirectTo = url('setting-account');
+                return response()->json(['type'=> 'success', 'message'=>'Your account detail is succesfully updated!']);
+            } else {
+                return response()->json(['type' => 'error', 'errors' => $validator->getMessageBag()->toArray()]);
+            }
+
+        }else{
+            $provinsi = \Indonesia::allProvinces()->toArray();
+            return view('front.penyewa.akun')->with(compact('provinsi'));
+        }
+    }
+
 }

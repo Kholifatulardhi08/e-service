@@ -52,7 +52,7 @@ $sections = Section::sections();
                             </li>  --}}
                             @if(Auth::check())
                             <li>
-                                <a href="{{ url('penyewa/account') }}">
+                                <a href="{{ url('setting-account') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     My Account</a>
                             </li>

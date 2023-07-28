@@ -190,7 +190,37 @@ $(document).ready(function () {
                 }
             },
             error: function () {
+                alert("Error");
+            }
+        });
+    });
 
+    $("#accountForm").submit(function () {
+        var formdata = $(this).serialize();
+        $.ajax({
+            url: 'setting-account',
+            type: 'POST',
+            data: formdata,
+            success: function (resp) {
+                if (resp.type == 'error') {
+                    // Handle validation errors
+                    $.each(resp.errors, function (i, error) {
+                        $("#account-" + i).attr('style', 'color:red');
+                        $("#account-" + i).html(error);
+                        setTimeout(function () {
+                            $("#account-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                    });
+                } else if (resp.type == 'success') {
+                    // Redirect to the success URL
+                    alert(resp.message);
+                    // window.location.href = resp.url;
+                }
+            },
+            error: function () {
+                alert("Error");
             }
         });
     });

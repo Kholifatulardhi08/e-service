@@ -153,5 +153,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
 
     // forgot password
     Route::match(['get', 'post'], 'lupa-password', 'UserController@lupapassword');
+
+    // setting account
+    Route::match(['get', 'post'], 'setting-account', 'UserController@account');
 });
 
