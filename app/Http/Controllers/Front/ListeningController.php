@@ -219,8 +219,10 @@ class ListeningController extends Controller
 
             Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
             $getCartItem = Cart::getCartItem();
+            $totalCartItem = totalCartItem();
             return response()->json([
-                'status'=>true, 
+                'status'=>true,
+                 'totalCartItem'=>$totalCartItem,
                 'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
             ]);
         }
@@ -233,9 +235,11 @@ class ListeningController extends Controller
             // echo "<pre>", print_r($data); die;
             Cart::where('id', $data['cartid'])->delete();
             $getCartItem = Cart::getCartItem();
-                return response()->json([
-                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
-                ]);
+            $totalCartItem = totalCartItem();
+            return response()->json([
+                'totalCartItem'=>$totalCartItem,
+                'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+            ]);
         }
     }
 

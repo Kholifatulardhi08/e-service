@@ -1,7 +1,7 @@
 <?php
 use App\models\Section;
 $sections = Section::sections();
-{{--  echo "<pre>"; print_r($sections); die;  --}}
+$totalCartItem = totalCartItem();
 ?>
 
 <!-- Header -->
@@ -83,7 +83,7 @@ $sections = Section::sections();
     <!-- Mid-Header -->
     <div class="full-layer-mid-header">
         <div class="container">
-            <div class="row clearfix align-items-center">
+            <div class="clearfix row align-items-center">
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
                         <a href="/">
@@ -129,7 +129,7 @@ $sections = Section::sections();
                             <li>
                                 <a id="mini-cart-trigger">
                                     <i class="ion ion-md-basket"></i>
-                                    <span class="item-counter">4</span>
+                                    <span class="item-counter totalCartItem">{{ $totalCartItem }}</span>
                                     <span class="item-price">$220.00</span>
                                 </a>
                             </li>
@@ -194,9 +194,9 @@ $sections = Section::sections();
                     </a>
                 </li>
             </ul>
-            <div class="mini-shop-total clearfix">
-                <span class="mini-total-heading float-left">Total:</span>
-                <span class="mini-total-price float-right">$400.00</span>
+            <div class="clearfix mini-shop-total">
+                <span class="float-left mini-total-heading">Total:</span>
+                <span class="float-right mini-total-price">$400.00</span>
             </div>
             <div class="mini-action-anchors">
                 <a href="cart.html" class="cart-anchor">View Cart</a>

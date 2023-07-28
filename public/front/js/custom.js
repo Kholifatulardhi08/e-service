@@ -51,6 +51,7 @@ $(document).ready(function () {
             url: '/update-cart',
             type: 'POST',
             success: function (resp) {
+                $(".totalCartItem").html(resp.totalCartItem);
                 if (resp.status == false) {
                     alert(resp.message);
                 }
@@ -77,6 +78,7 @@ $(document).ready(function () {
                 url: '/delete-cart',
                 type: 'POST',
                 success: function (resp) {
+                    $(".totalCartItem").html(resp.totalCartItem);
                     $('.appendCartHarga').html(resp.view);
                 },
                 error: function () {
