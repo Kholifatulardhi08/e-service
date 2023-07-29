@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Cart;
+use App\Models\Delivery;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -240,6 +241,8 @@ class UserController extends Controller
 
     public function checkout()
     {
-        return view('front.products.cart.checkout');
+        $deliveryAddress = Delivery::DeliveryAddreses();
+        // dd($deliveryAddress);
+        return view('front.products.cart.checkout')->with(compact('deliveryAddress'));
     }
 }
