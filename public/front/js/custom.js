@@ -52,6 +52,7 @@ $(document).ready(function () {
             type: 'POST',
             success: function (resp) {
                 $(".totalCartItem").html(resp.totalCartItem);
+                $("#appendCartItem").html(resp.cartmini);
                 if (resp.status == false) {
                     alert(resp.message);
                 }

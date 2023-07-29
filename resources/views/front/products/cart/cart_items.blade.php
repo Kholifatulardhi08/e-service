@@ -17,6 +17,11 @@ use App\Models\Product;
             </thead>
             <tbody>
                 @php $total_harga = 0 @endphp
+                @if(count($getCartItem) == 0)
+                <tr>
+                    <td class="text-center" colspan="6">Your cart is empty.</td>
+                </tr>
+                @else
                 @foreach ($getCartItem as $cart)
                 <?php
                     $hargaattribute = Product::hargaattribute($cart['product_id'], $cart['paket']);
@@ -84,7 +89,8 @@ use App\Models\Product;
                     </td>
                     <td>
                         <div class="action-wrapper">
-                            <button class="button button-outline-secondary fas fa-trash deleteCartItem" data-cartid="{{ $cart['id'] }}">
+                            <button class="button button-outline-secondary fas fa-trash deleteCartItem"
+                                data-cartid="{{ $cart['id'] }}">
 
                             </button>
                         </div>
@@ -92,6 +98,7 @@ use App\Models\Product;
                 </tr>
                 @php $total_harga = $total_harga + ($hargaattribute['final_harga'] * $cart['quantity']) @endphp
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>

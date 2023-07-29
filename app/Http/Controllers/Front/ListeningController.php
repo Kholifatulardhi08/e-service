@@ -202,7 +202,8 @@ class ListeningController extends Controller
                 return response()->json([
                     'status'=>false,
                     'message' => 'Product Stock is not Available',
-                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem')),
+                    'cartmini'=>(String)View::make('front.layouts.header_cart_item')->with(compact('getCartItem'))
                 ]);
             }
 
@@ -213,7 +214,8 @@ class ListeningController extends Controller
                 return response()->json([
                     'status'=>false,
                     'message' => 'Product Paket is not Available, chooice another paket!',
-                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+                    'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem')),
+                    'cartmini'=>(String)View::make('front.layouts.header_cart_item')->with(compact('getCartItem'))
                 ]);   
             }
 
@@ -222,8 +224,9 @@ class ListeningController extends Controller
             $totalCartItem = totalCartItem();
             return response()->json([
                 'status'=>true,
-                 'totalCartItem'=>$totalCartItem,
-                'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+                'totalCartItem'=>$totalCartItem,
+                'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem')),
+                'cartmini'=>(String)View::make('front.layouts.header_cart_item')->with(compact('getCartItem'))
             ]);
         }
     }
@@ -238,7 +241,8 @@ class ListeningController extends Controller
             $totalCartItem = totalCartItem();
             return response()->json([
                 'totalCartItem'=>$totalCartItem,
-                'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem'))
+                'view'=>(String)View::make('front.products.cart.cart_items')->with(compact('getCartItem')),
+                'cartmini'=>(String)View::make('front.layouts.header_cart_item')->with(compact('getCartItem'))
             ]);
         }
     }
