@@ -267,6 +267,35 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(document).on('click', '.editAddress', function(){
+        var addressid = $(this).data('addressid');
+        // alert(addressid);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {addressid:addressid},
+            url: '/get-delivery-address',
+            type: 'POST',
+            success:function(resp){
+                $("#showdifferent").removeClass("collapse");
+                $(".newAddress").hide();
+                // $("#deliveryText").text("Edit Delivery Address");
+                $('[name=delivery_id]').val(resp.delivery['id']);
+                $('[name=delivery_nama]').val(resp.delivery['nama']);
+                $('[name=delivery_no_hp]').val(resp.delivery['no_hp']);
+                $('[name=delivery_alamat]').val(resp.delivery['alamat']);
+                $('[name=delivery_kecamatan]').val(resp.delivery['kecamatan']);
+                $('[name=delivery_kota]').val(resp.delivery['kota']);
+                $('[name=delivery_provinsi]').val(resp.delivery['provinsi']);
+                $('[name=delivery_kode_pos]').val(resp.delivery['kode_pos']);
+            }, else:function(){
+                alert("Error");
+            }
+        });
+    });
+
 });
 
 function get_filter(class_name) {

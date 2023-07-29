@@ -165,5 +165,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
 
         // setting checkout 
         Route::match(['get', 'post'], 'checkout', 'UserController@checkout');
+
+        // route for edit address
+        Route::post('/get-delivery-address', 'UserController@editDelivery');
     });
 });

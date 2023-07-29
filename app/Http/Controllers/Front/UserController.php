@@ -243,6 +243,16 @@ class UserController extends Controller
     {
         $deliveryAddress = Delivery::DeliveryAddreses();
         // dd($deliveryAddress);
-        return view('front.products.cart.checkout')->with(compact('deliveryAddress'));
+        $provinsi = \Indonesia::allProvinces()->toArray();
+        return view('front.products.cart.checkout')->with(compact('deliveryAddress', 'provinsi'));
+    }
+
+    public function editDelivery(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            $delivery = Delivery::where('id', $data['addressid'])->first()->toArray();
+            return response()->json(['delivery'=>$delivery]);
+        };
     }
 }
