@@ -150,18 +150,20 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::post('/delete-cart', 'ListeningController@deleteCart');
 
     // get user penyewa
-    Route::get('penyewa/login-register', 'UserController@loginregister');
+    Route::get('penyewa/login-register', ['as'=>'login','uses'=>'UserController@loginregister']);
     Route::post('penyewa/register', 'UserController@register');
     Route::post('penyewa/login', 'UserController@login');
-    Route::get('penyewa/logout', 'UserController@logout');
     Route::get('penyewa/confirm/{code}', 'UserController@confirmpenyewa');
-
-    // forgot password
+    Route::post('update-password', 'UserController@updatepassword');
     Route::match(['get', 'post'], 'lupa-password', 'UserController@lupapassword');
 
-    // setting account
-    Route::match(['get', 'post'], 'setting-account', 'UserController@account');
+    Route::middleware('auth')->group(function () {
+        // Semua rute dalam grup ini memerlukan pengguna yang sudah login     
+        Route::get('penyewa/logout', 'UserController@logout');
+        // setting account
+        Route::match(['get', 'post'], 'setting-account', 'UserController@account');
 
-    Route::post('update-password', 'UserController@updatepassword');
+        // setting checkout 
+        Route::match(['get', 'post'], 'checkout', 'UserController@checkout');
+    });
 });
-

@@ -237,4 +237,9 @@ class UserController extends Controller
             return view('front.penyewa.akun')->with(compact('provinsi'));
         }
     }
+
+    public function checkout()
+    {
+        return view('front.products.cart.checkout');
+    }
 }
