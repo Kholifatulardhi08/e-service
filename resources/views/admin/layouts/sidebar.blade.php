@@ -68,6 +68,24 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item">
+            <a @if (Session::get('page')=='penyewa' ) style="background: #4B4BAC !important;
+            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#penyewa"
+                aria-expanded="false" aria-controls="#penyewa">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Manage Users</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="penyewa">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B4BAC !important;">
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='penyewa' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/penyewa') }}">Users</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
         <li class="nav-item" @if (Session::get('page')=='sections' || Session::get('page')=='category' ||
             Session::get('page')=='products' ) style="background: #4B4BAC !important;
             color: #fff !important;" @endif>

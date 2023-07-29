@@ -115,6 +115,11 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::get('filterValue', 'FilterController@filterValue');
         Route::post('update-filterValue-status', 'FilterController@updatefilterValueStatus');
         Route::match(['get', 'post'], 'add-edit-filtervalue/{id?}', 'FilterController@addEditFilterValue');
+
+        // get users
+        Route::get('penyewa', 'PenyewaController@index');
+        Route::post('admin/update-penyewa-status', 'PenyewaController@updatePenyewaStatus');
+
     });
 });
 

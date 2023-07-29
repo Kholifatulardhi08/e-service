@@ -10,6 +10,7 @@ $(document).ready(function(){
     $('#banners').DataTable();
     $('#filter').DataTable();
     $('#filterValue').DataTable();
+    $('#penyewas').DataTable();
     
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
@@ -73,6 +74,31 @@ $(document).ready(function(){
                     location.reload();
                 }else if(resp['status']==1){
                     $("#admin-"+admin_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
+
+    $(document).on("click",".updatePenyewaStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var penyewa_id = $(this).attr("penyewa_id");
+        alert(penyewa_id);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'admin/update-penyewa-status',
+            data:{'status':status,'penyewa_id':penyewa_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#admin-"+penyewa_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#admin-"+penyewa_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
                     location.reload();
                 }
             }, error:function(){
