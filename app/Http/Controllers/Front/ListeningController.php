@@ -35,8 +35,8 @@ class ListeningController extends Controller
                     $categoryproduct->whereIn($filter['filter_column'], $data[$filter['filter_column']]);  
                 }
             }
-            if(isset($data['EO']) && !empty($data['EO'])){
-                $categoryproduct->whereIn('products.EO', $data['EO']);
+            if(isset($data['event']) && !empty($data['event'])){
+                $categoryproduct->whereIn('products.event', $data['event']);
             }
 
             if(isset($_GET['sort']) && !empty($_GET['sort'])){
@@ -59,12 +59,16 @@ class ListeningController extends Controller
                 $categoryproduct->whereIn('products.id', $getProductid);
             }
 
+            $getProductid = array();
             if(isset($data['price']) && !empty($data['price'])){
                 foreach($data['price'] as $key => $price){
                     $priceArr = explode("-", $price);
-                    $getProductid[] = Product::select('id')->whereBetween('harga', [$priceArr[0], $priceArr[1]])->pluck('id')->toArray();
+                    if(isset($priceArr[0]) && isset($priceArr[1])){
+                        $getProductid[] = Product::select('id')->whereBetween('harga', [$priceArr[0], $priceArr[1]])->pluck('id')->toArray();
+                    }
                 }
-                $getProductid = call_user_func_array('array_merge', $getProductid);
+                $getProductid = array_unique(array_flatten($getProductid));
+                // $getProductid = call_user_func_array('array_merge', $getProductid);
                 // echo "<pre>"; print_r($getProductid); die;
                 $categoryproduct->whereIn('products.id', $getProductid);
             }
