@@ -7,11 +7,16 @@
     {{ $alamat['alamat'] }}, ({{ $alamat['no_hp'] }}), {{ $alamat['kecamatan'] }}, {{
     $alamat['kota'] }},
     {{ $alamat['provinsi'] }}, {{ $alamat['kode_pos'] }}
+    <a style="float: right; margin-left: 5px;" href="javascript:;" data-addressid="{{ $alamat['id'] }}"
+        style="float: right;" class="removeAddress">
+        Remove
+    </a>&nbsp;&nbsp;
     <a href="javascript:;" data-addressid="{{ $alamat['id'] }}" style="float: right;" class="editAddress">
         Edit
-    </a>
+    </a>&nbsp;&nbsp;
 </div>
 @endforeach<br>
+@endif
 <div class="u-s-m-b-24">
     <h4 class="section-h4">Edit Alamat Penyewa</h4>
     <input type="checkbox" class="label-text" for="ship-to-different-address" data-bs-toggle="collapse"
@@ -36,12 +41,14 @@
                                 <span class="astk">*</span>
                             </label>
                             <input type="text" name="delivery_nama" id="delivery_nama" class="text-field">
+                            <p id="delivery-delivery_nama"></p>
                         </div>
                         <div class="group-2">
                             <label for="no_hp">No Hanphone
                                 <span class="astk">*</span>
                             </label>
                             <input type="text" name="delivery_no_hp" id="delivery_no_hp" class="text-field">
+                            <p id="delivery-delivery_no_hp"></p>
                         </div>
                     </div>
                     <div class="u-s-m-b-13">
@@ -50,6 +57,7 @@
                         </label>
                         <input type="text" name="delivery_kecamatan" id="delivery_kecamatan" class="text-field"
                             placeholder="kecamatan anda">
+                            <p id="delivery-delivery_kecamatan"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <label for="kota">Kota
@@ -57,6 +65,7 @@
                         </label>
                         <input type="text" name="delivery_kota" id="delivery_kota" class="text-field"
                             placeholder="kota anda">
+                            <p id="delivery-delivery_kota"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <label for="provinsi">Provinsi
@@ -71,6 +80,7 @@
                                 </option>
                                 @endforeach
                             </select>
+                            <p id="delivery-delivery_provinsi"></p>
                         </div>
                     </div>
                     <div class="u-s-m-b-13">
@@ -79,6 +89,7 @@
                         </label>
                         <input type="text" name="delivery_kode_pos" id="delivery_kode_pos" class="text-field"
                             placeholder="Kode pos">
+                            <p id="delivery-delivery_kode_pos"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <label for="alamat">Alamat
@@ -86,6 +97,7 @@
                         </label>
                         <input type="text" name="delivery_alamat" id="delivery_alamat" class="text-field"
                             placeholder="alamat">
+                            <p id="delivery-delivery_alamat"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <button style="width: 100%;" type="submit" class="button button-outline-secondary">Save</button>
@@ -95,4 +107,3 @@
         </div>
     </div>
 </div>
-@endif

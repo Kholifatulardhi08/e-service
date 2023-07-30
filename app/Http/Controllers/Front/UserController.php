@@ -260,27 +260,55 @@ class UserController extends Controller
 
     public function saveDelivery(Request $request){
         if($request->ajax()){
-            $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-            if (!empty($data['delivery_id'])) {
-                $delivery = array();
-                $delivery['user_id']=Auth::user()->id;
-                $delivery['nama']=$data['delivery_nama'];
-                $delivery['no_hp']=$data['delivery_no_hp'];
-                $delivery['alamat']=$data['delivery_alamat'];
-                $delivery['kecamatan']=$data['delivery_kecamatan'];
-                $delivery['kota']=$data['delivery_kota'];
-                $delivery['provinsi']=$data['delivery_provinsi'];
-                $delivery['kode_pos']=$data['delivery_kode_pos'];
-                Delivery::where('id', $data['delivery_id'])->update($delivery);
+
+            $validator = Validator::make($request->all(),[
+                'delivery_nama' => 'required', 
+                'delivery_no_hp' => 'required', 
+                'delivery_alamat' => 'required', 
+                'delivery_kecamatan' => 'required', 
+                'delivery_provinsi' => 'required',
+                'delivery_kode_pos' => 'required'
+            ]);
+
+            if($validator->passes()) {
+                $data = $request->all();
+                // echo "<pre>"; print_r($data); die;
+                    $delivery = array();
+                    $delivery['user_id']=Auth::user()->id;
+                    $delivery['nama']=$data['delivery_nama'];
+                    $delivery['no_hp']=$data['delivery_no_hp'];
+                    $delivery['alamat']=$data['delivery_alamat'];
+                    $delivery['kecamatan']=$data['delivery_kecamatan'];
+                    $delivery['kota']=$data['delivery_kota'];
+                    $delivery['provinsi']=$data['delivery_provinsi'];
+                    $delivery['kode_pos']=$data['delivery_kode_pos'];
+    
+                if (!empty($data['delivery_id'])) {
+                    Delivery::where('id', $data['delivery_id'])->update($delivery);
+                } else {
+                    // $delivery['status'] = 1;
+                    Delivery::create($delivery);
+                }
+                $deliveryAddress = Delivery::DeliveryAddreses();
+                $provinsi = \Indonesia::allProvinces()->toArray();
+                return response()->json([
+                    'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddress', 'provinsi'))
+                ]);   
             } else {
-                # code...
-            }
+                return response()->json(['type' => 'error', 'errors' => $validator->getMessageBag()->toArray()]);
+            }     
+        };
+    }
+
+    public function deleteDelivery(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            Delivery::where('id', $data['addressid'])->delete();
             $deliveryAddress = Delivery::DeliveryAddreses();
             $provinsi = \Indonesia::allProvinces()->toArray();
             return response()->json([
                 'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddress', 'provinsi'))
-            ]);     
+            ]);    
         };
     }
 }

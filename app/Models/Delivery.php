@@ -10,6 +10,12 @@ class Delivery extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', 'nama', 'no_hp', 'alamat',
+        'kecamatan', 'kota', 'provinsi', 'kode_pos',
+        'status'
+    ];
+
     public static function DeliveryAddreses()
     {
         $deliveryAddress = Delivery::where('user_id', Auth::user()->id)->get()->toArray();

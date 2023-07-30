@@ -268,17 +268,19 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.editAddress', function(){
+    $(document).on('click', '.editAddress', function () {
         var addressid = $(this).data('addressid');
         // alert(addressid);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data: {addressid:addressid},
+            data: {
+                addressid: addressid
+            },
             url: '/get-delivery-address',
             type: 'POST',
-            success:function(resp){
+            success: function (resp) {
                 $("#showdifferent").removeClass("collapse");
                 $(".newAddress").hide();
                 $("#deliveryText").text("Edit Delivery Address");
@@ -290,26 +292,63 @@ $(document).ready(function () {
                 $('[name=delivery_kota]').val(resp.delivery['kota']);
                 $('[name=delivery_provinsi]').val(resp.delivery['provinsi']);
                 $('[name=delivery_kode_pos]').val(resp.delivery['kode_pos']);
-            }, else:function(){
+            },
+            else: function () {
                 alert("Error");
             }
         });
     });
 
-    $(document).on('submit', "#addressEditForm", function(){
+    $(document).on('click', '.removeAddress', function () {
+        if (confirm("are you sure to delete this?")) {
+            var addressid = $(this).data('addressid');
+        }
+        // alert(addressid);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                addressid: addressid
+            },
+            url: '/delete-delivery-address',
+            type: 'POST',
+            success: function (data) {
+                $("#deliveryAddress").html(data.view);
+            },
+            else: function () {
+                alert("Error");
+            }
+        });
+    });
+
+    $(document).on('submit', "#addressEditForm", function () {
         var formdata = $("#addressEditForm").serialize();
         $.ajax({
             url: '/save-delivery-address',
             type: 'POST',
             data: formdata,
-            success:function(data){
-                $("#deliveryAddress").html(data.view);
-            }, error:function(){
+            success: function (resp) {
+                if (resp.type == 'error') {
+                    // Handle validation errors
+                    $.each(resp.errors, function (i, error) {
+                        $("#delivery-" + i).attr('style', 'color:red');
+                        $("#delivery-" + i).html(error);
+                        setTimeout(function () {
+                            $("#delivery-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 2000);
+                    });
+                } else {
+                    $("#deliveryAddress").html(data.view);
+                }
+            },
+            error: function () {
                 alert("Error");
             }
         });
     });
-
 });
 
 function get_filter(class_name) {

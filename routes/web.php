@@ -169,5 +169,7 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
         // route for edit address
         Route::post('/get-delivery-address', 'UserController@editDelivery');
         Route::post('save-delivery-address', 'UserController@saveDelivery');
+        Route::post('delete-delivery-address', 'UserController@deleteDelivery');
+
     });
 });

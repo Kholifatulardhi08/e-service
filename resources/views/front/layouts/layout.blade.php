@@ -47,7 +47,7 @@
         @include('front.layouts.footer')
         <!-- Footer /- -->
         <!-- Dummy Selectbox -->
-        @include('front.layouts.modal')
+        {{--  @include('front.layouts.modal')  --}}
         <!-- Quick-view-Modal /- -->
     </div>
     <script src="https://www.google-analytics.com/analytics.js" async defer></script>
