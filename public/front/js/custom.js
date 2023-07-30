@@ -281,7 +281,7 @@ $(document).ready(function () {
             success:function(resp){
                 $("#showdifferent").removeClass("collapse");
                 $(".newAddress").hide();
-                // $("#deliveryText").text("Edit Delivery Address");
+                $("#deliveryText").text("Edit Delivery Address");
                 $('[name=delivery_id]').val(resp.delivery['id']);
                 $('[name=delivery_nama]').val(resp.delivery['nama']);
                 $('[name=delivery_no_hp]').val(resp.delivery['no_hp']);
