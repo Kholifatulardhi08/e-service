@@ -24,6 +24,24 @@ use App\Models\Product;
 <!-- Cart-Page -->
 <div class="page-cart u-s-p-t-80">
     <div class="container">
+        @if(Session::has('error_message'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error: </strong>
+            {{ Session::get('error_message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        @if(Session::has('succses_message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success: </strong>
+            {{ Session::get('success_message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 <div class="appendCartHarga">

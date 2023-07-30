@@ -11,17 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deliveries', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('nama');
+            $table->string('email');
             $table->string('no_hp');
-            $table->string('alamat')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('kota')->nullable();
-            $table->string('provinsi')->nullable();
-            $table->string('kode_pos')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->string('alamat');
+            $table->string('kecamatan');
+            $table->string('kota');
+            $table->string('provinsi');
+            $table->string('kode_pos');
+            $table->string('payment_method')->nullable();
+            $table->string('payment_gateway')->nullable();
+            $table->string('order_status');
+            $table->float('grand_total');
             $table->timestamps();
         });
     }
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deliveries');
+        Schema::dropIfExists('orders');
     }
 };

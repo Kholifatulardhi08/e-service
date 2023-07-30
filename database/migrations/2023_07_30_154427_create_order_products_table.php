@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deliveries', function (Blueprint $table) {
+        Schema::create('order_products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('penyedia_id');
+            $table->unsignedBigInteger('admin_id');
             $table->string('nama');
-            $table->string('no_hp');
-            $table->string('alamat')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('kota')->nullable();
-            $table->string('provinsi')->nullable();
-            $table->string('kode_pos')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->float('harga');
+            $table->string('paket')->nullable();
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deliveries');
+        Schema::dropIfExists('order_products');
     }
 };

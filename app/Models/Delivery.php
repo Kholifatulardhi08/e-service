@@ -18,7 +18,7 @@ class Delivery extends Model
 
     public static function DeliveryAddreses()
     {
-        $deliveryAddress = Delivery::where('user_id', Auth::user()->id)->get()->toArray();
-        return $deliveryAddress;
+        $deliveryAddresses = Delivery::where('user_id', Auth::user()->id)->get()->toArray();
+        return $deliveryAddresses;
     }
 }

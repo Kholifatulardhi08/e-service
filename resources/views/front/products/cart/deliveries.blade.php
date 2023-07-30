@@ -1,8 +1,10 @@
-@if(count($deliveryAddress)>0)
+@if(count($deliveryAddresses)>0)
 <h4 class="section-h4">Alamat Penyewa</h4>
-@foreach ($deliveryAddress as $alamat)
-<div class="control-group" style="float: left; margin-right: 5px;"><input type="radio" id="address{{ $alamat['id'] }}"
-        name="address_id" value="{{ $alamat['id'] }}"></div>
+@foreach ($deliveryAddresses as $alamat)
+<div class="control-group" style="float: left; margin-right: 5px;">
+    {{-- <input type="radio" id="{{ $alamat['id'] }}" name="address_id" value="{{ $alamat['id'] }}"> --}}
+    <input type="radio" id="address{{ $alamat['id'] }}" name="address_id" value="{{ $alamat['id'] }}">
+</div>
 <div class="control-label">{{ $alamat['nama'] }},
     {{ $alamat['alamat'] }}, ({{ $alamat['no_hp'] }}), {{ $alamat['kecamatan'] }}, {{
     $alamat['kota'] }},
@@ -57,7 +59,7 @@
                         </label>
                         <input type="text" name="delivery_kecamatan" id="delivery_kecamatan" class="text-field"
                             placeholder="kecamatan anda">
-                            <p id="delivery-delivery_kecamatan"></p>
+                        <p id="delivery-delivery_kecamatan"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <label for="kota">Kota
@@ -65,7 +67,7 @@
                         </label>
                         <input type="text" name="delivery_kota" id="delivery_kota" class="text-field"
                             placeholder="kota anda">
-                            <p id="delivery-delivery_kota"></p>
+                        <p id="delivery-delivery_kota"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <label for="provinsi">Provinsi
@@ -89,7 +91,7 @@
                         </label>
                         <input type="text" name="delivery_kode_pos" id="delivery_kode_pos" class="text-field"
                             placeholder="Kode pos">
-                            <p id="delivery-delivery_kode_pos"></p>
+                        <p id="delivery-delivery_kode_pos"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <label for="alamat">Alamat
@@ -97,7 +99,7 @@
                         </label>
                         <input type="text" name="delivery_alamat" id="delivery_alamat" class="text-field"
                             placeholder="alamat">
-                            <p id="delivery-delivery_alamat"></p>
+                        <p id="delivery-delivery_alamat"></p>
                     </div>
                     <div class="u-s-m-b-13">
                         <button style="width: 100%;" type="submit" class="button button-outline-secondary">Save</button>

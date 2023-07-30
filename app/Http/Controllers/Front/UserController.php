@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Cart;
+use App\Models\OrderProduct;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\Delivery;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -242,10 +246,21 @@ class UserController extends Controller
 
     public function checkout(Request $request)
     {
+        $getCartItem = Cart::getCartItem();
+        // dd($getCartItem);
+        $deliveryAddresses = Delivery::DeliveryAddreses();
+        // dd($deliveryAddress);
+        // echo
+        $provinsi = \Indonesia::allProvinces()->toArray();
+
+        if(count($getCartItem)==0){
+            $message = "Shooping cart is empty! Please Add product to checkout!";
+            return redirect('cart')->with('error_message', $message);
+        }
+
         if($request->isMethod('POST')){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-            
+            // echo "<pre>"; print_r($data); die;     
             // if delivery id null
             if(empty($data['address_id'])){
                 $message = "Please Select delivery address!";
@@ -261,15 +276,60 @@ class UserController extends Controller
                 $message = "Please Select accept T&C!";
                 return redirect()->back()->with('error_message', $message);
             }
+            $delivery = Delivery::where('id', $data['address_id'])->first()->toArray();
+            // dd($deliveryAddress);
+            if($data['payment_gateway']=="COD"){
+                $payment_method = "COD";
+                $order_status = "New";
+            }else{
+                $payment_method = "Prepaid";
+                $order_status = "Pending";
+            }
 
-            echo "ready to place order"; die;
+            DB::beginTransaction();
+
+            $total_harga = 0;
+            foreach($getCartItem as $item){
+                $hargaattribute = Product::hargaattribute($item['product_id'], $item['paket']);
+                $total_harga = $total_harga + ($hargaattribute['final_harga'] * $item['quantity']);
+            }
+            $grand_total = $total_harga;
+            Session::put('grand_total', $grand_total);
+
+            $order = New Order;
+            $order->user_id = Auth::user()->id;
+            $order->email = Auth::user()->email;
+            $order->nama = Auth::user()->name;
+            $order->no_hp = $delivery['no_hp'];
+            $order->alamat = $delivery['alamat'];
+            $order->kecamatan = $delivery['kecamatan'];
+            $order->kota = $delivery['kota'];
+            $order->provinsi = $delivery['provinsi'];
+            $order->kode_pos = $delivery['kode_pos'];
+            $order->order_status = $order_status;
+            $order->order_status = $payment_method;
+            $order->payment_gateway = $data['payment_gateway'];
+            $order->grand_total = $grand_total;
+            $order->save();
+            $order_id = DB::getPdo()->lastInsertId();
+
+            foreach($getCartItem as $item){
+                $cartItem = New OrderProduct;
+                $cartItem -> order_id = $order_id;
+                $cartItem -> user_id = Auth::user()->id;
+                $getProductDetails = Product::select('id', 'nama', 'admin_id', 'penyedia_id')->where('id', $item['product_id'])->first()->toArray();
+                $cartItem->admin_id = $getProductDetails['admin_id'];
+                $cartItem->penyedia_id = $getProductDetails['penyedia_id'];
+                $cartItem->product_id = $getProductDetails['id'];
+                $cartItem->nama = $getProductDetails['nama'];
+                $hargaattribute = Product::hargaattribute($item['product_id'], $item['paket']);
+                $cartItem->harga = $hargaattribute['final_harga'];
+                $cartItem->quantity = $item['quantity'];
+                $cartItem->save();
+            }
+            DB::commit();
         }
-        $getCartItem = Cart::getCartItem();
-        // dd($getCartItem);
-        $deliveryAddress = Delivery::DeliveryAddreses();
-        // dd($deliveryAddress);
-        $provinsi = \Indonesia::allProvinces()->toArray();
-        return view('front.products.cart.checkout')->with(compact('deliveryAddress', 'provinsi', 'getCartItem'));
+        return view('front.products.cart.checkout')->with(compact('deliveryAddresses', 'provinsi', 'getCartItem'));
     }
 
     public function editDelivery(Request $request)
