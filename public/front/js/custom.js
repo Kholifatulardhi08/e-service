@@ -296,6 +296,20 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on('submit', "#addressEditForm", function(){
+        var formdata = $("#addressEditForm").serialize();
+        $.ajax({
+            url: '/save-delivery-address',
+            type: 'POST',
+            data: formdata,
+            success:function(data){
+                $("#deliveryAddress").html(data.view);
+            }, error:function(){
+                alert("Error");
+            }
+        });
+    });
+
 });
 
 function get_filter(class_name) {

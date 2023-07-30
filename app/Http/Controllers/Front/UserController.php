@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Cart;
-use App\Models\Delivery;
 use App\Models\User;
+use App\Models\Delivery;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -252,7 +253,34 @@ class UserController extends Controller
         if($request->ajax()){
             $data = $request->all();
             $delivery = Delivery::where('id', $data['addressid'])->first()->toArray();
+            // $delivery = Delivery::DeliveryAddreses();
             return response()->json(['delivery'=>$delivery]);
+        };
+    }
+
+    public function saveDelivery(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            if (!empty($data['delivery_id'])) {
+                $delivery = array();
+                $delivery['user_id']=Auth::user()->id;
+                $delivery['nama']=$data['delivery_nama'];
+                $delivery['no_hp']=$data['delivery_no_hp'];
+                $delivery['alamat']=$data['delivery_alamat'];
+                $delivery['kecamatan']=$data['delivery_kecamatan'];
+                $delivery['kota']=$data['delivery_kota'];
+                $delivery['provinsi']=$data['delivery_provinsi'];
+                $delivery['kode_pos']=$data['delivery_kode_pos'];
+                Delivery::where('id', $data['delivery_id'])->update($delivery);
+            } else {
+                # code...
+            }
+            $deliveryAddress = Delivery::DeliveryAddreses();
+            $provinsi = \Indonesia::allProvinces()->toArray();
+            return response()->json([
+                'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddress', 'provinsi'))
+            ]);     
         };
     }
 }
