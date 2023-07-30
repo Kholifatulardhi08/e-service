@@ -240,12 +240,36 @@ class UserController extends Controller
         }
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
+        if($request->isMethod('POST')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            
+            // if delivery id null
+            if(empty($data['address_id'])){
+                $message = "Please Select delivery address!";
+                return redirect()->back()->with('error_message', $message);
+            }
+            // if payment id null
+            if(empty($data['payment_gateway'])){
+                $message = "Please Select Payment!";
+                return redirect()->back()->with('error_message', $message);
+            }
+            // if payment id null
+            if(empty($data['accept'])){
+                $message = "Please Select accept T&C!";
+                return redirect()->back()->with('error_message', $message);
+            }
+
+            echo "ready to place order"; die;
+        }
+        $getCartItem = Cart::getCartItem();
+        // dd($getCartItem);
         $deliveryAddress = Delivery::DeliveryAddreses();
         // dd($deliveryAddress);
         $provinsi = \Indonesia::allProvinces()->toArray();
-        return view('front.products.cart.checkout')->with(compact('deliveryAddress', 'provinsi'));
+        return view('front.products.cart.checkout')->with(compact('deliveryAddress', 'provinsi', 'getCartItem'));
     }
 
     public function editDelivery(Request $request)

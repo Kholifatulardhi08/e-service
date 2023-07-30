@@ -14,7 +14,7 @@ use App\Models\Product;
                     <a href="/">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="cart.html">Cart</a>
+                    <a href="{{ url('cart') }}">Cart</a>
                 </li>
             </ul>
         </div>
