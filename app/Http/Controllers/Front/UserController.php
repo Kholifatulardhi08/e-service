@@ -327,7 +327,10 @@ class UserController extends Controller
                 $cartItem->quantity = $item['quantity'];
                 $cartItem->save();
             }
+            session(['order_id' => $order_id, 'grand_total' => $grand_total]);
+            // Session::put('order_id', $order_id);
             DB::commit();
+            return redirect('thanks');
         }
         return view('front.products.cart.checkout')->with(compact('deliveryAddresses', 'provinsi', 'getCartItem'));
     }
@@ -394,5 +397,18 @@ class UserController extends Controller
                 'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddress', 'provinsi'))
             ]);    
         };
+    }
+
+    public function thanks()
+    {
+        if (Session::has('order_id')) {
+            Cart::where('user_id', Auth::user()->id)->delete();
+            return view('front.products.thanks', [
+                'order_id' => session('order_id'),
+                'grand_total' => session('grand_total')
+            ]);
+        } else {
+            return redirect('cart');
+        }
     }
 }

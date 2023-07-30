@@ -171,5 +171,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
         Route::post('save-delivery-address', 'UserController@saveDelivery');
         Route::post('delete-delivery-address', 'UserController@deleteDelivery');
 
+        // thanks page for order
+        Route::get('thanks', 'UserController@thanks');
+
     });
 });
