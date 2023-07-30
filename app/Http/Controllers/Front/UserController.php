@@ -411,4 +411,11 @@ class UserController extends Controller
             return redirect('cart');
         }
     }
+
+    public function order()
+    {
+        $orders = Order::with('order')->where('user_id', Auth::user()->id)->orderBy('id', 'Desc')->get()->toArray();
+        // dd($orders);
+        return view('front.products.orders.index')->with(compact('orders'));
+    }
 }

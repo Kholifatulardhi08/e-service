@@ -14,7 +14,7 @@ use App\Models\Product;
                     <a href="/">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="{{ url('cart') }}">Thanks</a>
+                    <a href="{{ url('orders') }}">My Orders</a>
                 </li>
             </ul>
         </div>
@@ -42,10 +42,38 @@ use App\Models\Product;
             </button>
         </div>
         @endif
-        <div class="col-lg-12" align="center">
-            <h3>YOUR ORDER HAS BEEN PLACED SUCCESSFULLY!</h3>
-            <p>Your order number is {{ $order_id }} and Grand total is Rp. {{ $grand_total }}</p>
-            <a href="/" class="btn btn-danger">Back to Home</a>
+        <div class="row pt-0">
+            <div class="col-lg-12">
+                <h6>Table Orders: </h6>
+                <table class="table table-striped table-borderless text-center">
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Order Product</th>
+                        <th>Payment Method</th>
+                        <th>Grand Total</th>
+                        <th>Created on</th>
+                    </tr>
+                    @if(count($orders) > 0)
+                    @foreach ($orders as $order)
+                    <tr>
+                        <td>{{ $order['id'] }}</td>
+                        <td>
+                            @foreach ($order['order'] as $item)
+                                {{ $item['nama'] }}<br>
+                            @endforeach
+                        </td>
+                        <td>{{ $order['payment_gateway'] }}</td>
+                        <td>{{ $order['grand_total'] }}</td>
+                        <td>{{ date('d-M-Y H:i:s', strtotime($order['created_at'])) }}</td>
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td colspan="5">No orders found. You can place an order through our website.</td>
+                    </tr>
+                    @endif
+                </table>
+            </div>
         </div>
     </div>
 </div>
