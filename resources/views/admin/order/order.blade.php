@@ -86,7 +86,11 @@ use App\Models\Product;
                                         <td>
                                             {{ $order['payment_gateway'] }}
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <a title="Order detail" href="{{ url('admin/orders/'.$order['id']) }}">
+                                                <i style="font-size:30px;" class="mdi mdi-file-document"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     @endif
                                     <?php $no++; ?>

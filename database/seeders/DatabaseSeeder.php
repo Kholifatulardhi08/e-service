@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             // ProductTableSeeder::class,
             // ProducAtributeTableSeeder::class,
             // BannerTableSeeder::class,
+            OrderStatusTableSeeder::class
         ]);
     }
 }
