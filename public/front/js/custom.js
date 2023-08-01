@@ -270,7 +270,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.editAddress', function () {
         var addressid = $(this).data('addressid');
-        // alert(addressid);
+        alert(addressid);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -303,7 +303,7 @@ $(document).ready(function () {
         if (confirm("are you sure to delete this?")) {
             var addressid = $(this).data('addressid');
         }
-        // alert(addressid);
+        alert(addressid);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -315,6 +315,7 @@ $(document).ready(function () {
             type: 'POST',
             success: function (data) {
                 $("#deliveryAddress").html(data.view);
+                location.reload();
             },
             else: function () {
                 alert("Error");
@@ -342,6 +343,7 @@ $(document).ready(function () {
                     });
                 } else {
                     $("#deliveryAddress").html(data.view);
+                    location.reload();
                 }
             },
             error: function () {

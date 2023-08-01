@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Front\PenyediaController;
 use App\Http\Controllers\Front\ListeningController;
+use App\Http\Controllers\Admin\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -119,6 +120,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         // get users
         Route::get('penyewa', 'PenyewaController@index');
         Route::post('admin/update-penyewa-status', 'PenyewaController@updatePenyewaStatus');
+
+        // Get Order
+        Route::get('orders', 'OrderController@order');
 
     });
 });

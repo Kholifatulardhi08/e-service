@@ -11,6 +11,7 @@ $(document).ready(function(){
     $('#filter').DataTable();
     $('#filterValue').DataTable();
     $('#penyewas').DataTable();
+    $('#orders').DataTable();
     
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector

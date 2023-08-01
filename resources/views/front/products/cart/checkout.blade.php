@@ -33,6 +33,7 @@ use App\Models\Product;
             </button>
         </div>
         @endif
+        {{--  ganti error disini  --}}
         <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout') }}" method="POST">
             @csrf
             <div class="row">
