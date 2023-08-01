@@ -56,7 +56,9 @@ use App\Models\Product;
                     @if(count($orders) > 0)
                     @foreach ($orders as $order)
                     <tr>
-                        <td>{{ $order['id'] }}</td>
+                        <td>
+                            <a href="{{ url('orders/'.$order['id']) }}">{{ $order['id'] }}</a>    
+                        </td>
                         <td>
                             @foreach ($order['order'] as $item)
                                 {{ $item['nama'] }}<br>

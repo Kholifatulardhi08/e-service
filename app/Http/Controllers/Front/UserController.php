@@ -412,10 +412,17 @@ class UserController extends Controller
         }
     }
 
-    public function order()
+    public function order($id=null)
     {
-        $orders = Order::with('order')->where('user_id', Auth::user()->id)->orderBy('id', 'Desc')->get()->toArray();
-        // dd($orders);
-        return view('front.products.orders.index')->with(compact('orders'));
+        if(empty($id)){
+            $orders = Order::with('order')->where('user_id', Auth::user()->id)->orderBy('id', 'Desc')->get()->toArray();
+            // dd($orders);
+            return view('front.products.orders.index')->with(compact('orders'));
+        }else{
+            // echo "orderdetails"; die;
+            $orderdetails = Order::with('order')->where('id', $id)->first()->toArray();
+            // dd($orderdetails);
+            return view('front.products.orders.order_details')->with(compact('orderdetails'));
+        }
     }
 }

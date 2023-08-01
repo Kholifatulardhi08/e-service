@@ -96,4 +96,14 @@ class Product extends Model
         }
         return $isproductnew;
     }
+
+    public static function getProductImage($product_id){
+        $product = Product::find($product_id);
+        if ($product) {
+            return $product->gambar;
+        } else {
+            // Handle the case when the product with the given ID is not found
+            return null;
+        }
+    }
 }

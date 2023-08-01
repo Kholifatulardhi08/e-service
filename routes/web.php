@@ -175,7 +175,7 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
         Route::get('thanks', 'UserController@thanks');
 
         // order by users
-        Route::get('orders', 'UserController@order');
+        Route::get('orders/{id?}', 'UserController@order');
 
     });
 });
