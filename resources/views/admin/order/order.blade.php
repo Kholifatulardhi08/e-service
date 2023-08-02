@@ -10,8 +10,6 @@ use App\Models\Product;
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">order</h4>
-                        <a style="max-width: 150px; float:right; display:inline-block"
-                            href="{{ url('admin/add-edit-order') }}" class="btn btn-block btn-primary">Add order</a>
                         @if(Session::has('succses_message'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Succses: </strong> {{ Session::get('succses_message') }}
@@ -87,11 +85,17 @@ use App\Models\Product;
                                             {{ $order['grand_total'] }}
                                         </td>
                                         <td>
+                                            {{ $order['order_status'] }}
+                                        </td>
+                                        <td>
                                             {{ $order['payment_gateway'] }}
                                         </td>
                                         <td>
                                             <a title="Order detail" href="{{ url('admin/orders/'.$order['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-file-document"></i>
+                                            </a>
+                                            <a title="Order detail" href="{{ url('admin/orders/invoice/'.$order['id']) }}">
+                                                <i style="font-size:30px;" class="mdi mdi-printer"></i>
                                             </a>
                                         </td>
                                     </tr>

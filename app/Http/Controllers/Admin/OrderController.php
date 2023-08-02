@@ -85,4 +85,11 @@ class OrderController extends Controller
             return redirect()->back()->with('succses_message', $message);
         }
     }
+
+    public function invoice($order_id)
+    {
+        $orderdetails = Order::with('order')->where('id', $order_id)->first()->toArray();
+        $userdetails = User::where('id', $orderdetails['user_id'])->first()->toArray();
+        return view('admin.order.invoice')->with(compact('orderdetails', 'userdetails'));
+    }
 }
