@@ -301,7 +301,7 @@ use App\Models\Product;
     </div>
 </section>
 <!-- Top Collection /- -->
-@if (isset($fixbanners[1]['gambar']))
+@if (isset($fixbanners[0]['gambar']))
 <!-- Banner-Layer -->
 <div class="banner-layer">
     <div class="container">
