@@ -1,14 +1,27 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>E-service</title>
+    <!-- plugins:css -->
+    <link rel="shortcut icon" href="{{ url('template/images/aa.png') }}" />
+</head>
 
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <div class="invoice-title">
                 <h2>Invoice / E-service</h2>
-                <h3 class="pull-right">Order # {{ $orderdetails['id'] }}</h3>
+                <h3 class="pull-right">Order #{{ $orderdetails['id'] }}
+                    @php
+                    echo DNS1D::getBarcodeHTML($orderdetails['id'], 'C39');
+                    @endphp
+                </h3>
             </div>
             <hr>
             <div class="row">
@@ -88,7 +101,9 @@
                                 @endphp
                                 @foreach ($orderdetails['order'] as $o)
                                 <tr>
-                                    <td>{{ $o['nama'] }}</td>
+                                    <td>
+                                        {{ $o['nama'] }}
+                                    </td>
                                     <td class="text-center">{{ $o['harga'] }}</td>
                                     <td class="text-center">{{ $o['quantity'] }}</td>
                                     <td class="text-right">Rp. {{ $o['harga']*$o['quantity'] }}</td>
