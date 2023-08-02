@@ -41,7 +41,8 @@ use App\Models\Product;
             <h3 class="sec-maker-h3">Product jasa</h3>
             <ul class="nav tab-nav-style-1-a justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#men-latest-products">All Product</a>
+                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#men-latest-products">All
+                        Product</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#men-best-selling-products">Best
@@ -78,13 +79,6 @@ use App\Models\Product;
                                                 alt="No Image">
                                             @endif
                                         </a>
-                                        <div class="item-action-behaviors">
-                                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
-                                            </a>
-                                            <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                        </div>
                                     </div>
                                     <div class="item-content">
                                         <div class="what-product-is">
@@ -105,24 +99,7 @@ use App\Models\Product;
                                                 <span>(0)</span>
                                             </div>
                                         </div>
-                                        <?php 
-                                         $getdiskon = Product::getdiskonharga($products['id'])
-                                        ?>
-                                        @if($getdiskon>0)
-                                        <div class="price-template">
-                                            <div class="item-new-price">
-                                                {{ $getdiskon }}
-                                            </div>
-                                            <div class="item-old-price">
-                                                {{ $products['harga'] }}
-                                            </div>
-                                        </div>
-                                        @endif
-
                                     </div>
-                                    {{-- <div class="tag new">
-                                        <span>{{ $products['meta_title'] }}</span>
-                                    </div> --}}
                                 </div>
                                 @endforeach
                             </div>
@@ -148,13 +125,7 @@ use App\Models\Product;
                                                 alt="No Image">
                                             @endif
                                         </a>
-                                        <div class="item-action-behaviors">
-                                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
-                                            </a>
-                                            <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                        </div>
+
                                     </div>
                                     <div class="item-content">
                                         <div class="what-product-is">
@@ -218,13 +189,6 @@ use App\Models\Product;
                                                 alt="No Image">
                                             @endif
                                         </a>
-                                        <div class="item-action-behaviors">
-                                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
-                                            </a>
-                                            <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                        </div>
                                     </div>
                                     <div class="item-content">
                                         <div class="what-product-is">
@@ -288,13 +252,6 @@ use App\Models\Product;
                                                 alt="No Image">
                                             @endif
                                         </a>
-                                        <div class="item-action-behaviors">
-                                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
-                                            </a>
-                                            <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                        </div>
                                     </div>
                                     <div class="item-content">
                                         <div class="what-product-is">

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('kota')->nullable()->after('kecamatan');
             $table->string('provinsi')->nullable()->after('kota');
             $table->string('kode_pos')->nullable()->after('provinsi');
+            $table->string('no_hp')->nullable()->after('kode_pos');
             $table->tinyInteger('status')->after('password');
         });
     }

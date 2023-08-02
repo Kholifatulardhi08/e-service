@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Session;
 use Auth;
 use Hash;
 use Image;
-use App\Models\BankDetail;
-use App\Models\Penyedia;
+use Session;
+use App\Models\User;
 use App\Models\Admin;
+use App\Models\Order;
+use App\Models\Penyedia;
+use App\Models\BankDetail;
 use App\Models\JasaDetail;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {   
     public function dashboard()
     {
         Session::put('page', 'dashboard');
-        return view('admin.dashboard');
+        $totalUsers = User::count();
+        $penyediaCount = Admin::where(['type'=>'penyedia'])->count();
+        $orderCount = Order::count();
+        // dd($orderCount);
+        return view('admin.dashboard')->with(compact('totalUsers', 'penyediaCount', 'orderCount'));
     }
 
     public function login(Request $request)

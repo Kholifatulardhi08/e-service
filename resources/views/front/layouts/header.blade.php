@@ -40,11 +40,6 @@ $totalCartItem = totalCartItem();
                                     <i class="fas fa-cog u-s-m-r-9"></i>
                                     My Cart</a>
                             </li>
-                            {{--  <li>
-                                <a href="wishlist.html">
-                                    <i class="far fa-heart u-s-m-r-9"></i>
-                                    My Wishlist</a>
-                            </li>  --}}
                             @if(Auth::check())
                             <li>
                                 <a href="{{ url('setting-account') }}">
