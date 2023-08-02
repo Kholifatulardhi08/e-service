@@ -49,6 +49,9 @@ use App\Models\Product;
                                             Payment Method
                                         </th>
                                         <th>
+                                            Status
+                                        </th>
+                                        <th>
                                             Action
                                         </th>
                                     </tr>

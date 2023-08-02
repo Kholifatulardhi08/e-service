@@ -250,7 +250,6 @@ class UserController extends Controller
         // dd($getCartItem);
         $deliveryAddresses = Delivery::DeliveryAddreses();
         // dd($deliveryAddress);
-        // echo
         $provinsi = \Indonesia::allProvinces()->toArray();
 
         if(count($getCartItem)==0){
@@ -330,6 +329,22 @@ class UserController extends Controller
             session(['order_id' => $order_id, 'grand_total' => $grand_total]);
             // Session::put('order_id', $order_id);
             DB::commit();
+            if($data['payment_gateway']=="COD"){
+                // send order email
+                $email = Auth::user()->email;
+                $order_details = Order::with('order')->where('id', $order_id)->first()->toArray();
+                $messageData = [
+                    'email' => $email,
+                    'name' => Auth::user()->name,
+                    'order_id' => $order_id,
+                    'order_details' => $order_details
+                ];
+                Mail::send('email.order', $messageData, function($message)use($email){
+                    $message->to($email)->subject('Order Placed / E-service');
+                });
+            }else{
+                echo "Perpaid is comingsoon!";
+            }
             return redirect('thanks');
         }
         return view('front.products.cart.checkout')->with(compact('deliveryAddresses', 'provinsi', 'getCartItem'));

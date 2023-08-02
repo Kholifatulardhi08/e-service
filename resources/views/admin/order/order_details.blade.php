@@ -18,7 +18,7 @@ use App\Models\Product;
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                         <h3 class="font-weight-bold">
-                            Order #id{{ $orderdetails['id'] }} Details
+                            Order #id {{ $orderdetails['id'] }} Details
                         </h3>
                         <h6 class="font-weight-normal mb-0">
                             <a href="{{ url('admin/orders') }}">
@@ -34,10 +34,11 @@ use App\Models\Product;
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">gambar</th>
-                            <th scope="col">nama</th>
-                            <th scope="col">harga</th>
-                            <th scope="col">quantity</th>
+                            <th scope="col">Gambar</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Harga</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +52,24 @@ use App\Models\Product;
                         <td>{{ $item['nama'] }}</td>
                         <td>{{ $item['harga'] }}</td>
                         <td>{{ $item['quantity'] }}</td>
+                        <td>
+                            <form action="{{ url('admin/update-order-item-status') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id"
+                                        value="{{ $item['id'] }}">
+                                    <select class="form-control" name="item_status" id="item_status" required>
+                                        <option value="">select</option>
+                                        @foreach ($orderitemstatus as $status)
+                                        <option value="{{ $status['nama'] }}" @if(!empty($item['item_status']) &&
+                                            $item['item_status']==$status['nama']) selected="" @endif>{{
+                                            $status['nama'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit">Update</button>
+                                </div>
+                            </form>
+                        </td>
                         @endforeach
                     </tbody>
                 </table>
@@ -121,9 +140,9 @@ use App\Models\Product;
                                 <select class="form-control" name="order_status" id="order_status" required>
                                     <option value="">select</option>
                                     @foreach ($orderstatus as $item)
-                                    <option value="{{ $item['nama'] }}" @if(!empty($orderdetails['order_status']) && $orderdetails['order_status']==$item['nama'])
-                                        selected=""
-                                    @endif>{{ $item['nama'] }}</option>
+                                    <option value="{{ $item['nama'] }}" @if(!empty($orderdetails['order_status']) &&
+                                        $orderdetails['order_status']==$item['nama']) selected="" @endif>{{
+                                        $item['nama'] }}</option>
                                     @endforeach
                                 </select>
                                 <button type="submit">Update</button>
