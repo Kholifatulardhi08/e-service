@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\OrderLog;
+use Dompdf\Dompdf;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\OrderLog;
 use App\Models\OrderStatus;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
@@ -92,4 +93,38 @@ class OrderController extends Controller
         $userdetails = User::where('id', $orderdetails['user_id'])->first()->toArray();
         return view('admin.order.invoice')->with(compact('orderdetails', 'userdetails'));
     }
+
+        public function cetakpdf($order_id)
+        {
+            // Ambil data order dan user berdasarkan order_id
+            $orderdetails = Order::with('order')->where('id', $order_id)->first()->toArray();
+            $userdetails = User::where('id', $orderdetails['user_id'])->first()->toArray();
+
+            // Render view dan ambil HTML-nya
+            $view = view('admin.order.cetak_pdf')->with(compact('orderdetails', 'userdetails'));
+
+            // echo $view;
+            // exit;
+
+            $html = $view->render();
+
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($html);
+
+            // (Optional) Setup the paper size and orientation
+            $dompdf->setPaper('A4', 'landscape');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            // Set the PDF content-type
+            header('Content-Type: application/pdf');
+
+            // Output the generated PDF to Browser
+            echo $dompdf->output();
+            exit;
+        }
+
+
 }

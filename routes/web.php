@@ -129,6 +129,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
 
         // invoice
         Route::get('orders/invoice/{id}', 'OrderController@invoice');
+        Route::get('orders/invoice/pdf/{id}', 'OrderController@cetakpdf');
+        
     });
 });
 

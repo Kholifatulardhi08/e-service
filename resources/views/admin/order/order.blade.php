@@ -97,6 +97,9 @@ use App\Models\Product;
                                             <a title="Order detail" href="{{ url('admin/orders/invoice/'.$order['id']) }}">
                                                 <i style="font-size:30px;" class="mdi mdi-printer"></i>
                                             </a>
+                                            <a title="Cetak Pdf" href="{{ url('admin/orders/invoice/pdf/'.$order['id']) }}">
+                                                <i style="font-size:30px;" class="mdi mdi-file-pdf"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endif

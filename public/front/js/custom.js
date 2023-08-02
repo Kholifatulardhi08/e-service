@@ -315,7 +315,7 @@ $(document).ready(function () {
             type: 'POST',
             success: function (data) {
                 $("#deliveryAddress").html(data.view);
-                location.reload();
+                window.location.href = "checkout";
             },
             else: function () {
                 alert("Error");
@@ -343,7 +343,7 @@ $(document).ready(function () {
                     });
                 } else {
                     $("#deliveryAddress").html(data.view);
-                    location.reload();
+                    window.location.href = "checkout";
                 }
             },
             error: function () {
