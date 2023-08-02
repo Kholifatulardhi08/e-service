@@ -133,6 +133,7 @@ use App\Models\Product;
                 <div class="card ">
                     <div class="card-body">
                         <h4 class="card-title">Update order status</h4>
+                        @if(Auth::guard('admin')->user()->type!="penyedia")
                         <form action="{{ url('admin/update-order-status') }}" method="POST">
                             @csrf
                             <div class="form-group">
@@ -148,6 +149,17 @@ use App\Models\Product;
                                 <button type="submit">Update</button>
                             </div>
                         </form>
+                        <br>
+                        @foreach ($orderlog as $log)
+                            <strong>{{ $log['order_status'] }}</strong>
+                            <br>
+                            {{ date('d-M-Y H:i:s', strtotime($log['created_at'])) }}
+                        @endforeach
+                        @else
+                            <p class="text-center">
+                                this feature is rectirect!
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>

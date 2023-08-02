@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\OrderProduct;
+use App\Models\OrderLog;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Models\OrderItemStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -41,7 +43,8 @@ class OrderController extends Controller
         $userdetails = User::where('id', $orderdetails['user_id'])->first()->toArray();
         $orderstatus = OrderStatus::where('status', 1)->get()->toArray();
         $orderitemstatus = OrderItemStatus::where('status', 1)->get()->toArray();
-        return view('admin.order.order_details')->with(compact('orderitemstatus', 'orderdetails', 'userdetails', 'orderstatus'));
+        $orderlog = OrderLog::where('order_id', $id)->get()->toArray();
+        return view('admin.order.order_details')->with(compact('orderlog', 'orderitemstatus', 'orderdetails', 'userdetails', 'orderstatus'));
     }
 
     public function updateorder(Request $request)
@@ -49,6 +52,25 @@ class OrderController extends Controller
         if($request->isMethod('POST')){
             $data = $request->all();
             Order::where('id', $data['order_id'])->update(['order_status'=>$data['order_status']]);
+            
+            $log = New OrderLog;
+            $log->order_id = $data['order_id'];
+            $log->order_status = $data['order_status'];
+            $log->save();
+
+            $deliveryDetails = Order::select('nama', 'email')->where('id', $data['order_id'])->first()->toArray();
+            $email = $deliveryDetails['email'];
+            $order_details = Order::with('order')->where('id', $data['order_id'])->first()->toArray();
+            $messageData = [
+                'email' => $email,
+                'nama' => $deliveryDetails['nama'],
+                'order_id' => $data['order_id'],
+                'order_details' => $order_details,
+                'order_status' => $data['order_status']
+            ];
+            Mail::send('email.order_status', $messageData, function($message)use($email){
+                $message->to($email)->subject('Order Status update / E-service');
+            });
             $message = "Success updated!";
             return redirect()->back()->with('succses_message', $message);
         }
