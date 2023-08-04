@@ -43,7 +43,7 @@ use App\Models\Product;
                     <!-- Billing-&-Shipping-Details /- -->
                     <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout') }}" method="POST">
                         @csrf
-                        <h4 class="section-h4">Alamat Penyewa</h4>
+                        @if (count($deliveryAddresses) > 0)
                         @foreach ($deliveryAddresses as $alamat)
                         <div class="control-group" style="float: left; margin-right: 5px;">
                             {{-- <input type="radio" id="{{ $alamat['id'] }}" name="address_id"
@@ -65,6 +65,7 @@ use App\Models\Product;
                             </a>&nbsp;&nbsp;
                         </div>
                         @endforeach
+                        @endif
                         <br>
                         <div class="col-lg-6">
                             <h4 class="section-h4">Your Order</h4>

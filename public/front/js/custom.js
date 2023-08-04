@@ -314,7 +314,7 @@ $(document).ready(function () {
             url: '/delete-delivery-address',
             type: 'POST',
             success: function (data) {
-                $("#deliveryAddress").html(data.view);
+                $("#deliveryAddress").html(resp.view);
                 window.location.href = "checkout";
             },
             else: function () {
@@ -342,7 +342,7 @@ $(document).ready(function () {
                         }, 2000);
                     });
                 } else {
-                    $("#deliveryAddress").html(data.view);
+                    $("#deliveryAddress").html(resp.view);
                     window.location.href = "checkout";
                 }
             },

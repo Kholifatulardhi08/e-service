@@ -1,11 +1,12 @@
+<h4 class="section-h4 deliveryText"></h4>
 <div class="u-s-m-b-24">
     <input type="checkbox" class="label-text" for="ship-to-different-address" data-bs-toggle="collapse"
         data-bs-target="#showdifferent" aria-expanded="false" aria-controls="showdifferent">
     @if(count($deliveryAddresses) > 0)
-    <label class="label-text" for="ship-to-different-address">Ship to a different
+    <label class="label-text newAddress" for="ship-to-different-address">Ship to a different
         address?</label>
     @else
-    <label class="label-text" for="ship-to-different-address">check different
+    <label class="label-text newAddress" for="ship-to-different-address">check different
         address?</label>
     @endif
 </div>

@@ -53,8 +53,11 @@ $totalCartItem = totalCartItem();
     <!-- Mini Cart /- -->
 </header>
 <!-- Header /- -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $('#mini-cart-close').on('click', function () {
-        $('.mini-cart-wrapper').removeClass('mini-cart-open');
+    $(document).ready(function () {
+        $('#mini-cart-close').on('click', function () {
+            $('.mini-cart-wrapper').removeClass('mini-cart-open');
+        });
     });
 </script>

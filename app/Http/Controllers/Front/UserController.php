@@ -391,10 +391,10 @@ class UserController extends Controller
                     // $delivery['status'] = 1;
                     Delivery::create($delivery);
                 }
-                $deliveryAddress = Delivery::DeliveryAddreses();
+                $deliveryAddresses = Delivery::DeliveryAddreses();
                 $provinsi = \Indonesia::allProvinces()->toArray();
                 return response()->json([
-                    'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddress', 'provinsi'))
+                    'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddresses', 'provinsi'))
                 ]);   
             } else {
                 return response()->json(['type' => 'error', 'errors' => $validator->getMessageBag()->toArray()]);
@@ -406,10 +406,10 @@ class UserController extends Controller
         if($request->ajax()){
             $data = $request->all();
             Delivery::where('id', $data['addressid'])->delete();
-            $deliveryAddress = Delivery::DeliveryAddreses();
+            $deliveryAddresses = Delivery::DeliveryAddreses();
             $provinsi = \Indonesia::allProvinces()->toArray();
             return response()->json([
-                'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddress', 'provinsi'))
+                'view'=>(String)View::make('front.products.cart.deliveries')->with(compact('deliveryAddresses', 'provinsi'))
             ]);    
         };
     }
