@@ -84,19 +84,35 @@ use App\Models\Product;
                                         <div class="what-product-is">
                                             <ul class="bread-crumb">
                                                 <li>
-                                                    <a href="{{ url('products/'.$products['id']) }}">{{
-                                                        $products['nama'] }}</a>
+                                                    <label>{{ $products['nama'] }}</label>
                                                 </li>
                                             </ul>
                                             <h6 class="item-title">
-                                                <a href="{{ url('products/'.$products['id']) }}">{{ $products['nama']
-                                                    }}</a>
+                                                <a href="{{ url('products/'.$products['id']) }}">{{
+                                                    $products['penyedia']['nama']}}</a>
                                             </h6>
                                             <div class="item-stars">
                                                 <div class='star' title="0 out of 5 - based on 0 Reviews">
                                                     <span style='width:0'></span>
                                                 </div>
                                                 <span>(0)</span>
+                                            </div>
+                                            <ul class="bread-crumb">
+                                                <li>
+                                                    @if(isset($products['penyedia']['provinsi']) &&
+                                                    !empty($products['penyedia']['provinsi']))
+                                                    <label>{{ $products['penyedia']['provinsi'] }}</label>
+                                                    @endif
+                                                    @if(isset($products['penyedia']['kota']) &&
+                                                    !empty($products['penyedia']['kota']))
+                                                    / {{ $products['penyedia']['kota'] }}
+                                                    @endif
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-template">
+                                            <div class="item-new-price">
+                                                {{ $products['harga'] }}
                                             </div>
                                         </div>
                                     </div>
@@ -125,14 +141,14 @@ use App\Models\Product;
                                                 alt="No Image">
                                             @endif
                                         </a>
-
                                     </div>
                                     <div class="item-content">
                                         <div class="what-product-is">
                                             <ul class="bread-crumb">
                                                 <li>
-                                                    <a href="{{ url('products/'.$products['id']) }}">{{
-                                                        $products['nama'] }}</a>
+                                                    {{-- <a href="{{ url('products/'.$products['id']) }}">{{
+                                                        $products['nama'] }}</a> --}}
+                                                    <label>{{ $products['nama'] }}</label>
                                                 </li>
                                             </ul>
                                             <h6 class="item-title">
@@ -145,6 +161,18 @@ use App\Models\Product;
                                                 </div>
                                                 <span>(0)</span>
                                             </div>
+                                            <ul class="bread-crumb">
+                                                <li>
+                                                    @if(isset($products['penyedia']['provinsi']) &&
+                                                    !empty($products['penyedia']['provinsi']))
+                                                    <label>{{ $products['penyedia']['provinsi'] }}</label>
+                                                    @endif
+                                                    @if(isset($products['penyedia']['kota']) &&
+                                                    !empty($products['penyedia']['kota']))
+                                                    / {{ $products['penyedia']['kota'] }}
+                                                    @endif
+                                                </li>
+                                            </ul>
                                         </div>
                                         <?php 
                                          $getdiskon = Product::getdiskonharga($products['id'])
@@ -159,11 +187,7 @@ use App\Models\Product;
                                             </div>
                                         </div>
                                         @endif
-
                                     </div>
-                                    {{-- <div class="tag new">
-                                        <span>{{ $products['meta_title'] }}</span>
-                                    </div> --}}
                                 </div>
                                 @endforeach
                             </div>
@@ -208,6 +232,18 @@ use App\Models\Product;
                                                 </div>
                                                 <span>(0)</span>
                                             </div>
+                                            <ul class="bread-crumb">
+                                                <li>
+                                                    @if(isset($products['penyedia']['provinsi']) &&
+                                                    !empty($products['penyedia']['provinsi']))
+                                                    <label>{{ $products['penyedia']['provinsi'] }}</label>
+                                                    @endif
+                                                    @if(isset($products['penyedia']['kota']) &&
+                                                    !empty($products['penyedia']['kota']))
+                                                    / {{ $products['penyedia']['kota'] }}
+                                                    @endif
+                                                </li>
+                                            </ul>
                                         </div>
                                         <?php 
                                          $getdiskon = Product::getdiskonharga($products['id'])
@@ -221,12 +257,14 @@ use App\Models\Product;
                                                 {{ $products['harga'] }}
                                             </div>
                                         </div>
+                                        @else
+                                        <div class="price-template">
+                                            <div class="item-old-price">
+                                                {{ $products['harga'] }}
+                                            </div>
+                                        </div>
                                         @endif
-
                                     </div>
-                                    {{-- <div class="tag new">
-                                        <span>{{ $products['meta_title'] }}</span>
-                                    </div> --}}
                                 </div>
                                 @endforeach
                             </div>
@@ -271,6 +309,18 @@ use App\Models\Product;
                                                 </div>
                                                 <span>(0)</span>
                                             </div>
+                                            <ul class="bread-crumb">
+                                                <li>
+                                                    @if(isset($products['penyedia']['provinsi']) &&
+                                                    !empty($products['penyedia']['provinsi']))
+                                                    <label>{{ $products['penyedia']['provinsi'] }}</label>
+                                                    @endif
+                                                    @if(isset($products['penyedia']['kota']) &&
+                                                    !empty($products['penyedia']['kota']))
+                                                    / {{ $products['penyedia']['kota'] }}
+                                                    @endif
+                                                </li>
+                                            </ul>
                                         </div>
                                         <?php 
                                          $getdiskon = Product::getdiskonharga($products['id'])
