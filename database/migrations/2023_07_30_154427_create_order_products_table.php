@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('penyedia_id');
             $table->unsignedBigInteger('admin_id');
             $table->string('nama');
-            $table->float('harga');
+            $table->float('harga', 20.0);
             $table->string('paket')->nullable();
             $table->integer('quantity');
             $table->timestamps();

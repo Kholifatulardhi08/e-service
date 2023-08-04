@@ -143,6 +143,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     foreach ($caturls as $key => $url) {
         Route::match(['get', 'post'], '/'.$url, 'ListeningController@listening');
     }
+    // search function
+    Route::get('search/products', 'ListeningController@listening');
     // product detail by id
     Route::get('product/{id}', 'ListeningController@detailproduct');
     Route::get('products/{penyedia_id}', 'ListeningController@jasadetails');

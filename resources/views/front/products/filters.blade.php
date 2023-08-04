@@ -4,6 +4,28 @@ $productfilter = ProductFilter::productFilters();
 ?>
 <!-- Shop-Left-Side-Bar-Wrapper -->
 <div class="col-lg-3 col-md-3 col-sm-12">
+
+    @if(!isset($_REQUEST['search']))
+    <?php 
+    $getBrands = ProductFilter::getBrands($url); 
+    ?>
+    <!-- Filter-Brand -->
+    <div class="facet-filter-associates">
+        <h3 class="title-name">Brand</h3>
+        <form class="facet-form" action="#" method="post">
+            <div class="associate-wrapper">
+                @foreach($getBrands as $key => $brand )
+                <input type="checkbox" class="check-box brand" name="brand[]" value="{{ $brand['id'] }}"
+                    id="brand{{ $key }}">
+                <label class="label-text" for="brand{{ $key }}">{{ $brand['nama'] }}
+                    {{-- <span class="total-fetch-items">(0)</span> --}}
+                </label>
+                @endforeach
+            </div>
+        </form>
+    </div>
+    <!-- Filter-Brand /- -->
+
     <!-- Filter-Size -->
     <?php 
     $getPaket = ProductFilter::getPaket($url); 
@@ -47,6 +69,7 @@ $productfilter = ProductFilter::productFilters();
     @endif
     @endforeach
     <!-- Filter-category /- -->
+
     <!-- Filter-by-price -->
     <div class="facet-filter-associates">
         <h3 class="title-name">Harga</h3>
@@ -65,25 +88,7 @@ $productfilter = ProductFilter::productFilters();
         </form>
     </div>
     <!-- Filter-by-price /- -->
-    <?php 
-    $getBrands = ProductFilter::getBrands($url); 
-    ?>
-    <!-- Filter-Brand -->
-    <div class="facet-filter-associates">
-        <h3 class="title-name">Brand</h3>
-        <form class="facet-form" action="#" method="post">
-            <div class="associate-wrapper">
-                @foreach($getBrands as $key => $brand )
-                <input type="checkbox" class="check-box brand" name="brand[]" value="{{ $brand['id'] }}" id="brand{{ $key }}">
-                <label class="label-text" for="brand{{ $key }}">{{ $brand['nama'] }}
-                    {{--  <span class="total-fetch-items">(0)</span>  --}}
-                </label>
-                @endforeach
-            </div>
-        </form>
-    </div>
-    <!-- Filter-Brand /- -->
-
+    @endif
     <?php /*
     <!-- Filter-Rating -->
     <div class="facet-filter-by-rating">

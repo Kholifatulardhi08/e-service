@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             $table->string('payment_gateway')->nullable();
             $table->string('order_status');
-            $table->float('grand_total');
+            $table->float('grand_total', 20.0);
             $table->timestamps();
         });
     }

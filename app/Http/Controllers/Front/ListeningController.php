@@ -26,6 +26,7 @@ class ListeningController extends Controller
         $categorycount = Category::where(['url'=>$url, 'status'=>1])->count();
         if ($categorycount>0) {
             $categorydetails = Category::categorydetails($url);
+            dd($categorydetails);
             $categoryproduct = Product::with('brand')->whereIn('category_id', $categorydetails['catid'])->where('status', 1);
 
             $productfilter = ProductFilter::productFilters();
@@ -85,8 +86,23 @@ class ListeningController extends Controller
             abort(404);
         }
         }else{
+        if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])){
+            $search_product = $_REQUEST['search'];
+            $categorydetails['breadcum'] = $_REQUEST['search'];
+            $categorydetails['categorydetails']['nama'] = $search_product;
+            $categorydetails['categorydetails']['deskripsi'] = "Search For Produk". $search_product ;
+            $categoryproduct = Product::with('brand')->join('categories', 'categories.id', 
+            '=', 'products.category_id')->where(function($query)use($search_product){
+                $query->where('products.nama', 'like', '%'. $search_product.'%')
+                ->orWhere('products.harga', 'like', '%'. $search_product.'%')
+                ->orWhere('products.deskripsi', 'like', '%'. $search_product.'%')
+                ->orWhere('categories.nama', 'like', '%'. $search_product.'%');
+            })->where('products.status', 1);
+            $categoryproduct = $categoryproduct->get();
+            return view('front.products.listening')->with(compact('categoryproduct', 'categorydetails'));
+        } else {
             $url = Route::getFacadeRoot()->current()->uri();
-        $categorycount = Category::where(['url'=>$url, 'status'=>1])->count();
+            $categorycount = Category::where(['url'=>$url, 'status'=>1])->count();
         if ($categorycount>0) {
             $categorydetails = Category::categorydetails($url);
             $categoryproduct = Product::with('brand')->whereIn('category_id', $categorydetails['catid'])->where('status', 1);
@@ -103,11 +119,11 @@ class ListeningController extends Controller
                     $categoryproduct->orderBy('products.nama', "DESC");
                 }
             }
-
             $categoryproduct = $categoryproduct->paginate(5);
             return view('front.products.listening')->with(compact('categoryproduct', 'categorydetails', 'url'));
         } else {
             abort(404);
+        }
         }
         }
     }
