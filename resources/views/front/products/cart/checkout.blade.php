@@ -37,37 +37,37 @@ use App\Models\Product;
             <div class="col-lg-12 col-md-12">
                 <div class="row">
                     <!-- Billing-&-Shipping-Details -->
-                    <div class="col-lg-4" id="deliveryAddress">
+                    <div class="col-lg-6" id="deliveryAddress">
                         @include('front.products.cart.deliveries')
                     </div>
                     <!-- Billing-&-Shipping-Details /- -->
-                    <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout') }}" method="POST">
-                        @csrf
-                        @if (count($deliveryAddresses) > 0)
-                        @foreach ($deliveryAddresses as $alamat)
-                        <div class="control-group" style="float: left; margin-right: 5px;">
-                            {{-- <input type="radio" id="{{ $alamat['id'] }}" name="address_id"
-                                value="{{ $alamat['id'] }}"> --}}
-                            <input type="radio" id="address{{ $alamat['id'] }}" name="address_id"
-                                value="{{ $alamat['id'] }}">
-                        </div>
-                        <div class="control-label">{{ $alamat['nama'] }},
-                            {{ $alamat['alamat'] }}, ({{ $alamat['no_hp'] }}), {{ $alamat['kecamatan'] }}, {{
-                            $alamat['kota'] }},
-                            {{ $alamat['provinsi'] }}, {{ $alamat['kode_pos'] }}
-                            <a style="float: right; margin-left: 5px;" href="javascript:;"
-                                data-addressid="{{ $alamat['id'] }}" style="float: right;" class="removeAddress">
-                                Remove
-                            </a>&nbsp;&nbsp;
-                            <a href="javascript:;" data-addressid="{{ $alamat['id'] }}" style="float: right;"
-                                class="editAddress">
-                                Edit
-                            </a>&nbsp;&nbsp;
-                        </div>
-                        @endforeach
-                        @endif
-                        <br>
-                        <div class="col-lg-6">
+                    <div class="col-lg-6">
+                        <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout') }}" method="POST">
+                            @csrf
+                            @if (count($deliveryAddresses) > 0)
+                            @foreach ($deliveryAddresses as $alamat)
+                            <h4 class="section-h4 deliveryText">Pilih Alamat Penyewa</h4>
+                            <div class="control-group" style="float: left; margin-right: 5px;">
+                                {{-- <input type="radio" id="{{ $alamat['id'] }}" name="address_id"
+                                    value="{{ $alamat['id'] }}"> --}}
+                                <input type="radio" id="address{{ $alamat['id'] }}" name="address_id"
+                                    value="{{ $alamat['id'] }}">
+                            </div>
+                            <div class="control-label">{{ $alamat['nama'] }},
+                                {{ $alamat['alamat'] }}, ({{ $alamat['no_hp'] }}), {{ $alamat['kecamatan'] }}, {{
+                                $alamat['kota'] }},
+                                {{ $alamat['provinsi'] }}, {{ $alamat['kode_pos'] }}
+                                <a style="float: right; margin-left: 5px;" href="javascript:;"
+                                    data-addressid="{{ $alamat['id'] }}" style="float: right;" class="removeAddress">
+                                    Remove
+                                </a>&nbsp;&nbsp;
+                                <a href="javascript:;" data-addressid="{{ $alamat['id'] }}" style="float: right;"
+                                    class="editAddress">
+                                    Edit
+                                </a>&nbsp;&nbsp;
+                            </div>
+                            @endforeach
+                            @endif
                             <h4 class="section-h4">Your Order</h4>
                             <div class="order-table">
                                 <table class="u-s-m-b-13">
@@ -81,14 +81,14 @@ use App\Models\Product;
                                         @php $total_harga = 0 @endphp
                                         @foreach ($getCartItem as $cart)
                                         <?php
-                                                $hargaattribute = Product::hargaattribute($cart['product_id'], $cart['paket']);
-                                                {{--  echo "<pre>"; print_r($hargaattribute); die;  --}}
-                                            ?>
+                                                    $hargaattribute = Product::hargaattribute($cart['product_id'], $cart['paket']);
+                                                    {{--  echo "<pre>"; print_r($hargaattribute); die;  --}}
+                                                ?>
                                         <tr>
                                             <td>
                                                 <?php
-                                                        $products_imgPath = 'template/images/Photo/Product/Small/'.$cart['product']['gambar']
-                                                    ?>
+                                                            $products_imgPath = 'template/images/Photo/Product/Small/'.$cart['product']['gambar']
+                                                        ?>
                                                 <h6>
                                                     <a href="{{ url('product/'.$cart['product_id']) }}">
                                                         <img width="30" src="{{ $products_imgPath }}" alt="Product">
@@ -143,8 +143,8 @@ use App\Models\Product;
                                 </div>
                                 <button type="submit" class="button button-outline-secondary">Place Order</button>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
