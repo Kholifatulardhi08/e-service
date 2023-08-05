@@ -46,7 +46,6 @@ use App\Models\Product;
                             @csrf
                             @if (count($deliveryAddresses) > 0)
                             @foreach ($deliveryAddresses as $alamat)
-                            <h4 class="section-h4 deliveryText">Pilih Alamat Penyewa</h4>
                             <div class="control-group" style="float: left; margin-right: 5px;">
                                 {{-- <input type="radio" id="{{ $alamat['id'] }}" name="address_id"
                                     value="{{ $alamat['id'] }}"> --}}

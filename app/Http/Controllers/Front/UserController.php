@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Models\Cart;
 use App\Models\OrderProduct;
+use App\Models\ProductAtribute;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
@@ -325,6 +326,11 @@ class UserController extends Controller
                 $cartItem->harga = $hargaattribute['final_harga'];
                 $cartItem->quantity = $item['quantity'];
                 $cartItem->save();
+
+                // Reduce stock script start
+                $isStockReady = ProductAtribute::isStockReady($item['product_id'], $item['paket']);
+                $newStock = $isStockReady - $item['quantity'];
+                ProductAtribute::where(['product_id'=>$item['product_id'], 'paket'=>$item['paket']])->update(['stock'=>$newStock]);
             }
             session(['order_id' => $order_id, 'grand_total' => $grand_total]);
             // Session::put('order_id', $order_id);
