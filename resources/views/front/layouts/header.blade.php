@@ -87,7 +87,7 @@ $totalCartItem = totalCartItem();
                     </div>
                 </div>
                 <div class="col-lg-6 u-d-none-lg">
-                    <form class="form-searchbox" action="{{ url('search/products') }}" method="GET">
+                    <form class="form-searchbox" action="{{ url('search-products') }}" method="GET">
                         <label class="sr-only" for="search-landscape">Search</label>
                         <input name="search" id="search-landscape" type="text" class="text-field" placeholder="Search everything">
                         <div class="select-box-position">
@@ -116,11 +116,6 @@ $totalCartItem = totalCartItem();
                                     <i class="ion ion-md-home u-c-brand"></i>
                                 </a>
                             </li>
-                            {{--  <li class="u-d-none-lg">
-                                <a href="wishlist.html">
-                                    <i class="far fa-heart"></i>
-                                </a>
-                            </li>  --}}
                             <li>
                                 <a id="mini-cart-trigger">
                                     <i class="ion ion-md-basket"></i>

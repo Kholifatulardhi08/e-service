@@ -143,8 +143,6 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     foreach ($caturls as $key => $url) {
         Route::match(['get', 'post'], '/'.$url, 'ListeningController@listening');
     }
-    // search function
-    Route::get('search/products', 'ListeningController@listening');
     // product detail by id
     Route::get('product/{id}', 'ListeningController@detailproduct');
     Route::get('products/{penyedia_id}', 'ListeningController@jasadetails');
@@ -169,6 +167,8 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::get('penyewa/confirm/{code}', 'UserController@confirmpenyewa');
     Route::post('update-password', 'UserController@updatepassword');
     Route::match(['get', 'post'], 'lupa-password', 'UserController@lupapassword');
+    // search function
+    Route::get('search-products', 'ListeningController@listening');
 
     Route::middleware('auth')->group(function () {
         // Semua rute dalam grup ini memerlukan pengguna yang sudah login     

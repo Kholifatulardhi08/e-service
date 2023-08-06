@@ -23,10 +23,10 @@ use App\Models\Product;
                 <div class="what-product-is">
                     <ul class="bread-crumb">
                         <li class="has-separator">
-                            <a href="shop-v1-root-category.html">{{ $catpro['meta_title'] }}</a>
+                            <a href="#">{{ $catpro['meta_title'] }}</a>
                         </li>
                         <li>
-                            <a href="shop-v3-sub-sub-category.html">{{ $catpro['type'] }}</a>
+                            <a href="">{{ $catpro['type'] }}</a>
                         </li>
                     </ul>
                     <h6 class="item-title">
