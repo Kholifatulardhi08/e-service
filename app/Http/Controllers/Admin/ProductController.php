@@ -233,7 +233,7 @@ class ProductController extends Controller
             // echo "<pre>"; print_r($data); die;
             foreach ($data['id'] as $key => $attribute) {
                 if (!empty($attribute)) {
-                    ProductAtribute::where(['id'=>$data['id'][$key]])->update(['harga'=>$data['harga'][$key], 'keterangan'=>$data['keterangan'][$key]]);
+                    ProductAtribute::where(['id'=>$data['id'][$key]])->update(['harga'=>$data['harga'][$key], 'keterangan'=>$data['keterangan'][$key], 'stock'=>$data['stock'][$key]]);
                 }
             }
             return redirect()->back()->with('succses_message', 'Product attribute has been updateted!');

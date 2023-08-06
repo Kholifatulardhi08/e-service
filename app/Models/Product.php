@@ -106,4 +106,15 @@ class Product extends Model
             return null;
         }
     }
+
+    public static function getStatusProduct($product_id)
+    {
+        $getStatusProduct = Product::select('status')->where('id', $product_id)->first();
+        return $getStatusProduct->status;
+    }
+
+    public static function deleteCartProduct($product_id)
+    {
+        Cart::where('product_id', $product_id)->delete();
+    } 
 }

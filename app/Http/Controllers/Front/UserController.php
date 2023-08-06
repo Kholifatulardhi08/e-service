@@ -260,7 +260,25 @@ class UserController extends Controller
 
         if($request->isMethod('POST')){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;     
+            // echo "<pre>"; print_r($data); die;   
+            
+            foreach($getCartItem as $item)
+            {
+                $product_status = Product::getStatusProduct($item['product_id']);
+                if($product_status==0){
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of Product of disable, please choice another Product!";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+
+                $isStockReady = ProductAtribute::isStockReady($item['product_id'], $item['paket']);
+                if ($isStockReady==0) {
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of Product is sold out, please choice another Product!";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+            }
+
             // if delivery id null
             if(empty($data['address_id'])){
                 $message = "Please Select delivery address!";
