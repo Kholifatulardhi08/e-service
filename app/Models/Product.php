@@ -116,5 +116,5 @@ class Product extends Model
     public static function deleteCartProduct($product_id)
     {
         Cart::where('product_id', $product_id)->delete();
-    } 
+    }
 }

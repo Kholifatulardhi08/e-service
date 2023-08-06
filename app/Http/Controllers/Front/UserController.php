@@ -277,6 +277,13 @@ class UserController extends Controller
                     $message = "One of Product is sold out, please choice another Product!";
                     return redirect('/cart')->with('error_message', $message);
                 }
+
+                $getAtributeStatus = ProductAtribute::getAtributeStatus($item['product_id']);
+                if ($getAtributeStatus==0) {
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of Product is nonaktive out, please choice another Product!";
+                    return redirect('/cart')->with('error_message', $message);
+                }
             }
 
             // if delivery id null

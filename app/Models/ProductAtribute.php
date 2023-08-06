@@ -15,6 +15,12 @@ class ProductAtribute extends Model
         return $isStockReady->stock;
     }
 
+    public static function getAtributeStatus($product_id)
+    {
+        $getAtributeStatus = ProductAtribute::select('status')->where('id', $product_id)->first();
+        return $getAtributeStatus->status;
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

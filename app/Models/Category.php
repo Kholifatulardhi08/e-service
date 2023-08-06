@@ -54,4 +54,10 @@ class Category extends Model
         $getCategoryName = Category::select('nama')->where('id', $category_id)->first();
         return $getCategoryName->nama;
     }
+
+    public static function getCategoryStatus($category_id)
+    {
+        $getCategoryStatus = Category::select('status')->where('id', $category_id)->first()->toArray();
+        return $getCategoryStatus->status;
+    }
 }
