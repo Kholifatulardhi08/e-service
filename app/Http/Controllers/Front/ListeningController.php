@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Cart;
+use App\Models\Rating;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Penyedia;
@@ -131,17 +132,40 @@ class ListeningController extends Controller
 
     public function detailproduct($id)
     {
-        $product = Product::with('penyedia' ,'category', 'section', 'brand', 'attribute', 'image')->find($id)->toArray();
-        $categorydetails = Category::categorydetails($product['category']['url']);
-        // dd($product);
+            $product = Product::with('penyedia', 'category', 'section', 'brand', 'attribute', 'image')->find($id)->toArray();
+            $categorydetails = Category::categorydetails($product['category']['url']);
 
-        $totalStock = ProductAtribute::where('product_id', $id)->sum('stock');
+            $totalStock = ProductAtribute::where('product_id', $id)->sum('stock');
 
-        // Get similiar product
-        $similiarproduct = Product::with('brand')->where('category_id', $product['category']['id'])->where('id', '!=', $id)->limit(4)->inRandomOrder()->get()->toArray();
-        // dd($similiarproduct);
-        return view('front.products.product_details')->with(compact('product', 'categorydetails', 'similiarproduct', 'totalStock'));
+            $rating = Rating::with('user')->where(['product_id' => $id, 'status' => 1])->get()->toArray();
+            $ratingsum = Rating::where(['product_id' => $id, 'status' => 1])->sum('rating');
+            $ratingcount = Rating::where(['product_id' => $id, 'status' => 1])->count();
+            
+            $rating1count = Rating::where(['product_id' => $id, 'status' => 1, 'rating'=>1])->count();
+            $rating2count = Rating::where(['product_id' => $id, 'status' => 1, 'rating'=>2])->count();
+            $rating3count = Rating::where(['product_id' => $id, 'status' => 1, 'rating'=>3])->count();
+            $rating4count = Rating::where(['product_id' => $id, 'status' => 1, 'rating'=>4])->count();
+            $rating5count = Rating::where(['product_id' => $id, 'status' => 1, 'rating'=>5])->count();
+
+            $avgRating = 0;
+            $avgStar = 0;
+            if ($ratingcount > 0) {
+                $avgRating = round($ratingsum / $ratingcount, 2);
+                $avgStar = round($ratingsum / $ratingcount);
+            }
+
+            $similiarproduct = Product::with('brand')
+                ->where('category_id', $product['category']['id'])
+                ->where('id', '!=', $id)
+                ->limit(4)
+                ->inRandomOrder()
+                ->get()
+                ->toArray();
+
+            return view('front.products.product_details')->with(compact('avgRating', 'avgStar', 'rating', 'product', 'categorydetails', 'similiarproduct', 'totalStock',
+            'rating1count', 'rating2count', 'rating3count', 'rating4count', 'rating5count'));
     }
+
 
     public function getProductharga(Request $request)
     {

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Front\PenyediaController;
 use App\Http\Controllers\Front\ListeningController;
+use App\Http\Controllers\Front\RatingController;
 use App\Http\Controllers\Admin\OrderController;
 /*
 |--------------------------------------------------------------------------
@@ -174,6 +175,9 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::match(['get', 'post'], 'lupa-password', 'UserController@lupapassword');
     // search function
     Route::get('search-products', 'ListeningController@listening');
+
+    // Add Rating
+    Route::post('add-rating', 'RatingController@addRating');
 
     Route::middleware('auth')->group(function () {
         // Semua rute dalam grup ini memerlukan pengguna yang sudah login     

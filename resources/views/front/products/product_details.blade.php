@@ -3,6 +3,54 @@
 <?php
 use App\Models\Product;
 ?>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+    }
+
+    .rate:not(:checked)>input {
+        position: inherit;
+        top: -9999px;
+    }
+
+    .rate:not(:checked)>label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+    }
+
+    .rate:not(:checked)>label:before {
+        content: '★ ';
+    }
+
+    .rate>input:checked~label {
+        color: #ffc700;
+    }
+
+    .rate:not(:checked)>label:hover,
+    .rate:not(:checked)>label:hover~label {
+        color: #deb217;
+    }
+
+    .rate>input:checked+label:hover,
+    .rate>input:checked+label:hover~label,
+    .rate>input:checked~label:hover,
+    .rate>input:checked~label:hover~label,
+    .rate>label:hover~input:checked~label {
+        color: #c59b08;
+    }
+</style>
 <!-- Page Introduction Wrapper -->
 <div class="page-style-a">
     <div class="container">
@@ -99,11 +147,20 @@ use App\Models\Product;
                             <?php echo $categorydetails['breadcum'] ?>
                         </ul>
                         <div class="product-rating">
-                            <div class='star' title="4.5 out of 5 - based on 23 Reviews">
-                                <span style='width:67px'></span>
-                            </div>
-                            <span>(23)</span>
+                            <span>
+                                @if ($avgStar > 0)
+                                <?php $count = 0; ?>
+                                @while ($count < $avgStar) <span style="color: gold;">&#9733;
+                            </span>
+                            <?php $count++; ?>
+                            @endwhile
+                            {{ count($rating) }}
+                            @else
+                            Belum Ada Rating
+                            @endif
+                            </span>
                         </div>
+
                     </div>
                     <div class="section-2-short-description u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Description:</h6>
@@ -230,7 +287,7 @@ use App\Models\Product;
     </div>
     <!-- Product-Detail /- -->
     <!-- Detail-Tabs -->
-    <div class="row pt-1">
+    <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="detail-tabs-wrapper u-s-p-t-80">
                 <div class="detail-nav-wrapper u-s-m-b-30">
@@ -243,7 +300,8 @@ use App\Models\Product;
                         </li> --}}
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#review">Reviews
-                                (15)</a>
+                                {{ count($rating) }}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -256,9 +314,9 @@ use App\Models\Product;
                                     <div class="total-score-wrapper">
                                         <h6 class="review-h6">Average Rating</h6>
                                         <div class="circle-wrapper">
-                                            <h1>4.5</h1>
+                                            <h1>{{ $avgRating }}</h1>
                                         </div>
-                                        <h6 class="review-h6">Based on 23 Reviews</h6>
+                                        <h6 class="review-h6">Based on {{ count($rating) }} Reviews</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
@@ -266,37 +324,37 @@ use App\Models\Product;
                                         <div class="star-wrapper">
                                             <span>5 Stars</span>
                                             <div class="star">
-                                                <span style='width:0'></span>
+                                                <span style='width:0px'></span>
                                             </div>
-                                            <span>(0)</span>
+                                            <span>{{ $rating5count }}</span>
                                         </div>
                                         <div class="star-wrapper">
                                             <span>4 Stars</span>
                                             <div class="star">
-                                                <span style='width:67px'></span>
+                                                <span style='width:0px'></span>
                                             </div>
-                                            <span>(23)</span>
+                                            <span>{{ $rating4count }}</span>
                                         </div>
                                         <div class="star-wrapper">
                                             <span>3 Stars</span>
                                             <div class="star">
-                                                <span style='width:0'></span>
+                                                <span style='width:0px'></span>
                                             </div>
-                                            <span>(0)</span>
+                                            <span>{{ $rating3count }}</span>
                                         </div>
                                         <div class="star-wrapper">
                                             <span>2 Stars</span>
                                             <div class="star">
-                                                <span style='width:0'></span>
+                                                <span style='width:0px'></span>
                                             </div>
-                                            <span>(0)</span>
+                                            <span>{{ $rating2count }}</span>
                                         </div>
                                         <div class="star-wrapper">
-                                            <span>1 Star</span>
+                                            <span>1 Stars</span>
                                             <div class="star">
-                                                <span style='width:0'></span>
+                                                <span style='width:0px'></span>
                                             </div>
-                                            <span>(0)</span>
+                                            <span>{{ $rating1count }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -306,37 +364,33 @@ use App\Models\Product;
                                     <div class="your-rating-wrapper">
                                         <h6 class="review-h6">Your Review is matter.</h6>
                                         <h6 class="review-h6">Have you used this product before?</h6>
-                                        <div class="star-wrapper u-s-m-b-8">
-                                            <div class="star">
-                                                <span id="your-stars" style='width:0'></span>
+                                        <form action="{{ url('add-rating') }}" method="POST" name="formRating"
+                                            id="formRating">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product['id'] }}">
+                                            <div class="star-wrapper u-s-m-b-8">
+                                                <div class="rate">
+                                                    <input style="display: none;" type="radio" id="star5" name="rating"
+                                                        value="5" />
+                                                    <label for="star5" title="text">5 stars</label>
+                                                    <input style="display: none;" type="radio" id="star4" name="rating"
+                                                        value="4" />
+                                                    <label for="star4" title="text">4 stars</label>
+                                                    <input style="display: none;" type="radio" id="star3" name="rating"
+                                                        value="3" />
+                                                    <label for="star3" title="text">3 stars</label>
+                                                    <input style="display: none;" type="radio" id="star2" name="rating"
+                                                        value="2" />
+                                                    <label for="star2" title="text">2 stars</label>
+                                                    <input style="display: none;" style="display: none;" type="radio"
+                                                        id="star1" name="rating" value="1" />
+                                                    <label for="star1" title="text">1 star</label>
+                                                </div>
                                             </div>
-                                            <label for="your-rating-value"></label>
-                                            <input id="your-rating-value" type="text" class="text-field"
-                                                placeholder="0.0">
-                                            <span id="star-comment"></span>
-                                        </div>
-                                        <form>
-                                            <label for="your-name">Name
-                                                <span class="astk"> *</span>
-                                            </label>
-                                            <input id="your-name" type="text" class="text-field"
-                                                placeholder="Your Name">
-                                            <label for="your-email">Email
-                                                <span class="astk"> *</span>
-                                            </label>
-                                            <input id="your-email" type="text" class="text-field"
-                                                placeholder="Your Email">
-                                            <label for="review-title">Review Title
-                                                <span class="astk"> *</span>
-                                            </label>
-                                            <input id="review-title" type="text" class="text-field"
-                                                placeholder="Review Title">
-                                            <label for="review-text-area">Review
-                                                <span class="astk"> *</span>
-                                            </label>
-                                            <textarea class="text-area u-s-m-b-8" id="review-text-area"
-                                                placeholder="Review"></textarea>
-                                            <button class="button button-outline-secondary">Submit Review</button>
+                                            <textarea class="text-area u-s-m-b-8" name="review" id="review-text-area"
+                                                placeholder="Review" required></textarea>
+                                            <button type="submit" class="button button-outline-secondary">Submit
+                                                Review</button>
                                         </form>
                                     </div>
                                 </div>
@@ -347,108 +401,40 @@ use App\Models\Product;
                                 <div class="review-options u-s-m-b-16">
                                     <div class="review-option-heading">
                                         <h6>Reviews
-                                            <span> (15) </span>
+                                            <span>{{ count($rating) }}</span>
                                         </h6>
-                                    </div>
-                                    <div class="review-option-box">
-                                        <div class="select-box-wrapper">
-                                            <label class="sr-only" for="review-sort">Review Sorter</label>
-                                            <select class="select-box" id="review-sort">
-                                                <option value="">Sort by: Best Rating</option>
-                                                <option value="">Sort by: Worst Rating</option>
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- Review-Options /- -->
                                 <!-- All-Reviews -->
                                 <div class="reviewers">
+                                    @if(count($rating) > 0)
+                                    @foreach ($rating as $item)
                                     <div class="review-data">
                                         <div class="reviewer-name-and-date">
-                                            <h6 class="reviewer-name">John</h6>
-                                            <h6 class="review-posted-date">10 May 2018</h6>
+                                            <h6 class="reviewer-name">{{ $item['user']['name'] }}</h6>
+                                            <h6 class="review-posted-date">{{ $item['user']['email'] }} / {{ date("d-m-Y
+                                                H:i:s", strtotime($item['created_at'])) }}</h6>
                                         </div>
                                         <div class="reviewer-stars-title-body">
                                             <div class="reviewer-stars">
-                                                <div class="star">
-                                                    <span style='width:67px'></span>
-                                                </div>
-                                                <span class="review-title">Good!</span>
+                                                <?php $count = 0; ?>
+                                                @while($count < $item['rating']) <span style="color: gold;">
+                                                    &#9733;</span>
+                                                    <?php $count++; ?>
+                                                    @endwhile
                                             </div>
                                             <p class="review-body">
-                                                Good Quality...!
+                                                {{ $item['review'] }}
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="review-data">
-                                        <div class="reviewer-name-and-date">
-                                            <h6 class="reviewer-name">Doe</h6>
-                                            <h6 class="review-posted-date">10 June 2018</h6>
-                                        </div>
-                                        <div class="reviewer-stars-title-body">
-                                            <div class="reviewer-stars">
-                                                <div class="star">
-                                                    <span style='width:67px'></span>
-                                                </div>
-                                                <span class="review-title">Well done!</span>
-                                            </div>
-                                            <p class="review-body">
-                                                Cotton is good.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="review-data">
-                                        <div class="reviewer-name-and-date">
-                                            <h6 class="reviewer-name">Tim</h6>
-                                            <h6 class="review-posted-date">10 July 2018</h6>
-                                        </div>
-                                        <div class="reviewer-stars-title-body">
-                                            <div class="reviewer-stars">
-                                                <div class="star">
-                                                    <span style='width:67px'></span>
-                                                </div>
-                                                <span class="review-title">Well done!</span>
-                                            </div>
-                                            <p class="review-body">
-                                                Excellent condition
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="review-data">
-                                        <div class="reviewer-name-and-date">
-                                            <h6 class="reviewer-name">Johnny</h6>
-                                            <h6 class="review-posted-date">10 March 2018</h6>
-                                        </div>
-                                        <div class="reviewer-stars-title-body">
-                                            <div class="reviewer-stars">
-                                                <div class="star">
-                                                    <span style='width:67px'></span>
-                                                </div>
-                                                <span class="review-title">Bright!</span>
-                                            </div>
-                                            <p class="review-body">
-                                                Cotton
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="review-data">
-                                        <div class="reviewer-name-and-date">
-                                            <h6 class="reviewer-name">Alexia C. Marshall</h6>
-                                            <h6 class="review-posted-date">12 May 2018</h6>
-                                        </div>
-                                        <div class="reviewer-stars-title-body">
-                                            <div class="reviewer-stars">
-                                                <div class="star">
-                                                    <span style='width:67px'></span>
-                                                </div>
-                                                <span class="review-title">Well done!</span>
-                                            </div>
-                                            <p class="review-body">
-                                                Good polyester Cotton
-                                            </p>
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                    @else
+                                    <p>Product ini belum di-review.</p>
+                                    @endif
                                 </div>
+
                                 <!-- All-Reviews /- -->
                                 <!-- Pagination-Review -->
                                 <div class="pagination-review-area">
@@ -518,12 +504,6 @@ use App\Models\Product;
                                         alt="Product">
                                     @endif
                                 </a>
-                                <div class="item-action-behaviors">
-                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                    <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                </div>
                             </div>
                             <div class="item-content">
                                 <div class="what-product-is">
@@ -567,67 +547,6 @@ use App\Models\Product;
             </div>
         </section>
         <!-- Similar-Products /- -->
-        <!-- Recently-View-Products  -->
-        {{-- <section class="section-maker">
-            <div class="container">
-                <div class="sec-maker-header text-center">
-                    <h3 class="sec-maker-h3">Recently View</h3>
-                </div>
-                <div class="slider-fouc">
-                    <div class="products-slider owl-carousel" data-item="4">
-                        <div class="item">
-                            <div class="image-container">
-                                <a class="item-img-wrapper-link" href="single-product.html">
-                                    <img class="img-fluid" src="images/product/product@3x.jpg" alt="Product">
-                                </a>
-                                <div class="item-action-behaviors">
-                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                    <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
-                                </div>
-                            </div>
-                            <div class="item-content">
-                                <div class="what-product-is">
-                                    <ul class="bread-crumb">
-                                        <li class="has-separator">
-                                            <a href="shop-v1-root-category.html">{{ $catpro['meta_title'] }}</a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-v3-sub-sub-category.html">{{ $catpro['type'] }}</a>
-                                        </li>
-                                    </ul>
-                                    <h6 class="item-title">
-                                        <a href="{{ url('product/'.$catpro['id']) }}">{{ $catpro['nama'] }}</a>
-                                    </h6>
-                                    <div class="item-description">
-                                        <p>{{ $catpro['deskripsi'] }}</p>
-                                    </div>
-                                    <div class="item-stars">
-                                        <div class='star' title="4.5 out of 5 - based on 23 Reviews">
-                                            <span style='width:67px'></span>
-                                        </div>
-                                        <span>(23)</span>
-                                    </div>
-                                </div>
-                                <div class="price-template">
-                                    <div class="item-new-price">
-                                        $100.00
-                                    </div>
-                                    <div class="item-old-price">
-                                        $120.00
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tag hot">
-                                <span>HOT</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
-        <!-- Recently-View-Products /- -->
     </div>
     <!-- Different-Product-Section /- -->
 </div>
