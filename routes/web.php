@@ -130,6 +130,11 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         // invoice
         Route::get('orders/invoice/{id}', 'OrderController@invoice');
         Route::get('orders/invoice/pdf/{id}', 'OrderController@cetakpdf');
+
+        // Rating
+        Route::get('ratings', 'OrderController@ratings');
+        Route::post('update-rating-status', 'OrderController@updateRatingStatus');
+        Route::get('delete-ratings/{id}', 'OrderController@deleteRating');
         
     });
 });

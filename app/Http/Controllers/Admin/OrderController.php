@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Rating;
 use Dompdf\Dompdf;
 use App\Models\User;
 use App\Models\Order;
@@ -19,7 +20,7 @@ class OrderController extends Controller
 {
     public function order()
     {
-        Session::put('page', 'order');
+                Session::put('page', 'order');
         $adminType  = Auth::guard('admin')->user()->type;
         $penyedia_id  = Auth::guard('admin')->user()->penyedia_id;
         if($adminType=="penyedia"){
@@ -28,12 +29,12 @@ class OrderController extends Controller
                 return redirect('admin/update_admin_details')->with('error_message', 'Vendor Account ist not approved!');
             }
         }
-        if ($adminType="penyedia") {
+        if ($adminType==="penyedia") {
             $orders = Order::with(['order'=>function($query)use($penyedia_id){
                 $query->where('penyedia_id', $penyedia_id);
             }])->orderBy('id', 'desc')->get()->toArray();
         } else {
-            $orders = Order::with('order')->orderBy('id', 'desc')->get()->toArray();
+            $orders = Order::with('order')->get()->toArray();
         }
         return view('admin.order.order')->with(compact('orders'));
     }
@@ -94,8 +95,8 @@ class OrderController extends Controller
         return view('admin.order.invoice')->with(compact('orderdetails', 'userdetails'));
     }
 
-        public function cetakpdf($order_id)
-        {
+    public function cetakpdf($order_id)
+    {
             // Ambil data order dan user berdasarkan order_id
             $orderdetails = Order::with('order')->where('id', $order_id)->first()->toArray();
             $userdetails = User::where('id', $orderdetails['user_id'])->first()->toArray();
@@ -124,7 +125,36 @@ class OrderController extends Controller
             // Output the generated PDF to Browser
             echo $dompdf->output();
             exit;
-        }
+    }
 
+    public function ratings()
+    {
+        Session::put('page', 'rating');
+        $ratings = Rating::with('user', 'product')->get()->toArray();
+        // dd($ratings);
+        return view('admin.order.rating')->with(compact('ratings'));   
+    }
+
+    public function updateRatingStatus(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            if($data['status']=="Active"){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            Rating::where('id', $data['rating_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status, 'id'=>$data['rating_id']]);
+        }
+    }
+
+    public function deleteRating($id)
+    {
+        Rating::where('id', $id)->delete();
+        $message = "Rating delete successfully!";
+        return redirect()->back()->with('succses_message', $message);
+    }
 
 }

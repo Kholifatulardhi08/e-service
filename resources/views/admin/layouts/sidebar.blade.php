@@ -88,8 +88,8 @@
         </li>
         <li class="nav-item">
             <a @if (Session::get('page')=='order' ) style="background: #4B4BAC !important;
-            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#order"
-                aria-expanded="false" aria-controls="#order">
+            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#order" aria-expanded="false"
+                aria-controls="#order">
                 <i class="icon-columns menu-icon"></i>
                 <span class="menu-title">Manage Order</span>
                 <i class="menu-arrow"></i>
@@ -100,6 +100,11 @@
                         <a @if (Session::get('page')=='order' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/orders') }}">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='rating' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/ratings') }}">Ratings</a>
                     </li>
                 </ul>
             </div>
@@ -193,13 +198,18 @@
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/products') }}">Product</a>
                     </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='rating' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/ratings') }}">Ratings</a>
+                    </li>
                 </ul>
             </div>
         </li>
         <li class="nav-item">
             <a @if (Session::get('page')=='order' ) style="background: #4B4BAC !important;
-            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#order"
-                aria-expanded="false" aria-controls="#order">
+            color: #fff !important;" @endif class="nav-link" data-toggle="collapse" href="#order" aria-expanded="false"
+                aria-controls="#order">
                 <i class="icon-columns menu-icon"></i>
                 <span class="menu-title">Manage Orders</span>
                 <i class="menu-arrow"></i>

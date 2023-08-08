@@ -12,6 +12,7 @@ $(document).ready(function(){
     $('#filterValue').DataTable();
     $('#penyewas').DataTable();
     $('#orders').DataTable();
+    $('#ratings').DataTable();
     
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
@@ -367,6 +368,31 @@ $(document).ready(function(){
                     location.reload();
                 }else if(resp['status']==1){
                     $("#filterValue_id-"+filterValue_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
+                    location.reload();
+                }
+            }, error:function(){
+                alert("Error");
+            }
+        })            
+    });
+
+    $(document).on("click",".updateRatingStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var rating_id = $(this).attr("rating_id");
+        alert(status);
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url:'/admin/update-rating-status',
+            data:{'status':status,'rating_id':rating_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#rating-"+rating_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-check' status='Inactive'></i>");
+                    location.reload();
+                }else if(resp['status']==1){
+                    $("#rating-"+rating_id).html("<i style='font-size:30px;' class='mdi mdi-bookmark-outline' status='Active'></i>");
                     location.reload();
                 }
             }, error:function(){
