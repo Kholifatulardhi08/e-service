@@ -90,16 +90,17 @@ class ListeningController extends Controller
                 $categorydetails['breadcum'] = $_REQUEST['search'];
                 $categorydetails['categorydetails']['nama'] = $search_product;
                 $categorydetails['categorydetails']['deskripsi'] = "Search For Produk". $search_product ;
-                $categoryproduct = Product::select('products.*')->with('brand')->join('categories', 'categories.id', 
-                '=', 'products.category_id')->where(function($query)use($search_product){
+                $categoryproduct = Product::select('products.*')->with('brand')->join('categories', 'products.category_id', 
+                '=', 'categories.id')->where(function($query)use($search_product){
                 $query->where('products.nama', 'like', '%'. $search_product.'%')
                 ->orWhere('products.harga', 'like', '%'. $search_product.'%')
                 ->orWhere('products.deskripsi', 'like', '%'. $search_product.'%')
-                ->orWhere('categories.nama', 'like', '%'. $search_product.'%');
+                ->orWhere('categories.nama', 'like', '%'. $search_product.'%')
+                ->orWhere('categories.url', 'like', '%'. $search_product.'%');
                 })->where('products.status', 1);
-                $categoryproduct = $categoryproduct->get()->toArray();
+                $categoryproduct = $categoryproduct->paginate(6);
                 // dd($categoryproduct);
-                return view('front.products.listening')->with(compact('categoryproduct', 'categorydetails'));                    
+                return view('front.products.search')->with(compact('categoryproduct', 'categorydetails'));                    
             } else {
                 $url = Route::getFacadeRoot()->current()->uri();
                 $categorycount = Category::where(['url'=>$url, 'status'=>1])->count();
@@ -119,7 +120,6 @@ class ListeningController extends Controller
                             $categoryproduct->orderBy('products.nama', "DESC");
                         }
                     }
-
                     $categoryproduct = $categoryproduct->paginate(5);
                     return view('front.products.listening')->with(compact('categoryproduct', 'categorydetails', 'url'));
                 } else {

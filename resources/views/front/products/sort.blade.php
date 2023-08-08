@@ -3,6 +3,7 @@ use App\Models\Product;
 ?>
 <!-- Row-of-Product-Container -->
 <div class="row product-container list-style">
+    @if(!isset($_REQUEST['search']))
     @foreach($categoryproduct as $catpro)
     <div class="product-item col-lg-4 col-md-6 col-sm-6">
         <div class="item">
@@ -55,7 +56,7 @@ use App\Models\Product;
                 </div>
             </div>
             <?php $isproductnew = Product::isproductnew($catpro['id']); ?>
-            @if($isproductnew="Yes")
+            @if($isproductnew=="Yes")
             <div class="tag new">
                 <span>NEW</span>
             </div>
@@ -63,5 +64,6 @@ use App\Models\Product;
         </div>
     </div>
     @endforeach
+    @endif
 </div>
 <!-- Row-of-Product-Container /- -->
