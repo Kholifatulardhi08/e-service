@@ -26,7 +26,7 @@ use App\Models\Product;
                                             No
                                         </th>
                                         <th>
-                                            Product ID
+                                            Product
                                         </th>
                                         <th>
                                             User
@@ -40,9 +40,9 @@ use App\Models\Product;
                                         <th>
                                             Status
                                         </th>
-                                        <th>
+                                        {{--  <th>
                                             Action
-                                        </th>
+                                        </th>  --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,6 +63,9 @@ use App\Models\Product;
                                             {{ $rating['review'] }}
                                         </td>
                                         <td>
+                                            {{ $rating['rating'] }}
+                                        </td>
+                                        <td>
                                             @if($rating['status']==1)
                                             <a title="Status aktif" class="updateRatingStatus"
                                                 id="rating-{{ $rating['id'] }}" rating_id="{{ $rating['id'] }}"
@@ -79,15 +82,12 @@ use App\Models\Product;
                                             </a>
                                             @endif
                                         </td>
-                                        <td>
-                                            {{ $rating['rating'] }}
-                                        </td>
-                                        <td>
-                                            <a title="Hapus brand"  href="javascript:void(0)" class="confirmDelete" module="ratings"
-                                                moduleid="{{ $rating['id'] }}">
+                                        {{-- <td>
+                                            <a title="Hapus brand" href="javascript:void(0)" class="confirmDelete"
+                                                module="ratings" moduleid="{{ $rating['id'] }}">
                                                 <i style="font-size:30px;" class="mdi mdi-delete"></i>
                                             </a>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endif
                                     <?php $no++; ?>

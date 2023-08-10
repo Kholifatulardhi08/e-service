@@ -198,11 +198,6 @@
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/products') }}">Product</a>
                     </li>
-                    <li class="nav-item">
-                        <a @if (Session::get('page')=='rating' ) style="background: #4B4BAC !important; 
-                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
-                            @endif class="nav-link" href="{{ url('admin/ratings') }}">Ratings</a>
-                    </li>
                 </ul>
             </div>
         </li>
@@ -220,6 +215,11 @@
                         <a @if (Session::get('page')=='penyewa' ) style="background: #4B4BAC !important; 
                         color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
                             @endif class="nav-link" href="{{ url('admin/orders') }}">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if (Session::get('page')=='rating' ) style="background: #4B4BAC !important; 
+                        color: #fff !important;" @else style="background: #fff !important; color: #4B4BAC !important;"
+                            @endif class="nav-link" href="{{ url('admin/ratings') }}">Ratings</a>
                     </li>
                 </ul>
             </div>
