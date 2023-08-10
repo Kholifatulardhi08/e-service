@@ -24,10 +24,10 @@
                                             No
                                         </th>
                                         <th>
-                                            status
+                                            Nama
                                         </th>
                                         <th>
-                                            Nama
+                                            Status                                         
                                         </th>
                                         <th>
                                             Action

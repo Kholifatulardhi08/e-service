@@ -128,4 +128,17 @@ class FilterController extends Controller
         }
     }
 
+    public function deleteFilterValue($id)
+    {
+        ProductFilterValue::where('id', $id)->delete();
+        $message = "filter value delete succsesfully!";
+        return redirect()->back()->with('succses_message', $message);
+    }
+
+    public function deleteFilter($id)
+    {
+        ProductFilter::where('id', $id)->delete();
+        $message = "filter delete succsesfully!";
+        return redirect()->back()->with('succses_message', $message);
+    }
 }

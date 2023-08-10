@@ -113,10 +113,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group( functio
         Route::post('update-filter-status', 'FilterController@updatefilterStatus');
         Route::match(['get', 'post'], 'add-edit-filter/{id?}', 'FilterController@addEditFilter');
         Route::post('category-filters', 'FilterController@filtercategory');
+        Route::get('delete-filter/{id}', 'FilterController@deleteFilter');
 
         Route::get('filterValue', 'FilterController@filterValue');
         Route::post('update-filterValue-status', 'FilterController@updatefilterValueStatus');
         Route::match(['get', 'post'], 'add-edit-filtervalue/{id?}', 'FilterController@addEditFilterValue');
+        Route::get('delete-filterValue/{id}', 'FilterController@deleteFilterValue');
 
         // get users
         Route::get('penyewa', 'PenyewaController@index');
