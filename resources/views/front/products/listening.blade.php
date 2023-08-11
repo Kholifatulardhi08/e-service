@@ -88,7 +88,7 @@ use App\Models\Product;
                 <div class="filter-product">
                     @include('front.products.sort')
                 </div>
-                @if(!isset($_REQUEST['search']))
+                @if(isset($_REQUEST['search']))
                 @if(isset($_GET['sort']))
                 <div>{{ $categoryproduct->appends($_GET['sort'])->links() }}</div>
                 @else
@@ -98,8 +98,8 @@ use App\Models\Product;
             </div>
             <!-- Shop-Right-Wrapper /- -->
         </div>
-        @endif
         <!-- Shop-Intro /- -->
+        @endif
     </div>
 </div>
 <!-- Shop-Page /- -->

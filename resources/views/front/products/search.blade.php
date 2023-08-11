@@ -17,43 +17,20 @@ use App\Models\Product;
         <div class="row">
             @if(count($categoryproduct) > 0)
             @foreach($categoryproduct as $product)
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="item">
-                    <div class="image-container">
-                        <a class="item-img-wrapper-link" href="{{ url('product/'.$product['id']) }}">
-                            <?php
-                                    $products_imgPath = 'template/images/Photo/Product/Small/'.$product['gambar']
-                                ?>
-                            @if(!empty($product['gambar']) && file_exists($products_imgPath))
-                            <img class="img-fluid" src="{{ asset($products_imgPath) }}" alt="Product">
-                            @else
-                            <img class="img-fluid" src="{{ asset('template/images/Photo/Product/Small/no_image.jpg') }}"
-                                alt="Product">
-                            @endif
-                        </a>
-                    </div>
-                    <div class="item-content">
-                        <div class="what-product-is">
-                            <ul class="bread-crumb">
-                                <li class="has-separator">
-                                    <a href="#">{{ $product['meta_title'] }}</a>
-                                </li>
-                                <li>
-                                    <a href="">{{ $product['type'] }}</a>
-                                </li>
-                            </ul>
-                            <h6 class="item-title">
-                                <a href="{{ url('product/'.$product['id']) }}">{{ $product['nama'] }}</a>
-                            </h6>
-                            <div class="item-description">
-                                <p>{{ $product['deskripsi'] }}</p>
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="card">
+                    <a href="{{ url('product/'.$product['id']) }}">
+                        <img src="{{ asset('template/images/Photo/Product/Small/'. $product['gambar']) }}"
+                            class="card-img-top" alt="Product">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product['nama'] }}</h5>
+                        <p class="card-text">{{ $product['deskripsi'] }}</p>
+                        <div class="item-stars">
+                            <div class="star" title="4.5 out of 5 - based on 23 Reviews">
+                                <span style="width: 67px"></span>
                             </div>
-                            <div class="item-stars">
-                                <div class='star' title="4.5 out of 5 - based on 23 Reviews">
-                                    <span style='width:67px'></span>
-                                </div>
-                                <span>(23)</span>
-                            </div>
+                            <span>(23)</span>
                         </div>
                         <div class="price-template">
                             <?php 
@@ -66,13 +43,13 @@ use App\Models\Product;
                                 {{ $product['harga'] }}
                             </div>
                         </div>
+                        <?php $isproductnew = Product::isproductnew($product['id']); ?>
+                        @if($isproductnew=="Yes")
+                        <div class="tag new">
+                            <span>NEW</span>
+                        </div>
+                        @endif
                     </div>
-                    <?php $isproductnew = Product::isproductnew($product['id']); ?>
-                    @if($isproductnew=="Yes")
-                    <div class="tag new">
-                        <span>NEW</span>
-                    </div>
-                    @endif
                 </div>
             </div>
             @endforeach
@@ -83,7 +60,6 @@ use App\Models\Product;
             @endif
         </div>
     </div>
-    
 </div>
 <!-- Search Page Wrapper /- -->
 @endsection

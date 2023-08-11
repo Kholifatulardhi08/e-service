@@ -4,7 +4,6 @@ $productfilter = ProductFilter::productFilters();
 ?>
 <!-- Shop-Left-Side-Bar-Wrapper -->
 <div class="col-lg-3 col-md-3 col-sm-12">
-
     @if(!isset($_REQUEST['search']))
     <?php 
     $getBrands = ProductFilter::getBrands($url); 
@@ -15,11 +14,11 @@ $productfilter = ProductFilter::productFilters();
         <form class="facet-form" action="#" method="post">
             <div class="associate-wrapper">
                 @foreach($getBrands as $key => $brand )
-                <input type="checkbox" class="check-box brand" name="brand[]" value="{{ $brand['id'] }}"
-                    id="brand{{ $key }}">
-                <label class="label-text" for="brand{{ $key }}">{{ $brand['nama'] }}
-                    {{-- <span class="total-fetch-items">(0)</span> --}}
-                </label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input brand" name="brand[]" value="{{ $brand['id'] }}"
+                        id="brand{{ $key }}">
+                    <label class="form-check-label" for="brand{{ $key }}">{{ $brand['nama'] }}</label>
+                </div>
                 @endforeach
             </div>
         </form>
@@ -35,14 +34,17 @@ $productfilter = ProductFilter::productFilters();
         @foreach ($getPaket as $key => $paket )
         <form class="facet-form" action="#" method="post">
             <div class="associate-wrapper">
-                <input type="checkbox" class="check-box paket" name="paket[]" id="paket{{ $key }}" value="{{ $paket }}">
-                <label class="label-text" for="paket{{ $key }}">{{ $paket }}
-                </label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input paket" name="paket[]" id="paket{{ $key }}"
+                        value="{{ $paket }}">
+                    <label class="form-check-label" for="paket{{ $key }}">{{ $paket }}</label>
+                </div>
             </div>
         </form>
         @endforeach
     </div>
-    <!-- Filter-Size -->
+    <!-- Filter-Size /- -->
+
     <!-- Filter-category -->
     @foreach ($productfilter as $filter)
     <?php 
@@ -55,12 +57,14 @@ $productfilter = ProductFilter::productFilters();
         @foreach ($filter['product_filter_values'] as $value)
         <form class="facet-form" action="#" method="post">
             <div class="associate-wrapper">
-                <input type="checkbox" class="check-box {{ $filter['filter_column'] }}"
-                    id="{{ $value['filter_value'] }}" name="{{ $filter['filter_nama'] }}[]"
-                    value="{{  $value['filter_value']  }}">
-                <label class="label-text" for="{{ $value['filter_value'] }}">
-                    {{ ucwords($value['filter_value']) }}
-                </label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input {{ $filter['filter_column'] }}"
+                        id="{{ $value['filter_value'] }}" name="{{ $filter['filter_nama'] }}[]"
+                        value="{{  $value['filter_value']  }}">
+                    <label class="form-check-label" for="{{ $value['filter_value'] }}">
+                        {{ ucwords($value['filter_value']) }}
+                    </label>
+                </div>
             </div>
         </form>
         @endforeach
@@ -79,75 +83,18 @@ $productfilter = ProductFilter::productFilters();
                     $harga = array('1000 - 10000', '10000 - 100000', '100000 - 1000000', '1000000 - 100000000');
                 ?>
                 @foreach ( $harga as $key => $price )
-                <input type="checkbox" class="check-box price" name="price[]" value="{{ $price }}" id="price{{ $key }}">
-                <label class="label-text" for="price{{ $key }}">
-                    {{ $price }}
-                </label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input price" name="price[]" value="{{ $price }}"
+                        id="price{{ $key }}">
+                    <label class="form-check-label" for="price{{ $key }}">
+                        {{ $price }}
+                    </label>
+                </div>
                 @endforeach
             </div>
         </form>
     </div>
     <!-- Filter-by-price /- -->
     @endif
-    <?php /*
-    <!-- Filter-Rating -->
-    <div class="facet-filter-by-rating">
-        <h3 class="title-name">Rating</h3>
-        <div class="facet-form">
-            <!-- 5 Stars -->
-            <div class="facet-link">
-                <div class="item-stars">
-                    <div class='star'>
-                        <span style='width:76px'></span>
-                    </div>
-                </div>
-                <span class="total-fetch-items">(0)</span>
-            </div>
-            <!-- 5 Stars /- -->
-            <!-- 4 & Up Stars -->
-            <div class="facet-link">
-                <div class="item-stars">
-                    <div class='star'>
-                        <span style='width:60px'></span>
-                    </div>
-                </div>
-                <span class="total-fetch-items">& Up (5)</span>
-            </div>
-            <!-- 4 & Up Stars /- -->
-            <!-- 3 & Up Stars -->
-            <div class="facet-link">
-                <div class="item-stars">
-                    <div class='star'>
-                        <span style='width:45px'></span>
-                    </div>
-                </div>
-                <span class="total-fetch-items">& Up (0)</span>
-            </div>
-            <!-- 3 & Up Stars /- -->
-            <!-- 2 & Up Stars -->
-            <div class="facet-link">
-                <div class="item-stars">
-                    <div class='star'>
-                        <span style='width:30px'></span>
-                    </div>
-                </div>
-                <span class="total-fetch-items">& Up (0)</span>
-            </div>
-            <!-- 2 & Up Stars /- -->
-            <!-- 1 & Up Stars -->
-            <div class="facet-link">
-                <div class="item-stars">
-                    <div class='star'>
-                        <span style='width:15px'></span>
-                    </div>
-                </div>
-                <span class="total-fetch-items">& Up (0)</span>
-            </div>
-            <!-- 1 & Up Stars /- -->
-        </div>
-    </div>
-    <!-- Filter-Rating -->
-    <!-- Filters /- -->
-    */ ?>
 </div>
 <!-- Shop-Left-Side-Bar-Wrapper /- -->
