@@ -46,6 +46,12 @@ class Product extends Model
         return $this->belongsTo(Penyedia::class, 'penyedia_id')->with('jasadetail');
     }
 
+    public function rating()
+    {
+        return $this->belongsTo(Rating::class, 'product_id');
+
+    }
+
     public static function getdiskonharga($product_id)
     {
         $prodetails = Product::select('harga', 'diskon', 'category_id')->where('id', $product_id)->first();

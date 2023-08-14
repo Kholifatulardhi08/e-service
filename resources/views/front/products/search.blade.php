@@ -3,6 +3,7 @@
 <?php
 use App\Models\Product;
 ?>
+
 <!-- Search Page Wrapper -->
 <div class="search-page-wrapper">
     <div class="container">
@@ -16,6 +17,7 @@ use App\Models\Product;
         </div>
         <div class="row">
             @if(count($categoryproduct) > 0)
+            <!-- Display products from your website -->
             @foreach($categoryproduct as $product)
             <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
                 <div class="card">
@@ -53,9 +55,18 @@ use App\Models\Product;
                 </div>
             </div>
             @endforeach
+            @elseif(count($categoryproduct) > 0)
+            <!-- Display products from crawler if available -->
+            @foreach($categoryproduct as $product)
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <h5 class="card-title">{{ $product['product']['name'] }}</h5>
+                <p class="card-text">{{ $product['content'] }}</p>
+            </div>
+            @endforeach
             @else
             <div class="col">
-                <p>No products found for your search.</p>
+                <!-- No products found from both sources -->
+                <p>No products found.</p>
             </div>
             @endif
         </div>

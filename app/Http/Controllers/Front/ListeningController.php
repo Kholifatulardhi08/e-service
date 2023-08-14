@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Goutte\Client;
 use App\Models\Cart;
 use App\Models\Rating;
 use App\Models\Product;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Session;
 
 class ListeningController extends Controller
 {
+    private $result = array();
+    
     public function listening(Request $request)
     {
         if($request->ajax()){
@@ -91,15 +94,30 @@ class ListeningController extends Controller
                 $categorydetails['breadcum'] = $_REQUEST['search'];
                 $categorydetails['categorydetails']['nama'] = $search_product;
                 $categorydetails['categorydetails']['deskripsi'] = "Search For Produk". $search_product ;
-                $categoryproduct = Product::with('brand')->join('categories', 'products.category_id', 
+                $categoryproduct = Product::with('brand')
+                ->join('ratings', 'products.id', '=', 'ratings.product_id')
+                ->join('categories', 'products.category_id', 
                 '=', 'categories.id')->where(function($query)use($search_product){
                 $query->where('products.nama', 'like', '%'. $search_product.'%')
                 ->orWhere('products.harga', 'like', '%'. $search_product.'%')
                 ->orWhere('products.deskripsi', 'like', '%'. $search_product.'%')
                 ->orWhere('categories.nama', 'like', '%'. $search_product.'%')
                 ->orWhere('categories.url', 'like', '%'. $search_product.'%');
-                })->where('products.status', 1);
+                })->where(function ($query) {
+                    $query->where('ratings.rating', 5)
+                        ->orWhere('ratings.rating', 4);
+                })
+                ->where('products.status', 1);
                 $categoryproduct = $categoryproduct->get();
+                if ($categoryproduct->isEmpty()) {
+                    // Initialize Goutte client
+                    $client = new Client();
+                    // URL to crawl
+                    $url = 'https://heikamu.com/10-wo-wedding-organizer-jepara-terbaik/'. urlencode($search_product);
+                    // Send a GET request and retrieve the content
+                    $crawler = $client->request('GET', $url);
+                    
+                }
                 return view('front.products.search')->with(compact('categoryproduct', 'categorydetails'));                    
             } else {
                 $url = Route::getFacadeRoot()->current()->uri();
