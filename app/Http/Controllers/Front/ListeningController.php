@@ -109,15 +109,6 @@ class ListeningController extends Controller
                 })
                 ->where('products.status', 1);
                 $categoryproduct = $categoryproduct->get();
-                if ($categoryproduct->isEmpty()) {
-                    // Initialize Goutte client
-                    $client = new Client();
-                    // URL to crawl
-                    $url = 'https://heikamu.com/10-wo-wedding-organizer-jepara-terbaik/'. urlencode($search_product);
-                    // Send a GET request and retrieve the content
-                    $crawler = $client->request('GET', $url);
-                    
-                }
                 return view('front.products.search')->with(compact('categoryproduct', 'categorydetails'));                    
             } else {
                 $url = Route::getFacadeRoot()->current()->uri();
