@@ -59,8 +59,15 @@ use App\Models\Product;
             <!-- Display products from crawler if available -->
             @foreach($categoryproduct as $product)
             <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-                <h5 class="card-title">{{ $product['product']['name'] }}</h5>
-                <p class="card-text">{{ $product['content'] }}</p>
+                <div class="card">
+                    <div class="card-body">
+                        {!! $profileDescContent !!}
+                    </div>
+                </div>
+                
+                <nav class="jsPaginate">
+                    {!! $navContent !!}
+                </nav>
             </div>
             @endforeach
             @else

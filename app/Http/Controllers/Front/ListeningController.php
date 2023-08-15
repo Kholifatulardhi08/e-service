@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use DOMDocument;
 
 class ListeningController extends Controller
 {
@@ -105,10 +106,34 @@ class ListeningController extends Controller
                 ->orWhere('categories.url', 'like', '%'. $search_product.'%');
                 })->where(function ($query) {
                     $query->where('ratings.rating', 5)
-                        ->orWhere('ratings.rating', 4);
+                          ->orWhere('ratings.rating', 4);
                 })
                 ->where('products.status', 1);
                 $categoryproduct = $categoryproduct->get();
+                if ($categoryproduct->isEmpty()) 
+                {
+                    $url = 'https://www.sejasa.com/mitra-kami/'.$search_product;
+                    $file = file_get_contents($url);
+                    
+                    // Create a new DOMDocument instance
+                    $dom = new DOMDocument();
+                    
+                    // Load the fetched HTML content into the DOM
+                    @$dom->loadHTML($file); // Suppress warnings for invalid HTML
+                    
+                    // Find the element with the class "profile-area__desc"
+                    $profileDescElements = $dom->getElementsByTagName('div');
+                    $profileDescContent = '';
+
+                    foreach ($profileDescElements as $element) {
+                        $class = $element->getAttribute('class');
+                        if (strpos($class, 'jsListBp') !== false) {
+                            $profileDescContent = $dom->saveHTML($element);
+                            break; // Stop loop after finding the first matching element
+                        }
+                    }
+                    return view('front.products.test',compact('profileDescContent'));
+            }
                 return view('front.products.search')->with(compact('categoryproduct', 'categorydetails'));                    
             } else {
                 $url = Route::getFacadeRoot()->current()->uri();
