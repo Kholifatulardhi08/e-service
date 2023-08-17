@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Crawling;
+use DOMXPath;
+use DOMDocument;
 use Goutte\Client;
 use App\Models\Cart;
 use App\Models\Rating;
@@ -16,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-use DOMDocument;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ListeningController extends Controller
 {
@@ -110,30 +113,80 @@ class ListeningController extends Controller
                 })
                 ->where('products.status', 1);
                 $categoryproduct = $categoryproduct->get();
-                if ($categoryproduct->isEmpty()) 
-                {
-                    $url = 'https://www.sejasa.com/mitra-kami/'.$search_product;
-                    $file = file_get_contents($url);
-                    
-                    // Create a new DOMDocument instance
-                    $dom = new DOMDocument();
-                    
-                    // Load the fetched HTML content into the DOM
-                    @$dom->loadHTML($file); // Suppress warnings for invalid HTML
-                    
-                    // Find the element with the class "profile-area__desc"
-                    $profileDescElements = $dom->getElementsByTagName('div');
-                    $profileDescContent = '';
+                if ($categoryproduct->isEmpty()) {
+                    $baseUrl = 'https://www.sejasa.com/mitra-kami/';
+                    $currentPage = 1;
+                
+                    $productDataList = [];
+                
+                    do {
+                        $url = $baseUrl . $search_product . '?page=' . $currentPage;
+                        $file = file_get_contents($url);
+                
+                        $dom = new DOMDocument();
+                        @$dom->loadHTML($file);
+                
+                        $xpath = new DOMXPath($dom);
+                
+                        // Mengambil data produk dari halaman paginasi
+                        $productElements = $xpath->query('//div[@class="js-result result-search__box--mitrakami content-wrap p-0 mt-4 overflow-hidden"]');
+                        foreach ($productElements as $productElement) {
+                            $productData = [];
+                
+                            // Mengambil URL asli
+                            $productData['url_asli'] = $url;
+                
+                            // Mengambil data nama website
+                            $websiteElement = $xpath->query('//a[@class="navbar-new__brand"]/img')->item(0);
+                            if ($websiteElement) {
+                                $websiteAlt = $websiteElement->getAttribute('alt');
+                                $websiteName = substr($websiteAlt, 0, strpos($websiteAlt, '.com') + 4);
+                                $productData['website'] = $websiteName;
+                            }
+                
+                            $nama_produkElement = $xpath->query('.//div[@class="profile-area__desc"]/a/h2[@class="profile-area__desc--name"]', $productElement)->item(0);
+                            if ($nama_produkElement) {
+                                $nama_produk = $nama_produkElement->textContent;
+                                $productData['nama_produk'] = $nama_produk;
+                            } else {
+                                echo "Nama produk tidak ditemukan.";
+                            }
+                            
+                            $reviewElement = $xpath->query('.//div[@class="profile-area__desc--review"]', $productElement)->item(0);
+                            if ($reviewElement) {
+                                $ratingValue = $reviewElement->textContent;
+                                $productData['rating'] = $ratingValue;
+                            } else {
+                                echo "Data tidak ditemukan.";
+                            }
 
-                    foreach ($profileDescElements as $element) {
-                        $class = $element->getAttribute('class');
-                        if (strpos($class, 'jsListBp') !== false) {
-                            $profileDescContent = $dom->saveHTML($element);
-                            break; // Stop loop after finding the first matching element
+                            // Mengambil URL gambar
+                            $gambarElement = $xpath->query('.//div[@class="profile-area__picture"]/img/@src', $productElement)->item(0);
+                            if ($gambarElement) {
+                                $gambarURL = $gambarElement->nodeValue;
+                                $productData['gambar_url'] = $gambarURL;
+                            }
+                
+                            // Tambahkan data ke dalam daftar
+                            $productDataList[] = $productData;
                         }
+                        // Naikkan nomor halaman
+                        $currentPage++;
+                    } while ($currentPage <= 2); // Ganti $maxPage dengan jumlah halaman yang ingin diambil
+                
+                    // Simpan data ke database menggunakan model Crawler
+                    foreach ($productDataList as $productData) {
+                        $crawledProduct = new Crawling;
+                        $crawledProduct->url = $productData['url_asli'];
+                        $crawledProduct->website = $productData['website'];
+                        $crawledProduct->nama_produk = $productData['nama_produk'];
+                        $crawledProduct->rating = $productData['rating'];
+                        $crawledProduct->gambar_url = $productData['gambar_url'];
+                    
+                        $crawledProduct->save();
                     }
-                    return view('front.products.test',compact('profileDescContent'));
-            }
+                    return view('front.products.test', compact('productDataList'));
+                }                                                                                                
                 return view('front.products.search')->with(compact('categoryproduct', 'categorydetails'));                    
             } else {
                 $url = Route::getFacadeRoot()->current()->uri();

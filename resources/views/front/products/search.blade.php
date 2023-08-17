@@ -55,21 +55,6 @@ use App\Models\Product;
                 </div>
             </div>
             @endforeach
-            @elseif(count($categoryproduct) > 0)
-            <!-- Display products from crawler if available -->
-            @foreach($categoryproduct as $product)
-            <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        {!! $profileDescContent !!}
-                    </div>
-                </div>
-                
-                <nav class="jsPaginate">
-                    {!! $navContent !!}
-                </nav>
-            </div>
-            @endforeach
             @else
             <div class="col">
                 <!-- No products found from both sources -->
