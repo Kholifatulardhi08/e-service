@@ -116,7 +116,7 @@ class ListeningController extends Controller
                 if ($categoryproduct->isEmpty()) {
                     $baseUrl = 'https://www.sejasa.com/mitra-kami/';
                     $currentPage = 1;
-                
+                    $maxPage = 2; // Jumlah halaman yang ingin diambil
                     $productDataList = [];
                 
                     do {
@@ -132,8 +132,7 @@ class ListeningController extends Controller
                         $productElements = $xpath->query('//div[@class="js-result result-search__box--mitrakami content-wrap p-0 mt-4 overflow-hidden"]');
                         foreach ($productElements as $productElement) {
                             $productData = [];
-                
-                            // Mengambil URL asli
+                            
                             $productData['url_asli'] = $url;
                 
                             // Mengambil data nama website
@@ -166,24 +165,27 @@ class ListeningController extends Controller
                                 $gambarURL = $gambarElement->nodeValue;
                                 $productData['gambar_url'] = $gambarURL;
                             }
-                
+
                             // Tambahkan data ke dalam daftar
                             $productDataList[] = $productData;
                         }
-                        // Naikkan nomor halaman
                         $currentPage++;
-                    } while ($currentPage <= 2); // Ganti $maxPage dengan jumlah halaman yang ingin diambil
+                    } while ($currentPage <= 2);
                 
-                    // Simpan data ke database menggunakan model Crawler
-                    foreach ($productDataList as $productData) {
-                        $crawledProduct = new Crawling;
-                        $crawledProduct->url = $productData['url_asli'];
-                        $crawledProduct->website = $productData['website'];
-                        $crawledProduct->nama_produk = $productData['nama_produk'];
-                        $crawledProduct->rating = $productData['rating'];
-                        $crawledProduct->gambar_url = $productData['gambar_url'];
-                    
-                        $crawledProduct->save();
+                    // Pengecekan apakah data $search_product sudah pernah disimpan
+                    $existingProduct = Crawling::where('nama_produk', $search_product)->first();
+                
+                    if (!$existingProduct) {
+                        // Simpan data ke database menggunakan model Crawler
+                        foreach ($productDataList as $productData) {
+                            $crawledProduct = new Crawling;
+                            $crawledProduct->url = $productData['url_asli'];
+                            $crawledProduct->website = $productData['website'];
+                            $crawledProduct->nama_produk = $productData['nama_produk'];
+                            $crawledProduct->rating = $productData['rating'];
+                            $crawledProduct->gambar_url = $productData['gambar_url'];
+                            $crawledProduct->save();
+                        }
                     }
                     return view('front.products.test', compact('productDataList'));
                 }                                                                                                

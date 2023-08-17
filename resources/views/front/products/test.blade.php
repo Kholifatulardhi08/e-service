@@ -9,7 +9,7 @@
                 <div class="product-list">
                     @foreach ($productDataList as $product)
                         <div class="product">
-                            
+                           berhasil 
                         </div>
                     @endforeach
                 </div>
