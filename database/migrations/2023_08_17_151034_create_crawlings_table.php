@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('harga')->nullable();
             $table->string('url')->nullable();
             $table->string('gambar_url')->nullable();
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }

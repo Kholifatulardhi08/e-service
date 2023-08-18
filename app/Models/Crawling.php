@@ -10,6 +10,6 @@ class Crawling extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_produk', 'website', 'rating', 'harga', 'url', 'gambar_url'
+        'nama_produk', 'website', 'rating', 'harga', 'url', 'gambar_url', 'category'
     ];
 }

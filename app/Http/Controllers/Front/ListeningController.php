@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Models\Crawling;
 use DOMXPath;
 use DOMDocument;
 use Goutte\Client;
@@ -10,10 +9,12 @@ use App\Models\Cart;
 use App\Models\Rating;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Crawling;
 use App\Models\Penyedia;
 use Illuminate\Http\Request;
 use App\Models\ProductFilter;
 use App\Models\ProductAtribute;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -86,7 +87,7 @@ class ListeningController extends Controller
                 $categoryproduct->whereIn('products.id', $getProductid);
             }
 
-            $categoryproduct = $categoryproduct->paginate(3);
+            $categoryproduct = $categoryproduct->get();
             // dd($categorydetails);
             return view('front.products.sort')->with(compact('categoryproduct', 'categorydetails', 'url'));
         } else {
@@ -98,6 +99,7 @@ class ListeningController extends Controller
                 $categorydetails['breadcum'] = $_REQUEST['search'];
                 $categorydetails['categorydetails']['nama'] = $search_product;
                 $categorydetails['categorydetails']['deskripsi'] = "Search For Produk". $search_product ;
+                // Tampilkan data dari Product sesuai dengan search_product menggunakan query builder
                 $categoryproduct = Product::with('brand')
                 ->join('ratings', 'products.id', '=', 'ratings.product_id')
                 ->join('categories', 'products.category_id', 
@@ -112,15 +114,25 @@ class ListeningController extends Controller
                           ->orWhere('ratings.rating', 4);
                 })
                 ->where('products.status', 1);
-                $categoryproduct = $categoryproduct->get();
+                $categoryproduct = $categoryproduct->paginate(1);
+
+                // Tampilkan data dari Crawler sesuai dengan search_product menggunakan query builder
+                $crawledProducts = DB::table('crawlings')
+                ->where('nama_produk', 'like', '%'. $search_product.'%')
+                ->orWhere('category', 'like', '%'. $search_product.'%')
+                ->get();
+
+                // proses crawling data
                 if ($categoryproduct->isEmpty()) {
                     $baseUrl = 'https://www.sejasa.com/mitra-kami/';
+                    $search_product_encoded = str_replace(' ', '-', $search_product);
+                    $search_product_encoded = urlencode($search_product_encoded);
                     $currentPage = 1;
                     $maxPage = 2; // Jumlah halaman yang ingin diambil
                     $productDataList = [];
                 
                     do {
-                        $url = $baseUrl . $search_product . '?page=' . $currentPage;
+                        $url = $baseUrl . $search_product_encoded . '?page='. $currentPage;
                         $file = file_get_contents($url);
                 
                         $dom = new DOMDocument();
@@ -159,11 +171,16 @@ class ListeningController extends Controller
                                 echo "Data tidak ditemukan.";
                             }
 
+                            // Menyimpan kategori ke dalam daftar
+                            $productData['category'] = $search_product_encoded;
+                            
                             // Mengambil URL gambar
-                            $gambarElement = $xpath->query('.//div[@class="profile-area__picture"]/img/@src', $productElement)->item(0);
-                            if ($gambarElement) {
-                                $gambarURL = $gambarElement->nodeValue;
-                                $productData['gambar_url'] = $gambarURL;
+                            $imgElement = $xpath->query('//div[@class="profile-area__picture"]/img')->item(0);
+                            if ($imgElement) {
+                                $imgSrc = $imgElement->getAttribute('src');
+                                $productData['gambar_url'] = $imgSrc;
+                            } else {
+                                echo "Data tidak ditemukan.";
                             }
 
                             // Tambahkan data ke dalam daftar
@@ -171,10 +188,8 @@ class ListeningController extends Controller
                         }
                         $currentPage++;
                     } while ($currentPage <= 2);
-                
                     // Pengecekan apakah data $search_product sudah pernah disimpan
                     $existingProduct = Crawling::where('nama_produk', $search_product)->first();
-                
                     if (!$existingProduct) {
                         // Simpan data ke database menggunakan model Crawler
                         foreach ($productDataList as $productData) {
@@ -184,12 +199,13 @@ class ListeningController extends Controller
                             $crawledProduct->nama_produk = $productData['nama_produk'];
                             $crawledProduct->rating = $productData['rating'];
                             $crawledProduct->gambar_url = $productData['gambar_url'];
+                            $crawledProduct->category = urldecode($productData['category']); // Decode URL-encoded category
                             $crawledProduct->save();
                         }
                     }
-                    return view('front.products.test', compact('productDataList'));
-                }                                                                                                
-                return view('front.products.search')->with(compact('categoryproduct', 'categorydetails'));                    
+                }
+
+                return view('front.products.search')->with(compact('categoryproduct', 'categorydetails', 'crawledProducts'));                    
             } else {
                 $url = Route::getFacadeRoot()->current()->uri();
                 $categorycount = Category::where(['url'=>$url, 'status'=>1])->count();
@@ -209,7 +225,7 @@ class ListeningController extends Controller
                             $categoryproduct->orderBy('products.nama', "DESC");
                         }
                     }
-                    $categoryproduct = $categoryproduct->paginate(5);
+                    $categoryproduct = $categoryproduct->get();
                     return view('front.products.listening')->with(compact('categoryproduct', 'categorydetails', 'url'));
                 } else {
                     abort(404);
