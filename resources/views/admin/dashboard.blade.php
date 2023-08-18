@@ -55,10 +55,66 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 grid-margin transparent">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-tale">
+                            <div class="card-body">
+                                <h4 class="card-title">User Statistics</h4>
+                                <div class="chart-container">
+                                    <canvas id="userChart" style="height: 300px; background-color: white;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- content-wrapper ends -->
     <!-- partial:partials/_footer.html -->
     @include('admin\layouts\footer')
     <!-- partial -->
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('userChart').getContext('2d');
+            var userChart = new Chart(ctx, {
+                type: 'pie', // Menggunakan tipe pie chart
+                data: {
+                    labels: ['Number of Users', 'Number of Penyedia', 'Number of Orders'],
+                    datasets: [{
+                        data: [{{ $totalUsers }}, {{ $penyediaCount }}, {{ $orderCount }}],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 99, 132, 0.8)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                                    return previousValue + currentValue;
+                                });
+                                var currentValue = dataset.data[tooltipItem.index];
+                                var percentage = Math.round((currentValue / total) * 100);
+                                return currentValue + " (" + percentage + "%)";
+                            }
+                        }
+                    }
+                }
+            });
+        });
+</script>
 @endsection

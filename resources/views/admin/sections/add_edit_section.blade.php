@@ -12,24 +12,6 @@
                             Settings Section
                         </h3>
                     </div>
-                    <div class="col-12 col-xl-4 mb-0">
-                        <div class="justify-content-end d-flex">
-                            <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                                <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button"
-                                    id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="true">
-                                    <i class="mdi mdi-calendar"></i>
-                                    Today (10 Jan 2021)
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
-                                    <a class="dropdown-item" href="#">January - March</a>
-                                    <a class="dropdown-item" href="#">March - June</a>
-                                    <a class="dropdown-item" href="#">June - August</a>
-                                    <a class="dropdown-item" href="#">August - November</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -77,6 +59,17 @@
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                             <button type="reset" class="btn btn-light">Cancel</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Cara Mengisi Formulir</h4>
+                        <p>Ikuti langkah-langkah berikut untuk mengisi formulir dengan benar:</p>
+                        <ol>
+                            <li>Masukkan atau perbarui nama bagian di kolom "Name".</li>
+                        </ol>
                     </div>
                 </div>
             </div>

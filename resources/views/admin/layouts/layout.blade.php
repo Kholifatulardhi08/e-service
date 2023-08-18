@@ -24,6 +24,8 @@
     <link rel="shortcut icon" href="{{ url('template/images/aa.png') }}" />
     <link rel="stylesheet" href="{{ url('template/css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ url('template/css/dataTables.bootstrap4.min.css') }}" />
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('js/turbolinks.js') }}"></script>
 </head>
 
 <body>
@@ -50,7 +52,7 @@
     <script src="{{ url('template/vendors/datatables.net/jquery.dataTables.js') }}"></script>
     <script src="{{ url('template/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ url('template/js/dataTables.select.min.js') }}"></script>
-
+    
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{{ url('template/js/off-canvas.js') }}"></script>

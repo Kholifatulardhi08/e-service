@@ -15,24 +15,6 @@
                             </a>
                         </h6>
                     </div>
-                    <div class="mb-0 col-12 col-xl-4">
-                        <div class="justify-content-end d-flex">
-                            <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                                <button class="bg-white btn btn-sm btn-light dropdown-toggle" type="button"
-                                    id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="true">
-                                    <i class="mdi mdi-calendar"></i>
-                                    Today (10 Jan 2021)
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
-                                    <a class="dropdown-item" href="#">January - March</a>
-                                    <a class="dropdown-item" href="#">March - June</a>
-                                    <a class="dropdown-item" href="#">June - August</a>
-                                    <a class="dropdown-item" href="#">August - November</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -112,6 +94,24 @@
                             <button type="submit" class="mr-2 btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-light">Cancel</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Cara Mengisi Formulir</h4>
+                        <p>Ikuti langkah-langkah berikut untuk mengisi formulir dengan benar:</p>
+                        <ol>
+                            <li>Pilih jenis <strong>type</strong> banner dari menu dropdown.</li>
+                            <li>Unggah gambar banner menggunakan tombol <strong>Banner gambar</strong>.</li>
+                            <li>Isi tautan banner pada kolom <strong>Link</strong>.</li>
+                            <li>Isi judul banner pada kolom <strong>Title</strong>.</li>
+                            <li>Isi teks alternatif banner pada kolom <strong>Alt</strong>.</li>
+                            <li>Klik tombol <strong>Submit</strong> untuk menyimpan perubahan.</li>
+                            <li>Jika ingin menghapus inputan yang telah dimasukkan, klik tombol <strong>Cancel</strong>.
+                            </li>
+                        </ol>
                     </div>
                 </div>
             </div>

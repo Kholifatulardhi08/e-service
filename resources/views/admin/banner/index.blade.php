@@ -1,8 +1,48 @@
 @extends('admin.layouts.layout')
 @section('content')
+<style>
+    .banner-info {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .banner-description {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .banner-instructions {
+        font-size: 16px;
+    }
+
+    .banner-highlight {
+        font-weight: bold;
+        color: #007bff;
+    }
+</style>
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner-info">
+                        <p class="banner-description">
+                            <strong>Selamat datang di halaman pengelolaan banner!</strong><br>
+                            Banner adalah elemen visual yang digunakan untuk menampilkan pesan promosi, informasi
+                            penting, atau konten visual menarik di situs web Anda. Di sini, Anda memiliki kendali penuh
+                            atas tampilan banner di halaman depan situs.
+                        </p>
+                        <p class="banner-instructions">
+                            <span class="banner-highlight">Bagaimana cara mengelola banner?</span><br>
+                            Anda dapat dengan mudah menambah, mengedit, menghapus, dan mengatur status banner di sini.
+                            Gunakan tombol "Tambah Banner" di sudut kanan atas untuk membuat banner baru. Anda juga bisa mengoperasikan edit banner untuk mengedit informasi banner atau hapus banner untuk menghapusnya.
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -28,7 +68,7 @@
                                             Gambar
                                         </th>
                                         <th>
-                                           Type 
+                                            Type
                                         </th>
                                         <th>
                                             Link
@@ -72,8 +112,9 @@
                                                     status="Active"></i>
                                             </a>
                                             @else
-                                            <a title="Status nonaktif" class="updatebannerstatus" id="banner-{{ $banner['id'] }}"
-                                                banner_id="{{ $banner['id'] }}" href="javascript:void(0)">
+                                            <a title="Status nonaktif" class="updatebannerstatus"
+                                                id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}"
+                                                href="javascript:void(0)">
                                                 <i style="font-size:30px;" class="mdi mdi-bookmark-outline"
                                                     status="Inactive"></i>
                                             </a>
