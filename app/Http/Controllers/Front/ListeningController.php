@@ -114,13 +114,7 @@ class ListeningController extends Controller
                           ->orWhere('ratings.rating', 4);
                 })
                 ->where('products.status', 1);
-                $categoryproduct = $categoryproduct->paginate(1);
-
-                // Tampilkan data dari Crawler sesuai dengan search_product menggunakan query builder
-                $crawledProducts = DB::table('crawlings')
-                ->where('nama_produk', 'like', '%'. $search_product.'%')
-                ->orWhere('category', 'like', '%'. $search_product.'%')
-                ->get();
+                $categoryproduct = $categoryproduct->get();
 
                 // proses crawling data
                 if ($categoryproduct->isEmpty()) {
@@ -133,15 +127,28 @@ class ListeningController extends Controller
                 
                     do {
                         $url = $baseUrl . $search_product_encoded . '?page='. $currentPage;
-                        $file = file_get_contents($url);
-                
+                        $file = @file_get_contents($url);
+                        
+                        if ($file === false) {
+                            $error_message = "Sorry, the product you're looking for is not available.";
+                            return view('front.products.not_found')->with(compact('error_message'));
+                        }                    
+                        
                         $dom = new DOMDocument();
                         @$dom->loadHTML($file);
-                
+                        if (@$dom->loadHTML($file) === false) {
+                            $error_message = "Sorry, the product you're looking for is not available.";
+                            return view('front.products.not_found')->with(compact('error_message'));
+                        }
+
                         $xpath = new DOMXPath($dom);
                 
                         // Mengambil data produk dari halaman paginasi
                         $productElements = $xpath->query('//div[@class="js-result result-search__box--mitrakami content-wrap p-0 mt-4 overflow-hidden"]');
+                        if ($productElements->length === 0) {
+                            echo "Maaf, hasil pencarian tidak ditemukan dalam cakupan.";
+                            break;
+                        }                        
                         foreach ($productElements as $productElement) {
                             $productData = [];
                             
@@ -187,7 +194,8 @@ class ListeningController extends Controller
                             $productDataList[] = $productData;
                         }
                         $currentPage++;
-                    } while ($currentPage <= 2);
+                    } while ($currentPage <= $maxPage);
+                    
                     // Pengecekan apakah data $search_product sudah pernah disimpan
                     $existingProduct = Crawling::where('nama_produk', $search_product)->first();
                     if (!$existingProduct) {
@@ -205,6 +213,12 @@ class ListeningController extends Controller
                     }
                 }
 
+                // Tampilkan data dari Crawler sesuai dengan search_product menggunakan query builder
+                $crawledProducts = DB::table('crawlings')
+                ->where('nama_produk', 'like', '%'. $search_product.'%')
+                ->orWhere('category', 'like', '%'. $search_product.'%')
+                ->get();
+                // dd($crawledProducts);
                 return view('front.products.search')->with(compact('categoryproduct', 'categorydetails', 'crawledProducts'));                    
             } else {
                 $url = Route::getFacadeRoot()->current()->uri();
