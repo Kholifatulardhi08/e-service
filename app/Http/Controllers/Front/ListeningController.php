@@ -127,7 +127,6 @@ class ListeningController extends Controller
             $categorydetails['categorydetails']['deskripsi'] = "Search For Produk". $search_product ;
             // Tampilkan data dari Product sesuai dengan search_product menggunakan query builder
             $categoryproduct = Product::with('brand')
-            ->join('ratings', 'products.id', '=', 'ratings.product_id')
             ->join('categories', 'products.category_id', 
             '=', 'categories.id')->where(function($query)use($search_product){
             $query->where('products.nama', 'like', '%'. $search_product.'%')
@@ -135,9 +134,6 @@ class ListeningController extends Controller
             ->orWhere('products.deskripsi', 'like', '%'. $search_product.'%')
             ->orWhere('categories.nama', 'like', '%'. $search_product.'%')
             ->orWhere('categories.url', 'like', '%'. $search_product.'%');
-            })->where(function ($query) {
-                $query->where('ratings.rating', 5)
-                      ->orWhere('ratings.rating', 4);
             })
             ->where('products.status', 1);
             $categoryproduct = $categoryproduct->get();
@@ -240,8 +236,8 @@ class ListeningController extends Controller
             }
             // Tampilkan data dari Crawler sesuai dengan search_product menggunakan query builder
             $crawledProducts = DB::table('crawlings')
-            ->where('nama_produk', 'like', '%'. $search_product.'%')
-            ->orWhere('category', 'like', '%'. $search_product.'%')
+            ->where('crawlings.nama_produk', 'like', '%'. $search_product.'%')
+            ->orWhere('crawlings.category', 'like', '%'. $search_product.'%')
             ->get();
             // dd($crawledProducts);
             return view('front.products.search')->with(compact('categoryproduct', 'categorydetails', 'crawledProducts'));                    

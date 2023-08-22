@@ -2,6 +2,7 @@
 @section('content')
 <?php
 use App\Models\Product;
+use App\Models\Rating;
 ?>
 
 <!-- Search Page Wrapper -->
@@ -46,13 +47,19 @@ use App\Models\Product;
                                 {{ $product->harga }}
                             </div>
                         </div>
-                        <?php $isproductnew = Product::isproductnew($product->id); ?>
-                        @if($isproductnew=="Yes")
-                        <div class="tag new">
-                            <span>NEW</span>
-                        </div>
-                        @endif
                     </div>
+                    <?php
+                    $isRecommended = in_array($product->id, Product::getRecommendedProductIds());
+                    $isproductnew = Product::isproductnew($product['id']); 
+                    ?>
+                    @if($isproductnew=="Yes")
+                    <div class="tag new">
+                        <span>NEW</span>
+                    </div>
+                    @endif
+                    @if($isRecommended)
+                    <span class="badge bg-success position-absolute top-0 start-0">RECOMMENDED</span>
+                    @endif
                 </div>
             </div>
             @endforeach
@@ -63,7 +70,8 @@ use App\Models\Product;
                 <div class="card">
                     <!-- Display crawled product details -->
                     <a href="{{ $crawledProduct->url }}">
-                        <img src="{{ $crawledProduct->gambar_url }}" class="card-img-top" alt="{{ $crawledProduct->nama_produk }}">
+                        <img src="{{ $crawledProduct->gambar_url }}" class="card-img-top"
+                            alt="{{ $crawledProduct->nama_produk }}">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">

@@ -103,6 +103,11 @@ class Product extends Model
         return $isproductnew;
     }
 
+    // Model Rating.php
+    public static function getRecommendedProductIds() {
+        return Rating::select('id')->where('rating', 5)->pluck('id')->toArray();
+    }
+
     public static function getProductImage($product_id){
         $product = Product::find($product_id);
         if ($product) {
