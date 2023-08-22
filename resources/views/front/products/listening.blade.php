@@ -33,7 +33,6 @@ use App\Models\Product;
                 <?php echo $categorydetails['breadcum'] ?>
             </ul>
         </div>
-        @if(!isset($_REQUEST['search']))
         <div class="row">
             @include('front.products.filters')
             <!-- Shop-Right-Wrapper -->
@@ -88,18 +87,16 @@ use App\Models\Product;
                 <div class="filter-product">
                     @include('front.products.sort')
                 </div>
-                @if(isset($_REQUEST['search']))
                 @if(isset($_GET['sort']))
-                <div>{{ $categoryproduct->appends($_GET['sort'])->links() }}</div>
+                <div style="text-align: center;">{{ $categoryproduct->appends($_GET['sort'])->links() }}</div>
                 @else
-                <div>{{ $categoryproduct->links() }}</div>
-                @endif
+                <div style="text-align: center;">{{ $categoryproduct->links() }}</div>
                 @endif
             </div>
             <!-- Shop-Right-Wrapper /- -->
         </div>
         <!-- Shop-Intro /- -->
-        @endif
+
     </div>
 </div>
 <!-- Shop-Page /- -->

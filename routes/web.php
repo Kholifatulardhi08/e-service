@@ -176,7 +176,7 @@ Route::namespace('App\Http\Controllers\Front')->group( function(){
     Route::post('update-password', 'UserController@updatepassword');
     Route::match(['get', 'post'], 'lupa-password', 'UserController@lupapassword');
     // search function
-    Route::get('search-products', 'ListeningController@listening');
+    Route::get('search-products', 'ListeningController@search');
 
     // Add Rating
     Route::post('add-rating', 'RatingController@addRating');

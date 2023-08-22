@@ -69,7 +69,6 @@ use App\Models\Product;
                         <h5 class="card-title">
                             <a href="{{ $crawledProduct->url }}">{{ $crawledProduct->nama_produk }}</a>
                         </h5>
-                        {{--  <p class="card-text">{{ $product->deskripsi }}</p>  --}}
                         <div class="item-stars">
                             <div class="star" title="4.5 out of 5 - based on 23 Reviews">
                                 <span style="width: 67px"></span>

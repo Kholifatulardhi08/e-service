@@ -4,7 +4,7 @@ $productfilter = ProductFilter::productFilters();
 ?>
 <!-- Shop-Left-Side-Bar-Wrapper -->
 <div class="col-lg-3 col-md-3 col-sm-12">
-    @if(!isset($_REQUEST['search']))
+
     <?php 
     $getBrands = ProductFilter::getBrands($url); 
     ?>
@@ -44,7 +44,6 @@ $productfilter = ProductFilter::productFilters();
         @endforeach
     </div>
     <!-- Filter-Size /- -->
-
     <!-- Filter-category -->
     @foreach ($productfilter as $filter)
     <?php 
@@ -95,6 +94,5 @@ $productfilter = ProductFilter::productFilters();
         </form>
     </div>
     <!-- Filter-by-price /- -->
-    @endif
 </div>
 <!-- Shop-Left-Side-Bar-Wrapper /- -->
