@@ -127,6 +127,7 @@ class ListeningController extends Controller
             $categorydetails['categorydetails']['deskripsi'] = "Search For Produk". $search_product ;
             // Tampilkan data dari Product sesuai dengan search_product menggunakan query builder
             $categoryproduct = Product::with('brand')
+            ->select('products.id', 'products.nama', 'products.harga', 'products.gambar', 'products.deskripsi')
             ->join('categories', 'products.category_id', 
             '=', 'categories.id')->where(function($query)use($search_product){
             $query->where('products.nama', 'like', '%'. $search_product.'%')
@@ -137,6 +138,7 @@ class ListeningController extends Controller
             })
             ->where('products.status', 1);
             $categoryproduct = $categoryproduct->get();
+            // dd($categoryproduct);
 
             // proses crawling data
             if ($categoryproduct->isEmpty()) {
