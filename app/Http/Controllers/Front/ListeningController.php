@@ -124,125 +124,158 @@ class ListeningController extends Controller
             $search_product = $_REQUEST['search'];
             $categorydetails['breadcum'] = $_REQUEST['search'];
             $categorydetails['categorydetails']['nama'] = $search_product;
-            $categorydetails['categorydetails']['deskripsi'] = "Search For Produk". $search_product ;
+            $categorydetails['categorydetails']['deskripsi'] = "Search For Produk" . $search_product;
+        
             // Tampilkan data dari Product sesuai dengan search_product menggunakan query builder
             $categoryproduct = Product::with('brand')
-            ->select('products.id', 'products.nama', 'products.harga', 'products.gambar', 'products.deskripsi')
-            ->join('categories', 'products.category_id', 
-            '=', 'categories.id')->where(function($query)use($search_product){
-            $query->where('products.nama', 'like', '%'. $search_product.'%')
-            ->orWhere('products.harga', 'like', '%'. $search_product.'%')
-            ->orWhere('products.deskripsi', 'like', '%'. $search_product.'%')
-            ->orWhere('categories.nama', 'like', '%'. $search_product.'%')
-            ->orWhere('categories.url', 'like', '%'. $search_product.'%');
-            })
-            ->where('products.status', 1);
-            $categoryproduct = $categoryproduct->get();
-            // dd($categoryproduct);
-
-            // proses crawling data
-            if ($categoryproduct->isEmpty()) {
-                $baseUrl = 'https://www.sejasa.com/mitra-kami/';
-                $search_product_encoded = str_replace(' ', '-', $search_product);
-                $search_product_encoded = urlencode($search_product_encoded);
-                $currentPage = 1;
-                $maxPage = 2; // Jumlah halaman yang ingin diambil
-                $productDataList = [];
-            
-                do {
-                    $url = $baseUrl . $search_product_encoded . '?page='. $currentPage;
-                    $file = @file_get_contents($url);
-                    
-                    if ($file === false) {
-                        $error_message = "Sorry, the product you're looking for is not available.";
-                        return view('front.products.not_found')->with(compact('error_message'));
-                    }                    
-                    
-                    $dom = new DOMDocument();
-                    @$dom->loadHTML($file);
-                    if (@$dom->loadHTML($file) === false) {
-                        $error_message = "Sorry, the product you're looking for is not available.";
-                        return view('front.products.not_found')->with(compact('error_message'));
-                    }
-
-                    $xpath = new DOMXPath($dom);
-            
-                    // Mengambil data produk dari halaman paginasi
-                    $productElements = $xpath->query('//div[@class="js-result result-search__box--mitrakami content-wrap p-0 mt-4 overflow-hidden"]');
-                    if ($productElements->length === 0) {
-                        echo "Maaf, hasil pencarian tidak ditemukan dalam cakupan.";
-                        break;
-                    }                        
-                    foreach ($productElements as $productElement) {
-                        $productData = [];
-                        
-                        $productData['url_asli'] = $url;
-            
-                        // Mengambil data nama website
-                        $websiteElement = $xpath->query('//a[@class="navbar-new__brand"]/img')->item(0);
-                        if ($websiteElement) {
-                            $websiteAlt = $websiteElement->getAttribute('alt');
-                            $websiteName = substr($websiteAlt, 0, strpos($websiteAlt, '.com') + 4);
-                            $productData['website'] = $websiteName;
-                        }
-            
-                        $nama_produkElement = $xpath->query('.//div[@class="profile-area__desc"]/a/h2[@class="profile-area__desc--name"]', $productElement)->item(0);
-                        if ($nama_produkElement) {
-                            $nama_produk = $nama_produkElement->textContent;
-                            $productData['nama_produk'] = $nama_produk;
-                        } else {
-                            echo "Nama produk tidak ditemukan.";
-                        }
-                        
-                        $reviewElement = $xpath->query('.//div[@class="profile-area__desc--review"]', $productElement)->item(0);
-                        if ($reviewElement) {
-                            $ratingValue = $reviewElement->textContent;
-                            $productData['rating'] = $ratingValue;
-                        } else {
-                            echo "Data tidak ditemukan.";
-                        }
-
-                        // Menyimpan kategori ke dalam daftar
-                        $productData['category'] = $search_product_encoded;
-                        
-                        // Mengambil URL gambar
-                        $imgElement = $xpath->query('//div[@class="profile-area__picture"]/img')->item(0);
-                        if ($imgElement) {
-                            $imgSrc = $imgElement->getAttribute('src');
-                            $productData['gambar_url'] = $imgSrc;
-                        } else {
-                            echo "Data tidak ditemukan.";
-                        }
-
-                        // Tambahkan data ke dalam daftar
-                        $productDataList[] = $productData;
-                    }
-                    $currentPage++;
-                } while ($currentPage <= $maxPage);
-                
-                // Pengecekan apakah data $search_product sudah pernah disimpan
-                $existingProduct = Crawling::where('nama_produk', $search_product)->first();
-                if (!$existingProduct) {
-                    // Simpan data ke database menggunakan model Crawler
-                    foreach ($productDataList as $productData) {
-                        $crawledProduct = new Crawling;
-                        $crawledProduct->url = $productData['url_asli'];
-                        $crawledProduct->website = $productData['website'];
-                        $crawledProduct->nama_produk = $productData['nama_produk'];
-                        $crawledProduct->rating = $productData['rating'];
-                        $crawledProduct->gambar_url = $productData['gambar_url'];
-                        $crawledProduct->category = urldecode($productData['category']); // Decode URL-encoded category
-                        $crawledProduct->save();
-                    }
-                }
+                ->select('products.id', 'products.nama', 'products.harga', 'products.gambar', 'products.deskripsi')
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->where(function ($query) use ($search_product) {
+                    $query->where('products.nama', 'like', '%' . $search_product . '%')
+                        ->orWhere('products.harga', 'like', '%' . $search_product . '%')
+                        ->orWhere('products.deskripsi', 'like', '%' . $search_product . '%')
+                        ->orWhere('categories.nama', 'like', '%' . $search_product . '%')
+                        ->orWhere('categories.url', 'like', '%' . $search_product . '%');
+                })
+                ->where('products.status', 1)
+                ->get();
+        
+            // Hitung nilai maksimum dan minimum harga
+            $maxHarga = $categoryproduct->max('harga');
+            $minHarga = $categoryproduct->min('harga');
+        
+            // Normalisasi harga untuk setiap produk
+            $categoryproduct->transform(function ($product) use ($maxHarga, $minHarga) {
+                $product->normalized_harga = ($product->harga - $minHarga) / ($maxHarga - $minHarga);
+                return $product;
+            });
+        
+            // Hitung bobot kriteria (hanya harga)
+            $weightHarga = 1; // Karena hanya ada satu kriteria
+            $categoryproduct->transform(function ($product) use ($weightHarga) {
+                $product->weighted_harga = $product->normalized_harga * $weightHarga;
+                return $product;
+            });
+        
+            // Hitung skor relatif
+            $relativeScores = [];
+            foreach ($categoryproduct as $product) {
+                $relativeScores[$product->id] = $product->weighted_harga;
             }
+        
+            // Urutkan produk berdasarkan skor relatif (TOPSIS)
+            arsort($relativeScores);
+        
+            // Ambil urutan ID produk berdasarkan skor relatif
+            $sortedProductIds = array_keys($relativeScores);
+        
+            // Ambil data produk yang diurutkan sesuai dengan urutan skor relatif
+            $sortedProducts = $categoryproduct->whereIn('id', $sortedProductIds)->values();
+            // dd($sortedProducts);
+        
+            // proses crawling data
+                    if ($categoryproduct->isEmpty()) {
+                        $baseUrl = 'https://www.sejasa.com/mitra-kami/';
+                        $search_product_encoded = str_replace(' ', '-', $search_product);
+                        $search_product_encoded = urlencode($search_product_encoded);
+                        $currentPage = 1;
+                        $maxPage = 2; // Jumlah halaman yang ingin diambil
+                        $productDataList = [];
+                    
+                        do {
+                            $url = $baseUrl . $search_product_encoded . '?page='. $currentPage;
+                            $file = @file_get_contents($url);
+                            
+                            if ($file === false) {
+                                $error_message = "Sorry, the product you're looking for is not available.";
+                                return view('front.products.not_found')->with(compact('error_message'));
+                            }                    
+                            
+                            $dom = new DOMDocument();
+                            @$dom->loadHTML($file);
+                            if (@$dom->loadHTML($file) === false) {
+                                $error_message = "Sorry, the product you're looking for is not available.";
+                                return view('front.products.not_found')->with(compact('error_message'));
+                            }
+        
+                            $xpath = new DOMXPath($dom);
+                    
+                            // Mengambil data produk dari halaman paginasi
+                            $productElements = $xpath->query('//div[@class="js-result result-search__box--mitrakami content-wrap p-0 mt-4 overflow-hidden"]');
+                            if ($productElements->length === 0) {
+                                echo "Maaf, hasil pencarian tidak ditemukan dalam cakupan.";
+                                break;
+                            }                        
+                            foreach ($productElements as $productElement) {
+                                $productData = [];
+                                
+                                $productData['url_asli'] = $url;
+                    
+                                // Mengambil data nama website
+                                $websiteElement = $xpath->query('//a[@class="navbar-new__brand"]/img')->item(0);
+                                if ($websiteElement) {
+                                    $websiteAlt = $websiteElement->getAttribute('alt');
+                                    $websiteName = substr($websiteAlt, 0, strpos($websiteAlt, '.com') + 4);
+                                    $productData['website'] = $websiteName;
+                                }
+                    
+                                $nama_produkElement = $xpath->query('.//div[@class="profile-area__desc"]/a/h2[@class="profile-area__desc--name"]', $productElement)->item(0);
+                                if ($nama_produkElement) {
+                                    $nama_produk = $nama_produkElement->textContent;
+                                    $productData['nama_produk'] = $nama_produk;
+                                } else {
+                                    echo "Nama produk tidak ditemukan.";
+                                }
+                                
+                                $reviewElement = $xpath->query('.//div[@class="profile-area__desc--review"]', $productElement)->item(0);
+                                if ($reviewElement) {
+                                    $ratingValue = $reviewElement->textContent;
+                                    $productData['rating'] = $ratingValue;
+                                } else {
+                                    echo "Data tidak ditemukan.";
+                                }
+        
+                                // Menyimpan kategori ke dalam daftar
+                                $productData['category'] = $search_product_encoded;
+                                
+                                // Mengambil URL gambar
+                                $imgElement = $xpath->query('//div[@class="profile-area__picture"]/img')->item(0);
+                                if ($imgElement) {
+                                    $imgSrc = $imgElement->getAttribute('src');
+                                    $productData['gambar_url'] = $imgSrc;
+                                } else {
+                                    echo "Data tidak ditemukan.";
+                                }
+        
+                                // Tambahkan data ke dalam daftar
+                                $productDataList[] = $productData;
+                            }
+                            $currentPage++;
+                        } while ($currentPage <= $maxPage);
+                        
+                        // Pengecekan apakah data $search_product sudah pernah disimpan
+                        $existingProduct = Crawling::where('nama_produk', $search_product)->first();
+                        if (!$existingProduct) {
+                            // Simpan data ke database menggunakan model Crawler
+                            foreach ($productDataList as $productData) {
+                                $crawledProduct = new Crawling;
+                                $crawledProduct->url = $productData['url_asli'];
+                                $crawledProduct->website = $productData['website'];
+                                $crawledProduct->nama_produk = $productData['nama_produk'];
+                                $crawledProduct->rating = $productData['rating'];
+                                $crawledProduct->gambar_url = $productData['gambar_url'];
+                                $crawledProduct->category = urldecode($productData['category']); // Decode URL-encoded category
+                                $crawledProduct->save();
+                            }
+                        }
+                    }
+            
             // Tampilkan data dari Crawler sesuai dengan search_product menggunakan query builder
-            $crawledProducts = DB::table('crawlings')
-            ->where('crawlings.nama_produk', 'like', '%'. $search_product.'%')
-            ->orWhere('crawlings.category', 'like', '%'. $search_product.'%')
-            ->get();
-            // dd($crawledProducts);
-            return view('front.products.search')->with(compact('categoryproduct', 'categorydetails', 'crawledProducts'));                    
+            $crawledProducts = Crawling::where('nama_produk', 'like', '%' . $search_product . '%')
+                ->orWhere('category', 'like', '%' . $search_product . '%')
+                ->get();
+        
+            return view('front.products.search')->with(compact('sortedProducts', 'categorydetails', 'crawledProducts'));
         }
     }
 

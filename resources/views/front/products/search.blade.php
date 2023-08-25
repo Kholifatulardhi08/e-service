@@ -4,7 +4,43 @@
 use App\Models\Product;
 use App\Models\Rating;
 ?>
+<style>
+    .best-product {
+        position: relative;
+        background-color: #FAD02E;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: -15px;
+        margin-bottom: 10px;
+    }
 
+    .ribbon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #E54747;
+        color: #fff;
+        padding: 5px 10px;
+        transform: translate(50%, -50%) rotate(45deg);
+        font-size: 12px;
+    }
+
+    .best-product-content {
+        padding-top: 30px;
+    }
+
+    .best-product-content h6 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .best-product-content p {
+        font-size: 14px;
+    }
+</style>
 <!-- Search Page Wrapper -->
 <div class="search-page-wrapper">
     <div class="container">
@@ -13,14 +49,17 @@ use App\Models\Rating;
                 <li class="has-separator">
                     <a href="/">Home</a>
                 </li>
-                <?php echo $categorydetails['breadcum'] ?>
+                {{ $categorydetails['breadcum'] }}
             </ul>
         </div>
         <div class="row">
             @if (isset($_REQUEST['search']) && !empty($_REQUEST['search']))
-            @if(count($categoryproduct) > 0 || !$crawledProducts->isEmpty())
+            @if(count($sortedProducts) > 0 || !$crawledProducts->isEmpty())
+            <?php
+                $bestRelativeProduct = $sortedProducts->first(); // Produk dengan skor relatif tertinggi
+            ?>
             <!-- Display products from your website -->
-            @foreach($categoryproduct as $product)
+            @foreach($sortedProducts as $product)
             <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
                 <div class="card">
                     <a href="{{ url('product/'.$product->id) }}">
@@ -59,6 +98,17 @@ use App\Models\Rating;
                     @endif
                     @if($isRecommended)
                     <span class="badge bg-success position-absolute top-0 start-0">RECOMMENDED</span>
+                    @endif
+                    @if ($product->id === $bestRelativeProduct->id)
+                    <div class="best-product">
+                        <div class="ribbon">
+                            <span>Terbaik</span>
+                        </div>
+                        <div class="best-product-content">
+                            <h6>Produk Unggulan</h6>
+                            <p>Dengan Skor dan Harga Terbaik</p>
+                        </div>
+                    </div>
                     @endif
                 </div>
             </div>
