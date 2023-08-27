@@ -113,7 +113,6 @@ use App\Models\Rating;
                 </div>
             </div>
             @endforeach
-
             <!-- Display crawled products -->
             @foreach($crawledProducts as $crawledProduct)
             <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
